@@ -1,0 +1,25 @@
+name: Close reports waiting for the reporter
+
+on:
+  schedule:
+    - cron: "0 6 * * *"
+
+permissions:
+  issues: write
+
+jobs:
+  stale:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/stale@5bef64f19d7facfb25b37b414482c7164d639639
+        with:
+          only-labels: "needs info"
+          days-before-stale: 7
+          days-before-close: 7
+          days-before-pr-stale: -1
+          days-before-pr-close: -1
+          stale-issue-label: stale
+          stale-issue-message: >
+            This report is still missing information. Add it in the next 7 days or it will be closed.
+          close-issue-message: >
+            Closed because the missing information was not added. Feel free to open a new report with all the fields filled in.

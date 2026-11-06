@@ -1,0 +1,3 @@
+# One Chrome Web Store extension ID per line (32 letters a-p). Blank lines and # comments are ignored.
+# While this list is empty the installer registers the helper for Firefox only.
+ejdlbopdblhemopclkioijjcnmlbenfp

@@ -1,0 +1,5 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Read the FAQ first
+    url: https://github.com/C-Rosende/Tomo/blob/main/FAQ.md
+    about: Short answers to the most common questions.

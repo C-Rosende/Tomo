@@ -1,0 +1,663 @@
+{
+ "imageAiConsentPrompt": {"message": "Tomo seçilen görseli sağlayıcınıza (Replicate veya Gemini) gönderir. API kullanımı ücretli olabilir. Gemini görsel ayrıntılarını değiştirebilir. Geliştirici veri almaz. Görsel iyileştirmeye izin verilsin mi?"},
+ "actCancel": {
+  "message": "İptal et"
+ },
+ "actDismiss": {
+  "message": "Kaldır"
+ },
+ "actOpen": {
+  "message": "Aç"
+ },
+ "actRetry": {
+  "message": "Yeniden dene"
+ },
+ "actReveal": {
+  "message": "Klasörde göster"
+ },
+ "actionTitle": {
+  "message": "İndir veya yazıya dök"
+ },
+ "addLanguage": {
+  "message": "Dil ekle…"
+ },
+ "advanced": {
+  "message": "Gelişmiş"
+ },
+ "aiBase": {
+  "message": "Hizmet URL'si"
+ },
+ "aiCustom": {
+  "message": "Diğer (OpenAI uyumlu)"
+ },
+ "aiKey": {
+  "message": "API anahtarı"
+ },
+ "aiModel": {
+  "message": "Model"
+ },
+ "aiOff": {
+  "message": "Kapalı"
+ },
+ "aiOllama": {
+  "message": "Ollama (yerel, ücretsiz)"
+ },
+ "aiProvider": {
+  "message": "Sağlayıcı"
+ },
+ "aiSetup": {
+  "message": "Özetlemek ve çevirmek için Ayarlar'a AI anahtarını ekle."
+ },
+ "aiSummarize": {
+  "message": "Özetle"
+ },
+ "aiTest": {
+  "message": "Bağlantıyı test et"
+ },
+ "aiTesting": {
+  "message": "Test ediliyor…"
+ },
+ "aiTranslate": {
+  "message": "$1 diline çevir"
+ },
+ "asrFallback": {
+  "message": "Altyazı yoksa konuşmayı tanı"
+ },
+ "audioLanguage": {
+  "message": "Ses dili"
+ },
+ "back": {
+  "message": "Geri"
+ },
+ "backendChecking": {
+  "message": "Kontrol ediliyor…"
+ },
+ "backendComponent": {
+  "message": "Bileşen $1"
+ },
+ "backendMismatch": {
+  "message": "(yeniden yükle: sürüm farklı)"
+ },
+ "backendNoAsr": {
+  "message": "Çevrimdışı yazıya dökme yok"
+ },
+ "backendNoDeno": {
+  "message": "YouTube eklentisi eksik"
+ },
+ "backendNoFfmpeg": {
+  "message": "Video dönüştürücü eksik"
+ },
+ "backendUnavailable": {
+  "message": "Kullanılamıyor: $1"
+ },
+ "badgeActive": {
+  "message": "$1 sürüyor · $2"
+ },
+ "batchAs": {
+  "message": "Şu biçimde indir"
+ },
+ "batchBest": {
+  "message": "En yüksek kalite"
+ },
+ "batchGo": {
+  "message": "Başlat ($1)"
+ },
+ "batchMp3": {
+  "message": "MP3 ses"
+ },
+ "batchMp4": {
+  "message": "MP4 video"
+ },
+ "batchTxt": {
+  "message": "Konuşma dökümü (TXT)"
+ },
+ "cache": {
+  "message": "Önbellek (MB)"
+ },
+ "cacheCleared": {
+  "message": "Önbellek temizlendi."
+ },
+ "cancelledMsg": {
+  "message": "İptal edildi."
+ },
+ "cancelling": {
+  "message": "İptal ediliyor…"
+ },
+ "cardAI": {
+  "message": "AI (isteğe bağlı)"
+ },
+ "cardAIText": {
+  "message": "Konuşma dökümlerini özetlemek ve çevirmek için kendi anahtarını kullan. Anahtar yalnızca bu tarayıcıda saklanır ve seçtiğin sağlayıcıya gönderilir."
+ },
+ "cardDownloads": {
+  "message": "İndirilenler"
+ },
+ "cardHelp": {
+  "message": "Yardım"
+ },
+ "cardLanguages": {
+  "message": "Dillerin"
+ },
+ "cardLanguagesText": {
+  "message": "Altyazı ve ses, seçtiğin dillerde ve videonun özgün dilinde sunulur. Ana dil, uzantının dilidir."
+ },
+ "cardPrivacy": {
+  "message": "Gizlilik"
+ },
+ "cardSupport": {
+  "message": "Projeyi destekle"
+ },
+ "cardTranscription": {
+  "message": "Yazıya dökme"
+ },
+ "checkBackend": {
+  "message": "Kontrol et"
+ },
+ "clear": {
+  "message": "Temizle"
+ },
+ "clearCache": {
+  "message": "Önbelleği temizle"
+ },
+ "clearHistory": {
+  "message": "Geçmişi temizle"
+ },
+ "compatible": {
+  "message": "Uyumlu"
+ },
+ "componentClosed": {
+  "message": "Yerel bileşen tamamlanmadan kapandı. Kurulumu kontrol et."
+ },
+ "componentMissing": {
+  "message": "Bilgisayarın için bileşen eksik. Yüklemek için install.cmd dosyasına çift tıkla."
+ },
+ "componentStartFailed": {
+  "message": "Yerel bileşen başlatılamadı. install.cmd dosyasını çalıştır."
+ },
+ "concurrency": {
+  "message": "Eşzamanlı indirme"
+ },
+ "copyDiagnostics": {
+  "message": "Tanılama bilgilerini kopyala"
+ },
+ "copyText": {
+  "message": "Metni kopyala"
+ },
+ "defaultFormat": {
+  "message": "Tek tıkla indirme biçimi"
+ },
+ "diagnosticsCopied": {
+  "message": "Tanılama bilgileri kopyalandı. Sorun bildirirken yapıştır."
+ },
+ "donateKofi": {
+  "message": "Tomo'yu Ko-fi üzerinden destekle"
+ },
+ "download": {
+  "message": "İndir"
+ },
+ "downloadAudioAs": {
+  "message": "Sesi $1 olarak indir"
+ },
+ "downloadAudioOriginal": {
+  "message": "Özgün sesi indir"
+ },
+ "downloadQuality": {
+  "message": "$1 indir"
+ },
+ "downloadQualityIn": {
+  "message": "$1 dosyasını $2 olarak indir"
+ },
+ "embedSubs": {
+  "message": "Dillerindeki altyazıları videoya ekle"
+ },
+ "saveSubfolder": {
+  "message": "İndirilenler içindeki klasör (isteğe bağlı)"
+ },
+ "nameTemplate": {
+  "message": "Dosya adı (isteğe bağlı)"
+ },
+ "nameTemplateHint": {
+  "message": "Alanlar: {title} {author} {id} {date} {site}. Boş = otomatik. Örnek: {author} - {title}"
+ },
+ "embeddedVideo": {
+  "message": "Gömülü video"
+ },
+ "emptyText": {
+  "message": "Bir videoya sağ tıkla veya “Bu video” sekmesini kullan."
+ },
+ "emptyTitle": {
+  "message": "Henüz indirme yok"
+ },
+ "extDescription": {
+  "message": "Videoları özgün kalitesinde indir, konuşma dökümlerini kopyala ve AI ile özetle. Her şey bilgisayarında çalışır."
+ },
+ "extName": {
+  "message": "Tomo"
+ },
+ "footerPrivacy": {
+  "message": "Her şey bilgisayarında işlenir; hesap veya izleme yoktur."
+ },
+ "format": {
+  "message": "Biçim"
+ },
+ "groupFinished": {
+  "message": "Tamamlananlar"
+ },
+ "groupHistory": {
+  "message": "Geçmiş"
+ },
+ "groupRunning": {
+  "message": "Sürüyor"
+ },
+ "healing": {
+  "message": "Site değişti: güncelleniyor ve yeniden deneniyor…"
+ },
+ "historyCleared": {
+  "message": "Geçmiş temizlendi."
+ },
+ "includeTimestamps": {
+  "message": "Zaman damgalarını ekle"
+ },
+ "keepHistory": {
+  "message": "İndirme geçmişini sakla"
+ },
+ "kindAudio": {
+  "message": "Ses"
+ },
+ "kindVideo": {
+  "message": "Video"
+ },
+ "labelAudio": {
+  "message": "Özgün ses"
+ },
+ "labelBest": {
+  "message": "Video · en yüksek kalite"
+ },
+ "labelCustom": {
+  "message": "Video · seçilen kalite"
+ },
+ "labelDownload": {
+  "message": "İndir"
+ },
+ "labelM4a": {
+  "message": "Ses · M4A"
+ },
+ "labelMkv": {
+  "message": "Video · MKV"
+ },
+ "labelMp3": {
+  "message": "Ses · MP3"
+ },
+ "labelMp4": {
+  "message": "Video · uyumlu MP4"
+ },
+ "labelMp4Remux": {
+  "message": "Video · MP4 (yeniden kodlama yok)"
+ },
+ "labelSummary": {
+  "message": "AI özeti"
+ },
+ "labelTranscript": {
+  "message": "Konuşma dökümü"
+ },
+ "labelTranscriptFile": {
+  "message": "Konuşma dökümü · $1"
+ },
+ "labelTranscriptTimed": {
+  "message": "Zaman damgalı konuşma dökümü"
+ },
+ "labelTranslate": {
+  "message": "AI çevirisi · $1"
+ },
+ "labelUpdate": {
+  "message": "İndirme altyapısı güncelleniyor"
+ },
+ "labelWebm": {
+  "message": "Video · WebM"
+ },
+ "language": {
+  "message": "Dil"
+ },
+ "live": {
+  "message": "Canlı"
+ },
+ "loading": {
+  "message": "Kullanılabilir kaliteler aranıyor"
+ },
+ "localError": {
+  "message": "Yerel işlemde hata."
+ },
+ "lossless": {
+  "message": "Kayıpsız"
+ },
+ "mainLanguage": {
+  "message": "Ana dil"
+ },
+ "maxQuality": {
+  "message": "En yüksek"
+ },
+ "menuAudio": {
+  "message": "Ses"
+ },
+ "menuAudioOriginal": {
+  "message": "Özgün"
+ },
+ "menuBest": {
+  "message": "En yüksek kalite"
+ },
+ "menuCopy": {
+  "message": "Metni kopyala"
+ },
+ "menuCopyTimed": {
+  "message": "Zaman damgalarıyla kopyala"
+ },
+ "menuDefault": {
+  "message": "Tercih ettiğim biçimde indir"
+ },
+ "menuFolder": {
+  "message": "İndirilenler klasörünü aç"
+ },
+ "menuImage": {
+  "message": "Görseli kaydet"
+ },
+ "menuM4a": {
+  "message": "M4A"
+ },
+ "menuMkv": {
+  "message": "MKV"
+ },
+ "menuMp3": {
+  "message": "MP3"
+ },
+ "menuMp4": {
+  "message": "MP4 (uyumlu)"
+ },
+ "menuPanel": {
+  "message": "Paneli aç…"
+ },
+ "menuPickLang": {
+  "message": "Dil seç…"
+ },
+ "menuPickQuality": {
+  "message": "Kalite seç…"
+ },
+ "menuRoot": {
+  "message": "İndir veya yazıya dök"
+ },
+ "menuSaveSrt": {
+  "message": "SRT olarak kaydet"
+ },
+ "menuSaveTxt": {
+  "message": "TXT olarak kaydet"
+ },
+ "menuSummarize": {
+  "message": "AI ile özetle"
+ },
+ "menuText": {
+  "message": "Konuşma dökümü"
+ },
+ "menuVideo": {
+  "message": "Video"
+ },
+ "metrics": {
+  "message": "Bu bilgisayarda performans ölçümlerini kaydet"
+ },
+ "navDownloads": {
+  "message": "İndirilenler"
+ },
+ "navVideo": {
+  "message": "Bu video"
+ },
+ "noResults": {
+  "message": "Sonuç yok"
+ },
+ "noVideo": {
+  "message": "Bu sekmede video yok."
+ },
+ "noteAudioConvert": {
+  "message": "Dönüştürüldü: kalite biraz düşebilir."
+ },
+ "noteNoSubsAsr": {
+  "message": "Altyazı yok: konuşma bilgisayarında tanınacak (daha yavaş)."
+ },
+ "noteNoSubsMine": {
+  "message": "Dillerinde altyazı yok; özgün altyazı kullanılacak."
+ },
+ "noteNoSubsNoAsr": {
+  "message": "Altyazı yok ve konuşma tanıma yüklü değil."
+ },
+ "noteRecode": {
+  "message": "Bu kalite MP4 olarak yok: dönüştürülecek ve birkaç dakika sürebilir."
+ },
+ "notifyAiMissing": {
+  "message": "Bu seçenek için Ayarlar'da AI'yı yapılandır."
+ },
+ "notifyAlreadyRunning": {
+  "message": "Zaten sürüyor"
+ },
+ "notifyDone": {
+  "message": "Tamamlandı"
+ },
+ "notifyFailed": {
+  "message": "Tamamlanamadı"
+ },
+ "notifyFolderFailed": {
+  "message": "İndirilenler açılamadı"
+ },
+ "notifyImageFailed": {
+  "message": "Görsel kaydedilemedi"
+ },
+ "notifyImageUnsupported": {
+  "message": "Bu görsel indirilemiyor"
+ },
+ "notifyNoUrl": {
+  "message": "Kullanılabilir URL yok"
+ },
+ "notifyNoUrlText": {
+  "message": "Videonun bulunduğu bir HTTP(S) sayfası açıp yeniden dene."
+ },
+ "notifyPanelUnavailable": {
+  "message": "Panel kullanılamıyor"
+ },
+ "notifyPanelUnavailableText": {
+  "message": "Uzantı düğmesini araç çubuğuna sabitle veya uzantılar menüsünden aç."
+ },
+ "notifyTranscriptReady": {
+  "message": "Konuşma dökümü yapıştırmaya hazır"
+ },
+ "original": {
+  "message": "Özgün"
+ },
+ "originalLabel": {
+  "message": "$1 (özgün)"
+ },
+ "pointedSub": {
+  "message": "Sağ tıkladığın"
+ },
+ "pointedVideo": {
+  "message": "Sağ tıkladığın video"
+ },
+ "precision": {
+  "message": "Doğruluk"
+ },
+ "precisionBalanced": {
+  "message": "Dengeli"
+ },
+ "precisionFast": {
+  "message": "Hızlı"
+ },
+ "precisionHigh": {
+  "message": "Yüksek (yavaş)"
+ },
+ "protocolMismatch": {
+  "message": "Uyarı: yerel bileşenin sürümü farklı"
+ },
+ "quality": {
+  "message": "Kalite"
+ },
+ "removeLang": {
+  "message": "$1 dilini kaldır"
+ },
+ "reportCopied": {
+  "message": "Form açıldı. Kısa bir rapor panoya kopyalandı; işe yarayacaksa yapıştır."
+ },
+ "reportHint": {
+  "message": "Bir şey çalışmadı mı? Tomo, bileşen, tarayıcı ve sistem sürümleri önceden doldurulmuş bir GitHub formu açılır. Ziyaret ettiğin sayfalar veya kişisel veriler asla eklenmez."
+ },
+ "reportOpened": {
+  "message": "Form açıldı. Ne olduğunu anlat, gerekirse bir ekran görüntüsü ekle."
+ },
+ "reportProblem": {
+  "message": "Sorun bildir"
+ },
+ "saved": {
+  "message": "Kaydedildi."
+ },
+ "selectDone": {
+  "message": "Bitti"
+ },
+ "selectMany": {
+  "message": "Birden fazla seç"
+ },
+ "settings": {
+  "message": "Ayarlar"
+ },
+ "setupLink": {
+  "message": "Yönergeleri gör"
+ },
+ "setupText": {
+  "message": "Tomo için bilgisayarına bir kez küçük bir yardımcı program yüklemen gerekir. Bağlantına göre birkaç dakika sürer. Kılavuzdaki adımları izle (yönetici izni gerekmez)."
+ },
+ "setupTitle": {
+  "message": "Son bir adım: bilgisayarın için bileşen"
+ },
+ "showProgress": {
+  "message": "İndirirken ilerlemeyi göster"
+ },
+ "starting": {
+  "message": "Başlatılıyor"
+ },
+ "stateCancelled": {
+  "message": "İptal edildi"
+ },
+ "stateDone": {
+  "message": "Tamamlandı"
+ },
+ "stateError": {
+  "message": "Hata"
+ },
+ "stateQueued": {
+  "message": "Sırada"
+ },
+ "stateRunning": {
+  "message": "Sürüyor"
+ },
+ "suggested": {
+  "message": "Önerilen"
+ },
+ "supportText": {
+  "message": "Tomo ücretsiz ve reklamsızdır. İşine yarıyorsa bağış yaparak destekleyebilirsin."
+ },
+ "tabAudio": {
+  "message": "Ses"
+ },
+ "tabText": {
+  "message": "Metin"
+ },
+ "tabVideo": {
+  "message": "Video"
+ },
+ "uiLangAuto": {
+  "message": "Otomatik ($1)"
+ },
+ "uiLanguage": {
+  "message": "Uzantı dili"
+ },
+ "universal": {
+  "message": "Evrensel"
+ },
+ "updateYtdlp": {
+  "message": "İndirme altyapısını güncelle"
+ },
+ "useSession": {
+  "message": "Oturumumu kullan"
+ },
+ "useSessionHint": {
+  "message": "Oturum açmanı isteyen siteler için (ör. Reddit). Oturumun bilgisayarında kalır ve yalnızca indirdiğin videonun sitesinde kullanılır."
+ },
+ "videosOnPage": {
+  "message": "Bu sayfadaki videolar"
+ },
+ "videosPickOne": {
+  "message": "$1 video: yukarıdan birini seç"
+ },
+ "welcomeHello": {
+  "message": "Tomo'ya hoş geldin"
+ },
+ "welcomeIntro": {
+  "message": "Video, ses ve görselleri özgün kalitede kaydet veya konuşulanları metin olarak kopyala. Her şey bilgisayarında gerçekleşir."
+ },
+ "welcomeStart": {
+  "message": "Başla"
+ },
+ "welcomeText": {
+  "message": "Uzantının dilini seç ve anladığın diğer dilleri ekle. Yalnızca bu dillerdeki altyazı ve sesleri, ayrıca her videonun özgün dilini görürsün. Bunu Ayarlar'da değiştirebilirsin."
+ },
+ "welcomeTip1": {
+  "message": "Bir videoya veya görsele sağ tıkla."
+ },
+ "welcomeTip2": {
+  "message": "Önce “İndir veya yazıya dök”ü, ardından Video, Ses veya Metin'i seç."
+ },
+ "welcomeTip3": {
+  "message": "Dosyayı İndirilenler klasöründe bul."
+ },
+ "welcomeTitle": {
+  "message": "Dillerin"
+ },
+ "withAI": {
+  "message": "AI ile"
+ },
+ "aiConsentDenied": {
+  "message": "AI, sayfa metnini seçtiğin sağlayıcıya göndermek için iznine ihtiyaç duyar."
+ },
+ "aiConsentPrompt": {
+  "message": "Tomo, videonun altyazılarını veya transkript metnini ve başlığını özetlemek ya da çevirmek için seçtiğiniz yapay zekâ sağlayıcısına ($PROVIDER$) gönderecek. Tomo'nun yazarı hiçbir şey almaz. İzin verilsin mi?",
+  "placeholders": {
+   "provider": {
+    "content": "$1"
+   }
+  }
+ },
+ "siteUnavailable": {
+  "message": "Bu site bu tarayıcıda kullanılamıyor."
+ },
+ "limitsNote": {
+  "message": "İndirme sınırı yok. DRM korumalı videolar ve canlı yayınlar indirilemez; videolar en fazla 12 saat uzunluğunda olabilir."
+ },
+ "imageOriginal": {"message": "Özgün"},
+ "imagePanelHint": {"message": "Orijinal görseli dönüştürmeden indir."},
+ "imageDownload": {"message": "Görseli indir"},
+ "imageSaved": {"message": "Görsel indirme başladı."},
+ "imageAiDownload": {"message": "Geliştirilmiş indir (YZ)"},
+ "imageAiTitle": {"message": "YZ ile görüntü iyileştirme"},
+ "imageAiHint": {"message": "Replicate (r8_) veya Gemini (AIza) anahtarı yapıştırın. Bu cihazda saklanır."},
+ "imageAiKey": {"message": "API anahtarı"},
+ "imageAiSave": {"message": "Anahtarı etkinleştir"},
+ "imageAiRemove": {"message": "Anahtarı kaldır"},
+ "imageAiQuality": {"message": "En yüksek kalite (Replicate Topaz)"},
+ "imageAiActive": {"message": "Etkin"},
+ "imageAiInvalid": {"message": "Geçersiz anahtar. Kontrol edin."},
+ "imageAiCredit": {"message": "Bakiye yok veya sınır aşıldı."},
+ "imageAiOffline": {"message": "Bağlantı yok. Tekrar deneyin."},
+ "imageAiConfirmRemove": {"message": "Kayıtlı anahtar silinsin mi?"},
+ "setupCopy": {"message": "Kurulum komutunu kopyala"},
+ "setupCopied": {"message": "Kopyalandı. PowerShell’e yapıştırıp Enter’a basın."},
+ "setupAllSet": {"message": "Her şey hazır"},
+ "pinChrome": {"message": "Yapboz simgesine, sonra Tomo yanındaki raptiyeye tıklayın."},
+ "pinFirefox": {"message": "Yapboz simgesine, Tomo yanındaki dişliye ve «Sabitle» seçeneğine tıklayın."},
+ "recommendVideo": {"message": "Bu bir video sayfası gibi görünüyor. Videoyu indir seçeneğini deneyin."},
+ "recommendAudio": {"message": "Bu bir ses dosyası gibi görünüyor. Sesi indir seçeneğini deneyin."},
+ "recommendImage": {"message": "Bu bir görsel. Görseli indir seçeneğini deneyin."},
+ "recommendText": {"message": "Bu sayfanın metni mi gerekiyor? Metni kaydet seçeneğini deneyin."}
+}

@@ -1,0 +1,15 @@
+dist/
+__pycache__/
+*.pyc
+.venv/
+backend/cache/
+backend/tmp/
+backend/history.json
+backend/config.json
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+credentials.json
+secrets.json

@@ -1,0 +1,76 @@
+name: Report a problem
+description: Something does not work in Tomo (any browser, any system)
+title: "Problem: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Describe the problem and select your system and browser. Diagnostics and screenshots are optional.
+        If you came from Tomo's **Report a problem** button, the system, browser and versions are already filled in. Tomo also copies a short report to your clipboard; review it before pasting it below. Nothing is sent until you submit this form.
+  - type: textarea
+    id: what
+    attributes:
+      label: What did you do, and what did you expect?
+      description: One or two lines are enough. Do not paste links to private content.
+    validations:
+      required: true
+  - type: dropdown
+    id: os
+    attributes:
+      label: Operating system
+      options:
+        - Windows
+        - macOS
+        - Linux
+        - Other
+    validations:
+      required: true
+  - type: dropdown
+    id: browser
+    attributes:
+      label: Browser
+      options:
+        - Firefox
+        - Chrome
+        - Edge
+        - Brave
+        - Other
+    validations:
+      required: true
+  - type: input
+    id: extension_version
+    attributes:
+      label: Tomo version
+      description: Shown in your browser's extensions page.
+    validations:
+      required: false
+  - type: input
+    id: helper_version
+    attributes:
+      label: Component version
+      description: Shown in Tomo, Settings, Advanced. Leave it blank if the component is not installed.
+    validations:
+      required: false
+  - type: textarea
+    id: report
+    attributes:
+      label: Report
+      description: Optional. Review the report Tomo copied to your clipboard before pasting it. You can also open Tomo, then Settings, then Copy diagnostics. Leave this blank if the extension will not open.
+      render: text
+    validations:
+      required: false
+  - type: textarea
+    id: screenshot
+    attributes:
+      label: Screenshot
+      description: Optional. Add a screenshot if it helps explain the problem. Hide personal information, private content and API keys before uploading it.
+    validations:
+      required: false
+  - type: checkboxes
+    id: privacy
+    attributes:
+      label: Privacy
+      options:
+        - label: The screenshot and text show no passwords, tokens, personal data or private content.
+          required: true

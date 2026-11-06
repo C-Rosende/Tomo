@@ -1,0 +1,663 @@
+{
+ "imageAiConsentPrompt": {"message": "選択した画像をプロバイダー（Replicate または Gemini）に送信します。APIの利用には料金がかかる場合があります。Geminiは画像の細部を変更することがあります。作者にデータは送信されません。画像の改善を許可しますか？"},
+ "actCancel": {
+  "message": "キャンセル"
+ },
+ "actDismiss": {
+  "message": "削除"
+ },
+ "actOpen": {
+  "message": "開く"
+ },
+ "actRetry": {
+  "message": "再試行"
+ },
+ "actReveal": {
+  "message": "フォルダーで表示"
+ },
+ "actionTitle": {
+  "message": "ダウンロードまたは文字起こし"
+ },
+ "addLanguage": {
+  "message": "言語を追加…"
+ },
+ "advanced": {
+  "message": "詳細設定"
+ },
+ "aiBase": {
+  "message": "サービスのURL"
+ },
+ "aiCustom": {
+  "message": "その他（OpenAI互換）"
+ },
+ "aiKey": {
+  "message": "APIキー"
+ },
+ "aiModel": {
+  "message": "モデル"
+ },
+ "aiOff": {
+  "message": "オフ"
+ },
+ "aiOllama": {
+  "message": "Ollama（ローカル、無料）"
+ },
+ "aiProvider": {
+  "message": "プロバイダー"
+ },
+ "aiSetup": {
+  "message": "要約と翻訳には、設定でAPIキーを追加してください。"
+ },
+ "aiSummarize": {
+  "message": "要約"
+ },
+ "aiTest": {
+  "message": "接続テスト"
+ },
+ "aiTesting": {
+  "message": "テスト中…"
+ },
+ "aiTranslate": {
+  "message": "$1に翻訳"
+ },
+ "asrFallback": {
+  "message": "字幕がない場合は音声を認識する"
+ },
+ "audioLanguage": {
+  "message": "音声の言語"
+ },
+ "back": {
+  "message": "戻る"
+ },
+ "backendChecking": {
+  "message": "確認中…"
+ },
+ "backendComponent": {
+  "message": "コンポーネント $1"
+ },
+ "backendMismatch": {
+  "message": "（バージョンが異なります。再インストールしてください）"
+ },
+ "backendNoAsr": {
+  "message": "オフライン文字起こしなし"
+ },
+ "backendNoDeno": {
+  "message": "YouTube用アドオンがありません"
+ },
+ "backendNoFfmpeg": {
+  "message": "動画変換ツールがありません"
+ },
+ "backendUnavailable": {
+  "message": "利用不可：$1"
+ },
+ "badgeActive": {
+  "message": "$1 件進行中 · $2"
+ },
+ "batchAs": {
+  "message": "ダウンロード形式"
+ },
+ "batchBest": {
+  "message": "最高画質"
+ },
+ "batchGo": {
+  "message": "開始（$1）"
+ },
+ "batchMp3": {
+  "message": "MP3音声"
+ },
+ "batchMp4": {
+  "message": "MP4動画"
+ },
+ "batchTxt": {
+  "message": "文字起こし（TXT）"
+ },
+ "cache": {
+  "message": "キャッシュ（MB）"
+ },
+ "cacheCleared": {
+  "message": "キャッシュを消去しました。"
+ },
+ "cancelledMsg": {
+  "message": "キャンセルしました。"
+ },
+ "cancelling": {
+  "message": "キャンセル中…"
+ },
+ "cardAI": {
+  "message": "AI（任意）"
+ },
+ "cardAIText": {
+  "message": "自分のキーで文字起こしを要約・翻訳できます。キーはこのブラウザーにのみ保存され、選択したプロバイダーにのみ送信されます。"
+ },
+ "cardDownloads": {
+  "message": "ダウンロード"
+ },
+ "cardHelp": {
+  "message": "ヘルプ"
+ },
+ "cardLanguages": {
+  "message": "使用する言語"
+ },
+ "cardLanguagesText": {
+  "message": "字幕と音声は、選択した言語と動画の元の言語で表示されます。メインの言語は拡張機能の言語です。"
+ },
+ "cardPrivacy": {
+  "message": "プライバシー"
+ },
+ "cardSupport": {
+  "message": "プロジェクトを支援"
+ },
+ "cardTranscription": {
+  "message": "文字起こし"
+ },
+ "checkBackend": {
+  "message": "確認"
+ },
+ "clear": {
+  "message": "消去"
+ },
+ "clearCache": {
+  "message": "キャッシュを消去"
+ },
+ "clearHistory": {
+  "message": "履歴を消去"
+ },
+ "compatible": {
+  "message": "互換"
+ },
+ "componentClosed": {
+  "message": "ローカルコンポーネントが完了前に終了しました。インストールを確認してください。"
+ },
+ "componentMissing": {
+  "message": "PC用コンポーネントがありません。install.cmdをダブルクリックしてインストールしてください。"
+ },
+ "componentStartFailed": {
+  "message": "ローカルコンポーネントを起動できませんでした。install.cmdを実行してください。"
+ },
+ "concurrency": {
+  "message": "同時ダウンロード数"
+ },
+ "copyDiagnostics": {
+  "message": "診断情報をコピー"
+ },
+ "copyText": {
+  "message": "テキストをコピー"
+ },
+ "defaultFormat": {
+  "message": "ワンクリック時の形式"
+ },
+ "diagnosticsCopied": {
+  "message": "診断情報をコピーしました。問題を報告する際に貼り付けてください。"
+ },
+ "donateKofi": {
+  "message": "Ko-fiでTomoを支援"
+ },
+ "download": {
+  "message": "ダウンロード"
+ },
+ "downloadAudioAs": {
+  "message": "音声を$1でダウンロード"
+ },
+ "downloadAudioOriginal": {
+  "message": "元の音声をダウンロード"
+ },
+ "downloadQuality": {
+  "message": "$1をダウンロード"
+ },
+ "downloadQualityIn": {
+  "message": "$1を$2でダウンロード"
+ },
+ "embedSubs": {
+  "message": "選択した言語の字幕を埋め込む"
+ },
+ "saveSubfolder": {
+  "message": "ダウンロード内のフォルダー（任意）"
+ },
+ "nameTemplate": {
+  "message": "ファイル名（任意）"
+ },
+ "nameTemplateHint": {
+  "message": "項目：{title} {author} {id} {date} {site}。空欄なら自動設定。例：{author} - {title}"
+ },
+ "embeddedVideo": {
+  "message": "埋め込み動画"
+ },
+ "emptyText": {
+  "message": "動画を右クリックするか、「この動画」タブを使用してください。"
+ },
+ "emptyTitle": {
+  "message": "ダウンロードはまだありません"
+ },
+ "extDescription": {
+  "message": "元の画質で動画をダウンロードし、文字起こしのコピーやAIによる要約ができます。すべてPC上で処理します。"
+ },
+ "extName": {
+  "message": "Tomo"
+ },
+ "footerPrivacy": {
+  "message": "すべてPC上で処理します。アカウントも追跡もありません。"
+ },
+ "format": {
+  "message": "形式"
+ },
+ "groupFinished": {
+  "message": "完了"
+ },
+ "groupHistory": {
+  "message": "履歴"
+ },
+ "groupRunning": {
+  "message": "進行中"
+ },
+ "healing": {
+  "message": "サイトが変更されました。更新して再試行中…"
+ },
+ "historyCleared": {
+  "message": "履歴を消去しました。"
+ },
+ "includeTimestamps": {
+  "message": "タイムスタンプを含める"
+ },
+ "keepHistory": {
+  "message": "ダウンロード履歴を保存"
+ },
+ "kindAudio": {
+  "message": "音声"
+ },
+ "kindVideo": {
+  "message": "動画"
+ },
+ "labelAudio": {
+  "message": "元の音声"
+ },
+ "labelBest": {
+  "message": "動画 · 最高画質"
+ },
+ "labelCustom": {
+  "message": "動画 · 選択した画質"
+ },
+ "labelDownload": {
+  "message": "ダウンロード"
+ },
+ "labelM4a": {
+  "message": "音声 · M4A"
+ },
+ "labelMkv": {
+  "message": "動画 · MKV"
+ },
+ "labelMp3": {
+  "message": "音声 · MP3"
+ },
+ "labelMp4": {
+  "message": "動画 · MP4（互換性重視）"
+ },
+ "labelMp4Remux": {
+  "message": "動画 · MP4（再エンコードなし）"
+ },
+ "labelSummary": {
+  "message": "AIによる要約"
+ },
+ "labelTranscript": {
+  "message": "文字起こし"
+ },
+ "labelTranscriptFile": {
+  "message": "文字起こし · $1"
+ },
+ "labelTranscriptTimed": {
+  "message": "タイムスタンプ付き文字起こし"
+ },
+ "labelTranslate": {
+  "message": "AIによる翻訳 · $1"
+ },
+ "labelUpdate": {
+  "message": "ダウンロードエンジンを更新中"
+ },
+ "labelWebm": {
+  "message": "動画 · WebM"
+ },
+ "language": {
+  "message": "言語"
+ },
+ "live": {
+  "message": "ライブ"
+ },
+ "loading": {
+  "message": "利用可能な画質を検索中"
+ },
+ "localError": {
+  "message": "ローカル処理でエラーが発生しました。"
+ },
+ "lossless": {
+  "message": "無劣化"
+ },
+ "mainLanguage": {
+  "message": "メイン"
+ },
+ "maxQuality": {
+  "message": "最高"
+ },
+ "menuAudio": {
+  "message": "音声"
+ },
+ "menuAudioOriginal": {
+  "message": "元の音声"
+ },
+ "menuBest": {
+  "message": "最高画質"
+ },
+ "menuCopy": {
+  "message": "テキストをコピー"
+ },
+ "menuCopyTimed": {
+  "message": "タイムスタンプ付きでコピー"
+ },
+ "menuDefault": {
+  "message": "設定した形式でダウンロード"
+ },
+ "menuFolder": {
+  "message": "ダウンロードフォルダーを開く"
+ },
+ "menuImage": {
+  "message": "画像を保存"
+ },
+ "menuM4a": {
+  "message": "M4A"
+ },
+ "menuMkv": {
+  "message": "MKV"
+ },
+ "menuMp3": {
+  "message": "MP3"
+ },
+ "menuMp4": {
+  "message": "MP4（互換性重視）"
+ },
+ "menuPanel": {
+  "message": "パネルを開く…"
+ },
+ "menuPickLang": {
+  "message": "言語を選択…"
+ },
+ "menuPickQuality": {
+  "message": "画質を選択…"
+ },
+ "menuRoot": {
+  "message": "ダウンロードまたは文字起こし"
+ },
+ "menuSaveSrt": {
+  "message": "SRTで保存"
+ },
+ "menuSaveTxt": {
+  "message": "TXTで保存"
+ },
+ "menuSummarize": {
+  "message": "AIで要約"
+ },
+ "menuText": {
+  "message": "文字起こし"
+ },
+ "menuVideo": {
+  "message": "動画"
+ },
+ "metrics": {
+  "message": "このPCで性能指標を記録する"
+ },
+ "navDownloads": {
+  "message": "ダウンロード"
+ },
+ "navVideo": {
+  "message": "この動画"
+ },
+ "noResults": {
+  "message": "結果なし"
+ },
+ "noVideo": {
+  "message": "このタブに動画はありません。"
+ },
+ "noteAudioConvert": {
+  "message": "変換済み：音質が多少低下します。"
+ },
+ "noteNoSubsAsr": {
+  "message": "字幕がありません。PCで音声を認識します（時間がかかります）。"
+ },
+ "noteNoSubsMine": {
+  "message": "選択した言語の字幕がないため、元の言語を使用します。"
+ },
+ "noteNoSubsNoAsr": {
+  "message": "字幕がなく、音声認識もインストールされていません。"
+ },
+ "noteRecode": {
+  "message": "この画質のMP4はありません。変換には数分かかる場合があります。"
+ },
+ "notifyAiMissing": {
+  "message": "この機能を使うには、設定でAIを設定してください。"
+ },
+ "notifyAlreadyRunning": {
+  "message": "すでに進行中です"
+ },
+ "notifyDone": {
+  "message": "完了"
+ },
+ "notifyFailed": {
+  "message": "完了できませんでした"
+ },
+ "notifyFolderFailed": {
+  "message": "ダウンロードフォルダーを開けませんでした"
+ },
+ "notifyImageFailed": {
+  "message": "画像を保存できませんでした"
+ },
+ "notifyImageUnsupported": {
+  "message": "この画像はダウンロードできません"
+ },
+ "notifyNoUrl": {
+  "message": "使用可能なURLがありません"
+ },
+ "notifyNoUrlText": {
+  "message": "動画のあるHTTP(S)ページを開いて再試行してください。"
+ },
+ "notifyPanelUnavailable": {
+  "message": "パネルを利用できません"
+ },
+ "notifyPanelUnavailableText": {
+  "message": "拡張機能のボタンをツールバーに固定するか、拡張機能メニューから開いてください。"
+ },
+ "notifyTranscriptReady": {
+  "message": "文字起こしを貼り付けられます"
+ },
+ "original": {
+  "message": "元の言語"
+ },
+ "originalLabel": {
+  "message": "$1（元の言語）"
+ },
+ "pointedSub": {
+  "message": "右クリックした字幕"
+ },
+ "pointedVideo": {
+  "message": "右クリックした動画"
+ },
+ "precision": {
+  "message": "精度"
+ },
+ "precisionBalanced": {
+  "message": "バランス"
+ },
+ "precisionFast": {
+  "message": "高速"
+ },
+ "precisionHigh": {
+  "message": "高精度（低速）"
+ },
+ "protocolMismatch": {
+  "message": "警告：ローカルコンポーネントのバージョンが異なります"
+ },
+ "quality": {
+  "message": "画質"
+ },
+ "removeLang": {
+  "message": "$1を削除"
+ },
+ "reportCopied": {
+  "message": "フォームを開きました。短い報告をクリップボードにコピーしたので、必要なら貼り付けてください。"
+ },
+ "reportHint": {
+  "message": "うまく動きませんでしたか？Tomo、コンポーネント、ブラウザー、OS のバージョンが入力済みの GitHub フォームを開きます。閲覧したページや個人情報は含まれません。"
+ },
+ "reportOpened": {
+  "message": "フォームを開きました。何が起きたかを書き、必要ならスクリーンショットを添えてください。"
+ },
+ "reportProblem": {
+  "message": "問題を報告"
+ },
+ "saved": {
+  "message": "保存しました。"
+ },
+ "selectDone": {
+  "message": "完了"
+ },
+ "selectMany": {
+  "message": "複数選択"
+ },
+ "settings": {
+  "message": "設定"
+ },
+ "setupLink": {
+  "message": "手順を見る"
+ },
+ "setupText": {
+  "message": "Tomoには、PCに一度だけインストールする小さな補助プログラムが必要です。接続環境によっては数分かかります。ガイドの手順に従ってください（管理者権限は不要です）。"
+ },
+ "setupTitle": {
+  "message": "あと一歩：PC用コンポーネント"
+ },
+ "showProgress": {
+  "message": "ダウンロード中に進行状況を表示"
+ },
+ "starting": {
+  "message": "開始中"
+ },
+ "stateCancelled": {
+  "message": "キャンセル済み"
+ },
+ "stateDone": {
+  "message": "完了"
+ },
+ "stateError": {
+  "message": "エラー"
+ },
+ "stateQueued": {
+  "message": "待機中"
+ },
+ "stateRunning": {
+  "message": "進行中"
+ },
+ "suggested": {
+  "message": "おすすめ"
+ },
+ "supportText": {
+  "message": "Tomoは無料で広告もありません。お役に立てたら、寄付で支援できます。"
+ },
+ "tabAudio": {
+  "message": "音声"
+ },
+ "tabText": {
+  "message": "テキスト"
+ },
+ "tabVideo": {
+  "message": "動画"
+ },
+ "uiLangAuto": {
+  "message": "自動（$1）"
+ },
+ "uiLanguage": {
+  "message": "拡張機能の言語"
+ },
+ "universal": {
+  "message": "汎用"
+ },
+ "updateYtdlp": {
+  "message": "ダウンロードエンジンを更新"
+ },
+ "useSession": {
+  "message": "ログイン状態を使用"
+ },
+ "useSessionHint": {
+  "message": "ログインが必要なサイト（Redditなど）向けです。情報はPC上に保持され、ダウンロードする動画のサイトにのみ使用されます。"
+ },
+ "videosOnPage": {
+  "message": "このページの動画"
+ },
+ "videosPickOne": {
+  "message": "動画 $1 件：上から選択"
+ },
+ "welcomeHello": {
+  "message": "Tomoへようこそ"
+ },
+ "welcomeIntro": {
+  "message": "動画・音声・画像を元の品質で保存したり、話している内容を文字起こししてコピーしたりできます。すべてPC上で処理します。"
+ },
+ "welcomeStart": {
+  "message": "始める"
+ },
+ "welcomeText": {
+  "message": "拡張機能の言語を選び、理解できる言語を追加してください。その言語と動画の元の言語の字幕・音声だけを表示します。設定で変更できます。"
+ },
+ "welcomeTip1": {
+  "message": "動画や画像を右クリックします。"
+ },
+ "welcomeTip2": {
+  "message": "「ダウンロードまたは文字起こし」から「動画」「音声」「テキスト」を選びます。"
+ },
+ "welcomeTip3": {
+  "message": "ダウンロードフォルダーでファイルを確認します。"
+ },
+ "welcomeTitle": {
+  "message": "使用する言語"
+ },
+ "withAI": {
+  "message": "AIを使用"
+ },
+ "aiConsentDenied": {
+  "message": "ページのテキストを選択したプロバイダーに送信するには、許可が必要です。"
+ },
+ "aiConsentPrompt": {
+  "message": "Tomo は、要約または翻訳のために、動画の字幕または文字起こしのテキストとタイトルを、選択した AI プロバイダー ($PROVIDER$)に送信します。Tomo の作者には何も送られません。許可しますか？",
+  "placeholders": {
+   "provider": {
+    "content": "$1"
+   }
+  }
+ },
+ "siteUnavailable": {
+  "message": "このブラウザーでは、このサイトを利用できません。"
+ },
+ "limitsNote": {
+  "message": "ダウンロード数に制限はありません。DRM付き動画とライブ配信はダウンロードできません。動画は最長12時間です。"
+ },
+ "imageOriginal": {"message": "元の形式"},
+ "imagePanelHint": {"message": "元の画像を変換せずにダウンロードします。"},
+ "imageDownload": {"message": "画像をダウンロード"},
+ "imageSaved": {"message": "画像のダウンロードを開始しました。"},
+ "imageAiDownload": {"message": "高画質化してダウンロード (AI)"},
+ "imageAiTitle": {"message": "AI画像高画質化"},
+ "imageAiHint": {"message": "Replicate (r8_) または Gemini (AIza) のキーを貼り付けてください。この端末のみに保存されます。"},
+ "imageAiKey": {"message": "APIキー"},
+ "imageAiSave": {"message": "キーを有効化"},
+ "imageAiRemove": {"message": "キーを削除"},
+ "imageAiQuality": {"message": "最高品質 (Replicate Topaz)"},
+ "imageAiActive": {"message": "有効"},
+ "imageAiInvalid": {"message": "キーが無効です。確認してください。"},
+ "imageAiCredit": {"message": "残高不足または利用上限です。"},
+ "imageAiOffline": {"message": "接続できません。再試行してください。"},
+ "imageAiConfirmRemove": {"message": "保存したキーを削除しますか？"},
+ "setupCopy": {"message": "インストールコマンドをコピー"},
+ "setupCopied": {"message": "コピーしました。PowerShellに貼り付けてEnterを押してください。"},
+ "setupAllSet": {"message": "準備完了"},
+ "pinChrome": {"message": "パズルのアイコンをクリックし、Tomoの横のピンをクリックします。"},
+ "pinFirefox": {"message": "パズルのアイコン、Tomoの横の歯車、「ピン留め」の順にクリックします。"},
+ "recommendVideo": {"message": "動画のページのようです。「動画をダウンロード」をお試しください。"},
+ "recommendAudio": {"message": "音声のようです。「音声をダウンロード」をお試しください。"},
+ "recommendImage": {"message": "画像です。「画像をダウンロード」をお試しください。"},
+ "recommendText": {"message": "このページの文章が必要ですか？「テキストを保存」をお試しください。"}
+}

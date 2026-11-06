@@ -1,0 +1,29 @@
+name: Triage labels
+
+on:
+  issues:
+    types: [opened]
+
+permissions:
+  issues: write
+
+jobs:
+  label:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/github-script@f28e40c7f34bde8b3046d885e986cb6290c5673b
+        with:
+          script: |
+            const body = context.payload.issue.body || "";
+            const pick = (heading) => {
+              const m = body.match(new RegExp("### " + heading + "\\s+([^\\n]+)"));
+              return m ? m[1].trim().toLowerCase() : "";
+            };
+            const labels = [];
+            const os = pick("Operating system");
+            const browser = pick("Browser");
+            if (["windows", "macos", "linux", "other"].includes(os)) labels.push("os: " + os);
+            if (["firefox", "chrome", "edge", "brave", "other"].includes(browser)) labels.push("browser: " + browser);
+            if (labels.length) {
+              await github.rest.issues.addLabels({...context.repo, issue_number: context.issue.number, labels});
+            }

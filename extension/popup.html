@@ -1,0 +1,308 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Tomo</title>
+  <meta name="color-scheme" content="light dark">
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <header class="bar">
+    <button id="back" class="icon" type="button" data-i18n-aria="back" data-i18n-title="back" hidden><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg></button>
+    <img class="logo" src="icon48.png" alt="">
+    <h1 id="heading">Tomo</h1>
+    <button id="donate-top" class="icon heart" type="button" data-i18n-aria="donateKofi" data-i18n-title="donateKofi" hidden><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 14c1.5-1.5 3-3.2 3-5.5A5.5 5.5 0 0 0 12 5.5 5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4 3 5.5l7 7z"/></svg></button>
+    <button id="open-settings" class="icon" type="button" data-i18n-aria="settings" data-i18n-title="settings"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 4h-7M10 4H3M21 12h-9M8 12H3M21 20h-5M12 20H3M14 2v4M8 10v4M16 18v4"/></svg></button>
+  </header>
+
+  <nav id="nav" class="nav" role="tablist" hidden>
+    <button type="button" role="tab" data-view="video" aria-controls="view-video" aria-selected="true" data-i18n="navVideo"></button>
+    <button type="button" role="tab" data-view="jobs" aria-controls="view-jobs" aria-selected="false"><span data-i18n="navDownloads"></span> <span id="jobs-count" class="count" hidden></span></button>
+  </nav>
+
+  <section id="view-welcome" class="view" hidden>
+    <h2 class="big" data-i18n="welcomeHello"></h2>
+    <p class="muted" data-i18n="welcomeIntro"></p>
+    <ol class="steps">
+      <li data-i18n="welcomeTip1"></li>
+      <li data-i18n="welcomeTip2"></li>
+      <li data-i18n="welcomeTip3"></li>
+    </ol>
+    <p id="pin-hint" class="muted small" hidden></p>
+    <h3 class="card-title step-title" data-i18n="welcomeTitle"></h3>
+    <label class="stack"><span data-i18n="uiLanguage"></span><select class="ui-lang"></select></label>
+    <p class="muted" data-i18n="welcomeText"></p>
+    <div class="lang-picker" data-picker="welcome"></div>
+    <div class="footer"><button id="welcome-done" type="button" class="primary" data-i18n="welcomeStart"></button></div>
+  </section>
+
+  <section id="view-video" class="view" hidden>
+    <p id="status" class="notice" role="status" hidden></p>
+    <div id="image-panel" hidden>
+      <h2 class="card-title" data-i18n="menuImage"></h2>
+      <p class="muted" data-i18n="imagePanelHint"></p>
+      <p class="muted" data-i18n="imageOriginal"></p>
+      <div class="footer"><button id="go-image" class="primary" type="button" data-i18n="imageDownload"></button></div>
+      <button id="go-image-ai" type="button" class="secondary" data-i18n="imageAiDownload" hidden></button>
+    </div>
+    <div id="setup" class="card setup" hidden>
+      <strong data-i18n="setupTitle"></strong>
+      <p data-i18n="setupText"></p>
+      <a href="https://github.com/C-Rosende/Tomo#install" target="_blank" rel="noopener" data-i18n="setupLink"></a>
+      <button id="copy-install" type="button" class="secondary" data-i18n="setupCopy"></button>
+      <p id="setup-result" role="status" class="muted small"></p>
+    </div>
+    <p id="site-recommendation" class="muted small"></p>
+
+    <div id="candidates-section" class="field" hidden>
+      <div class="field-head">
+        <span class="field-label" data-i18n="videosOnPage"></span>
+        <button id="select-many" type="button" class="link"><span id="select-many-label" data-i18n="selectMany"></span></button>
+      </div>
+      <ul id="candidates" class="list picks"></ul>
+    </div>
+
+    <div id="detail" hidden aria-live="polite">
+      <div class="hero">
+        <div id="thumb-ph" class="ph" aria-hidden="true"></div>
+        <div id="thumb" hidden></div>
+        <span id="duration" class="duration" hidden></span>
+      </div>
+      <h2 id="title" class="title"></h2>
+      <p id="meta" class="muted"></p>
+      <div id="detail-loading" class="skeleton" role="status" hidden>
+        <div class="ph ph-tabs"></div>
+        <div class="ph ph-label"></div>
+        <div class="ph-grid"><div class="ph"></div><div class="ph"></div><div class="ph"></div><div class="ph"></div><div class="ph"></div><div class="ph"></div></div>
+      </div>
+
+      <div id="detail-body" hidden>
+        <div class="tabs" role="tablist">
+          <button type="button" role="tab" id="tab-video" data-tab="video" aria-controls="pane-video" aria-selected="true" data-i18n="tabVideo"></button>
+          <button type="button" role="tab" id="tab-audio" data-tab="audio" aria-controls="pane-audio" aria-selected="false" data-i18n="tabAudio"></button>
+          <button type="button" role="tab" id="tab-transcript" data-tab="transcript" aria-controls="pane-transcript" aria-selected="false" data-i18n="tabText"></button>
+        </div>
+
+        <div class="pane" id="pane-video" data-pane="video" role="tabpanel">
+          <div class="field">
+            <span class="field-label" data-i18n="quality"></span>
+            <div id="quality" class="chips" role="radiogroup"></div>
+          </div>
+          <div class="field">
+            <span class="field-label" data-i18n="format"></span>
+            <div id="container" class="chips" role="radiogroup">
+              <label class="chip"><input type="radio" name="container" value="auto" checked><span><b data-i18n="original"></b><small data-i18n="lossless"></small></span></label>
+              <label class="chip"><input type="radio" name="container" value="mp4"><span><b>MP4</b><small data-i18n="compatible"></small></span></label>
+              <label class="chip"><input type="radio" name="container" value="mkv"><span><b>MKV</b><small data-i18n="lossless"></small></span></label>
+            </div>
+          </div>
+          <div class="field" id="audio-lang-field" hidden>
+            <span class="field-label" data-i18n="audioLanguage"></span>
+            <div id="audio-lang" class="chips wrap" role="radiogroup"></div>
+          </div>
+          <div class="field">
+            <label class="switch"><input type="checkbox" id="embed-subs"><span data-i18n="embedSubs"></span></label>
+          </div>
+          <p id="video-note" class="hint" hidden></p>
+        </div>
+
+        <div class="pane" id="pane-audio" data-pane="audio" role="tabpanel" hidden>
+          <div class="field">
+            <span class="field-label" data-i18n="format"></span>
+            <div id="audio-format" class="chips" role="radiogroup">
+              <label class="chip"><input type="radio" name="audio-format" value="audio" checked><span><b data-i18n="original"></b><small data-i18n="lossless"></small></span></label>
+              <label class="chip"><input type="radio" name="audio-format" value="m4a"><span><b>M4A</b><small>AAC</small></span></label>
+              <label class="chip"><input type="radio" name="audio-format" value="mp3"><span><b>MP3</b><small data-i18n="universal"></small></span></label>
+            </div>
+          </div>
+          <div class="field" id="audio-lang-field2" hidden>
+            <span class="field-label" data-i18n="audioLanguage"></span>
+            <div id="audio-lang2" class="chips wrap" role="radiogroup"></div>
+          </div>
+          <p id="audio-note" class="hint" hidden></p>
+        </div>
+
+        <div class="pane" id="pane-transcript" data-pane="transcript" role="tabpanel" hidden>
+          <div class="field">
+            <span class="field-label" data-i18n="language"></span>
+            <div id="tx-lang" class="chips wrap" role="radiogroup"></div>
+          </div>
+          <div class="field">
+            <label class="switch"><input type="checkbox" id="tx-timed"><span data-i18n="includeTimestamps"></span></label>
+          </div>
+          <p id="tx-note" class="hint" hidden></p>
+          <div class="field">
+            <span class="field-label" data-i18n="withAI"></span>
+            <div id="ai-actions" class="row">
+              <button id="ai-summary" type="button" class="secondary with-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l1.8 4.7 4.7 1.8-4.7 1.8L12 16l-1.8-4.7-4.7-1.8 4.7-1.8z"/></svg><span data-i18n="aiSummarize"></span></button>
+              <button id="ai-translate" type="button" class="secondary with-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h8M8 3v2M6 5c0 4 2.5 7 6 8M10 5c0 3-2.5 7-6 8M13 21l4-9 4 9M14.5 18h5"/></svg><span id="ai-translate-label"></span></button>
+            </div>
+            <button id="ai-setup" type="button" class="link" data-i18n="aiSetup" hidden></button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <p id="limits-note" class="hint"></p>
+
+    <div id="video-footer" class="footer" hidden>
+      <button id="go-video" type="button" class="primary" data-for="video"></button>
+      <button id="go-audio" type="button" class="primary" data-for="audio" hidden></button>
+      <div class="row" data-for="transcript" hidden>
+        <button id="tx-copy" type="button" class="primary" data-i18n="copyText"></button>
+        <button type="button" class="secondary" data-export="txt">TXT</button>
+        <button type="button" class="secondary" data-export="srt">SRT</button>
+      </div>
+    </div>
+
+    <div id="batch-footer" class="footer" hidden>
+      <div class="row">
+        <select id="batch-preset" data-i18n-aria="batchAs">
+          <option value="best" data-i18n="batchBest"></option>
+          <option value="mp4" data-i18n="batchMp4"></option>
+          <option value="mp3" data-i18n="batchMp3"></option>
+          <option value="txt" data-i18n="batchTxt"></option>
+        </select>
+        <button id="batch-go" type="button" class="primary"></button>
+      </div>
+    </div>
+  </section>
+
+  <section id="view-jobs" class="view" hidden>
+    <div id="jobs-active" class="group" hidden>
+      <h2 class="group-title" data-i18n="groupRunning"></h2>
+      <ul id="jobs-running" class="list"></ul>
+    </div>
+    <div id="jobs-finished" class="group" hidden>
+      <div class="group-head">
+        <h2 class="group-title" data-i18n="groupFinished"></h2>
+        <button id="clear-finished" type="button" class="link" data-i18n="clear"></button>
+      </div>
+      <ul id="jobs-done" class="list"></ul>
+    </div>
+    <div id="history-group" class="group" hidden>
+      <div class="group-head">
+        <h2 class="group-title" data-i18n="groupHistory"></h2>
+        <button id="clear-history-inline" type="button" class="link danger" data-i18n="clearHistory"></button>
+      </div>
+      <ul id="history" class="list compact"></ul>
+    </div>
+    <div id="jobs-empty" class="empty">
+      <p><strong data-i18n="emptyTitle"></strong></p>
+      <p class="muted" data-i18n="emptyText"></p>
+    </div>
+  </section>
+
+  <section id="view-settings" class="view" hidden>
+    <form id="prefs">
+      <div class="card">
+        <h2 class="card-title" data-i18n="imageAiTitle"></h2>
+        <p class="muted small" data-i18n="imageAiHint"></p>
+        <label class="stack"><span data-i18n="imageAiKey"></span><input id="image-ai-key" type="password" autocomplete="off" spellcheck="false"></label>
+        <div class="row wrap"><button id="image-ai-save" type="button" class="secondary" data-i18n="imageAiSave"></button><button id="image-ai-remove" type="button" class="secondary" data-i18n-aria="imageAiRemove" hidden>×</button></div>
+        <label class="switch"><input id="image-ai-quality" type="checkbox"><span data-i18n="imageAiQuality"></span></label>
+        <p id="image-ai-status" role="status" class="muted small"></p>
+      </div>
+      <div class="card">
+        <h2 class="card-title" data-i18n="cardLanguages"></h2>
+        <label class="stack"><span data-i18n="uiLanguage"></span><select class="ui-lang"></select></label>
+        <p class="muted small" data-i18n="cardLanguagesText"></p>
+        <div class="lang-picker" data-picker="settings"></div>
+      </div>
+
+      <div class="card">
+        <h2 class="card-title" data-i18n="cardDownloads"></h2>
+        <label class="switch"><input type="checkbox" name="showProgress"><span data-i18n="showProgress"></span></label>
+        <label class="inline"><span data-i18n="concurrency"></span>
+          <select name="concurrency"><option>1</option><option>2</option><option>3</option><option>4</option></select>
+        </label>
+        <label class="inline"><span data-i18n="defaultFormat"></span>
+          <select name="defaultPreset"></select>
+        </label>
+        <label class="inline"><span data-i18n="saveSubfolder"></span>
+          <input type="text" name="subfolder" maxlength="120" autocomplete="off" spellcheck="false">
+        </label>
+        <label class="inline"><span data-i18n="nameTemplate"></span>
+          <input type="text" name="nameTemplate" maxlength="120" placeholder="{author} - {title}" autocomplete="off" spellcheck="false">
+        </label>
+        <p class="muted small" data-i18n="nameTemplateHint"></p>
+      </div>
+
+      <div class="card">
+        <h2 class="card-title" data-i18n="cardTranscription"></h2>
+        <label class="switch"><input type="checkbox" name="asrFallback"><span data-i18n="asrFallback"></span></label>
+        <label class="inline"><span data-i18n="precision"></span>
+          <select name="asrModel">
+            <option value="base" data-i18n="precisionFast"></option>
+            <option value="small" data-i18n="precisionBalanced"></option>
+            <option value="medium" data-i18n="precisionHigh"></option>
+          </select>
+        </label>
+      </div>
+
+      <div class="card" id="ai-card">
+        <h2 class="card-title" data-i18n="cardAI"></h2>
+        <p class="muted small" data-i18n="cardAIText"></p>
+        <label class="inline"><span data-i18n="aiProvider"></span>
+          <select id="ai-provider">
+            <option value="" data-i18n="aiOff"></option>
+            <option value="openai">OpenAI</option>
+            <option value="gemini">Google Gemini</option>
+            <option value="openrouter">OpenRouter</option>
+            <option value="ollama" data-i18n="aiOllama"></option>
+            <option value="custom" data-i18n="aiCustom"></option>
+          </select>
+        </label>
+        <div id="ai-fields" hidden>
+          <label class="stack" id="ai-key-row"><span data-i18n="aiKey"></span><input type="password" id="ai-key" autocomplete="off" spellcheck="false"></label>
+          <label class="stack"><span data-i18n="aiModel"></span><input type="text" id="ai-model" autocomplete="off" spellcheck="false"></label>
+          <label class="stack" id="ai-base-row" hidden><span data-i18n="aiBase"></span><input type="url" id="ai-base" autocomplete="off" spellcheck="false" placeholder="https://…/v1"></label>
+          <div class="row wrap"><button type="button" id="ai-test" class="secondary" data-i18n="aiTest"></button></div>
+          <p id="ai-status" class="muted small" role="status"></p>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2 class="card-title" data-i18n="cardHelp"></h2>
+        <p class="muted small" data-i18n="reportHint"></p>
+        <button type="button" id="report" class="secondary" data-i18n="reportProblem"></button>
+      </div>
+
+      <div class="card">
+        <h2 class="card-title" data-i18n="cardPrivacy"></h2>
+        <label class="switch"><input type="checkbox" name="session"><span data-i18n="useSession"></span></label>
+        <p class="muted small" data-i18n="useSessionHint"></p>
+        <label class="switch"><input type="checkbox" name="keepHistory"><span data-i18n="keepHistory"></span></label>
+        <button type="button" id="clear-history" class="secondary" data-i18n="clearHistory"></button>
+      </div>
+
+      <div class="card" id="support-card" hidden>
+        <h2 class="card-title" data-i18n="cardSupport"></h2>
+        <p class="muted small" data-i18n="supportText"></p>
+        <a id="donate" class="button kofi" target="_blank" rel="noopener"><svg class="cup" viewBox="0 0 24 24" aria-hidden="true"><path class="steam" d="M8 1.5c-.8.9.8 1.6 0 2.5M12 1.5c-.8.9.8 1.6 0 2.5"/><path class="handle" d="M17 8h1.5a3 3 0 0 1 0 6H17"/><path class="body" d="M3 6h14v7a5 5 0 0 1-5 5H8a5 5 0 0 1-5-5z"/><path class="beat" d="M10 15.2s-3.3-1.9-3.3-4.1a1.65 1.65 0 0 1 3.3-.5 1.65 1.65 0 0 1 3.3.5c0 2.2-3.3 4.1-3.3 4.1z"/></svg><span data-i18n="donateKofi"></span></a>
+      </div>
+
+      <details class="card" id="advanced">
+        <summary class="card-title" data-i18n="advanced"></summary>
+        <label class="switch"><input type="checkbox" name="metrics"><span data-i18n="metrics"></span></label>
+        <label class="inline"><span data-i18n="cache"></span> <input type="number" name="cacheMb" min="0" max="5000" step="50"></label>
+        <p id="backend-status" class="muted small"></p>
+        <div class="row wrap">
+          <button type="button" id="check-backend" class="secondary" data-i18n="checkBackend"></button>
+          <button type="button" id="update-ytdlp" class="secondary" data-i18n="updateYtdlp"></button>
+          <button type="button" id="clear-cache" class="secondary" data-i18n="clearCache"></button>
+          <button type="button" id="copy-diagnostics" class="secondary" data-i18n="copyDiagnostics"></button>
+        </div>
+      </details>
+      <p class="muted small center" data-i18n="footerPrivacy"></p>
+      <p id="prefs-saved" class="muted small center" role="status"></p>
+    </form>
+  </section>
+
+  <script src="i18n.js"></script>
+  <script src="platform.js"></script>
+  <script src="image-ai.js"></script>
+  <script src="report.js"></script>
+  <script src="popup.js"></script>
+</body>
+</html>

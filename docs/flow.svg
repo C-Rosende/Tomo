@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 150" font-family="'Segoe UI',system-ui,-apple-system,sans-serif">
+  <rect width="880" height="150" rx="22" fill="#14141a"/>
+  <path id="p" d="M110 66H770" stroke="#2f2f3a" stroke-width="2" stroke-dasharray="4 6" fill="none"/>
+  <g font-size="14" font-weight="600" text-anchor="middle">
+    <g>
+      <rect x="40" y="36" width="140" height="60" rx="14" fill="#23232c" stroke="#ff7a45" stroke-opacity=".5"/>
+      <text x="110" y="62" fill="#fff">Extension</text>
+      <text x="110" y="82" fill="#a1a1ad" font-size="12" font-weight="400">menu · panel</text>
+    </g>
+    <g>
+      <rect x="250" y="36" width="140" height="60" rx="14" fill="#23232c"/>
+      <text x="320" y="62" fill="#fff">Native Messaging</text>
+      <text x="320" y="82" fill="#a1a1ad" font-size="12" font-weight="400">no ports opened</text>
+    </g>
+    <g>
+      <rect x="460" y="36" width="140" height="60" rx="14" fill="#23232c"/>
+      <text x="530" y="62" fill="#fff">Local helper</text>
+      <text x="530" y="82" fill="#a1a1ad" font-size="12" font-weight="400">one process per job</text>
+    </g>
+    <g>
+      <rect x="670" y="36" width="170" height="60" rx="14" fill="#23232c" stroke="#ff3d6e" stroke-opacity=".5"/>
+      <text x="755" y="62" fill="#fff">yt-dlp · FFmpeg</text>
+      <text x="755" y="82" fill="#a1a1ad" font-size="12" font-weight="400">faster-whisper</text>
+    </g>
+  </g>
+  <circle r="5" fill="#ff5a5a">
+    <animateMotion dur="3.2s" repeatCount="indefinite" path="M110 66H755"/>
+    <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;.08;.9;1" dur="3.2s" repeatCount="indefinite"/>
+  </circle>
+  <text x="440" y="130" text-anchor="middle" fill="#a1a1ad" font-size="13">Everything stays on your computer</text>
+</svg>

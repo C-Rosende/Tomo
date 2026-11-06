@@ -1,0 +1,663 @@
+{
+ "imageAiConsentPrompt": {"message": "Tomo отправит выбранное изображение вашему провайдеру (Replicate или Gemini). API может быть платным. Gemini может изменить детали изображения. Автор не получает данные. Разрешить улучшение изображений?"},
+ "actCancel": {
+  "message": "Отменить"
+ },
+ "actDismiss": {
+  "message": "Убрать"
+ },
+ "actOpen": {
+  "message": "Открыть"
+ },
+ "actRetry": {
+  "message": "Повторить"
+ },
+ "actReveal": {
+  "message": "Показать в папке"
+ },
+ "actionTitle": {
+  "message": "Скачать или расшифровать"
+ },
+ "addLanguage": {
+  "message": "Добавить язык…"
+ },
+ "advanced": {
+  "message": "Дополнительно"
+ },
+ "aiBase": {
+  "message": "URL сервиса"
+ },
+ "aiCustom": {
+  "message": "Другой (совместимый с OpenAI)"
+ },
+ "aiKey": {
+  "message": "Ключ API"
+ },
+ "aiModel": {
+  "message": "Модель"
+ },
+ "aiOff": {
+  "message": "Выкл."
+ },
+ "aiOllama": {
+  "message": "Ollama (локально, бесплатно)"
+ },
+ "aiProvider": {
+  "message": "Провайдер"
+ },
+ "aiSetup": {
+  "message": "Добавьте ключ API в настройках, чтобы создавать сводки и переводить тексты."
+ },
+ "aiSummarize": {
+  "message": "Создать сводку"
+ },
+ "aiTest": {
+  "message": "Проверить соединение"
+ },
+ "aiTesting": {
+  "message": "Проверка…"
+ },
+ "aiTranslate": {
+  "message": "Перевести на $1"
+ },
+ "asrFallback": {
+  "message": "Распознавать речь, если нет субтитров"
+ },
+ "audioLanguage": {
+  "message": "Язык аудио"
+ },
+ "back": {
+  "message": "Назад"
+ },
+ "backendChecking": {
+  "message": "Проверка…"
+ },
+ "backendComponent": {
+  "message": "Компонент $1"
+ },
+ "backendMismatch": {
+  "message": "(другая версия — переустановите)"
+ },
+ "backendNoAsr": {
+  "message": "Нет офлайн-расшифровки"
+ },
+ "backendNoDeno": {
+  "message": "Нет дополнения для YouTube"
+ },
+ "backendNoFfmpeg": {
+  "message": "Нет конвертера видео"
+ },
+ "backendUnavailable": {
+  "message": "Недоступно: $1"
+ },
+ "badgeActive": {
+  "message": "$1 выполняется · $2"
+ },
+ "batchAs": {
+  "message": "Скачать как"
+ },
+ "batchBest": {
+  "message": "Макс. качество"
+ },
+ "batchGo": {
+  "message": "Начать ($1)"
+ },
+ "batchMp3": {
+  "message": "Аудио MP3"
+ },
+ "batchMp4": {
+  "message": "Видео MP4"
+ },
+ "batchTxt": {
+  "message": "Расшифровка (TXT)"
+ },
+ "cache": {
+  "message": "Кеш (МБ)"
+ },
+ "cacheCleared": {
+  "message": "Кеш очищен."
+ },
+ "cancelledMsg": {
+  "message": "Отменено."
+ },
+ "cancelling": {
+  "message": "Отмена…"
+ },
+ "cardAI": {
+  "message": "ИИ (необязательно)"
+ },
+ "cardAIText": {
+  "message": "Используйте свой ключ для создания сводок и перевода расшифровок. Он хранится только в этом браузере и передаётся только выбранному провайдеру."
+ },
+ "cardDownloads": {
+  "message": "Загрузки"
+ },
+ "cardHelp": {
+  "message": "Помощь"
+ },
+ "cardLanguages": {
+  "message": "Ваши языки"
+ },
+ "cardLanguagesText": {
+  "message": "Субтитры и аудио доступны на этих языках и на языке оригинала каждого видео. Основной — язык расширения."
+ },
+ "cardPrivacy": {
+  "message": "Конфиденциальность"
+ },
+ "cardSupport": {
+  "message": "Поддержать проект"
+ },
+ "cardTranscription": {
+  "message": "Расшифровка"
+ },
+ "checkBackend": {
+  "message": "Проверить"
+ },
+ "clear": {
+  "message": "Очистить"
+ },
+ "clearCache": {
+  "message": "Очистить кеш"
+ },
+ "clearHistory": {
+  "message": "Очистить историю"
+ },
+ "compatible": {
+  "message": "Совместимо"
+ },
+ "componentClosed": {
+  "message": "Локальный компонент завершил работу раньше времени. Проверьте установку."
+ },
+ "componentMissing": {
+  "message": "Компонент для вашего ПК отсутствует. Дважды щёлкните install.cmd, чтобы установить его."
+ },
+ "componentStartFailed": {
+  "message": "Не удалось запустить локальный компонент. Запустите install.cmd."
+ },
+ "concurrency": {
+  "message": "Одновременных загрузок"
+ },
+ "copyDiagnostics": {
+  "message": "Скопировать данные диагностики"
+ },
+ "copyText": {
+  "message": "Копировать текст"
+ },
+ "defaultFormat": {
+  "message": "Формат загрузки в один клик"
+ },
+ "diagnosticsCopied": {
+  "message": "Диагностика скопирована. Вставьте её в сообщение о проблеме."
+ },
+ "donateKofi": {
+  "message": "Поддержать Tomo на Ko-fi"
+ },
+ "download": {
+  "message": "Скачать"
+ },
+ "downloadAudioAs": {
+  "message": "Скачать аудио в формате $1"
+ },
+ "downloadAudioOriginal": {
+  "message": "Скачать оригинальное аудио"
+ },
+ "downloadQuality": {
+  "message": "Скачать $1"
+ },
+ "downloadQualityIn": {
+  "message": "Скачать $1 в формате $2"
+ },
+ "embedSubs": {
+  "message": "Встроить субтитры на ваших языках"
+ },
+ "saveSubfolder": {
+  "message": "Папка внутри «Загрузок» (необязательно)"
+ },
+ "nameTemplate": {
+  "message": "Имя файла (необязательно)"
+ },
+ "nameTemplateHint": {
+  "message": "Поля: {title} {author} {id} {date} {site}. Если оставить пустым, имя создастся автоматически. Пример: {author} - {title}"
+ },
+ "embeddedVideo": {
+  "message": "Встроенное видео"
+ },
+ "emptyText": {
+  "message": "Нажмите правой кнопкой на видео или откройте вкладку «Это видео»."
+ },
+ "emptyTitle": {
+  "message": "Загрузок пока нет"
+ },
+ "extDescription": {
+  "message": "Скачивайте видео в оригинальном качестве, копируйте расшифровки и создавайте сводки с помощью ИИ. Всё работает на вашем ПК."
+ },
+ "extName": {
+  "message": "Tomo"
+ },
+ "footerPrivacy": {
+  "message": "Всё обрабатывается на вашем компьютере, без учётных записей и отслеживания."
+ },
+ "format": {
+  "message": "Формат"
+ },
+ "groupFinished": {
+  "message": "Завершено"
+ },
+ "groupHistory": {
+  "message": "История"
+ },
+ "groupRunning": {
+  "message": "Выполняется"
+ },
+ "healing": {
+  "message": "Сайт изменился: обновляем и пробуем снова…"
+ },
+ "historyCleared": {
+  "message": "История очищена."
+ },
+ "includeTimestamps": {
+  "message": "Добавить временные метки"
+ },
+ "keepHistory": {
+  "message": "Сохранять историю загрузок"
+ },
+ "kindAudio": {
+  "message": "Аудио"
+ },
+ "kindVideo": {
+  "message": "Видео"
+ },
+ "labelAudio": {
+  "message": "Оригинальное аудио"
+ },
+ "labelBest": {
+  "message": "Видео · макс. качество"
+ },
+ "labelCustom": {
+  "message": "Видео · выбранное качество"
+ },
+ "labelDownload": {
+  "message": "Скачать"
+ },
+ "labelM4a": {
+  "message": "Аудио · M4A"
+ },
+ "labelMkv": {
+  "message": "Видео · MKV"
+ },
+ "labelMp3": {
+  "message": "Аудио · MP3"
+ },
+ "labelMp4": {
+  "message": "Видео · MP4 (совместимый)"
+ },
+ "labelMp4Remux": {
+  "message": "Видео · MP4 (без перекодирования)"
+ },
+ "labelSummary": {
+  "message": "Сводка ИИ"
+ },
+ "labelTranscript": {
+  "message": "Расшифровка"
+ },
+ "labelTranscriptFile": {
+  "message": "Расшифровка · $1"
+ },
+ "labelTranscriptTimed": {
+  "message": "Расшифровка с временными метками"
+ },
+ "labelTranslate": {
+  "message": "Перевод ИИ · $1"
+ },
+ "labelUpdate": {
+  "message": "Обновление модуля загрузки"
+ },
+ "labelWebm": {
+  "message": "Видео · WebM"
+ },
+ "language": {
+  "message": "Язык"
+ },
+ "live": {
+  "message": "Прямой эфир"
+ },
+ "loading": {
+  "message": "Поиск доступного качества"
+ },
+ "localError": {
+  "message": "Ошибка локального процесса."
+ },
+ "lossless": {
+  "message": "Без потерь"
+ },
+ "mainLanguage": {
+  "message": "Основной"
+ },
+ "maxQuality": {
+  "message": "Макс."
+ },
+ "menuAudio": {
+  "message": "Аудио"
+ },
+ "menuAudioOriginal": {
+  "message": "Оригинал"
+ },
+ "menuBest": {
+  "message": "Макс. качество"
+ },
+ "menuCopy": {
+  "message": "Копировать текст"
+ },
+ "menuCopyTimed": {
+  "message": "Копировать с временными метками"
+ },
+ "menuDefault": {
+  "message": "Скачать в выбранном формате"
+ },
+ "menuFolder": {
+  "message": "Открыть папку «Загрузки»"
+ },
+ "menuImage": {
+  "message": "Сохранить изображение"
+ },
+ "menuM4a": {
+  "message": "M4A"
+ },
+ "menuMkv": {
+  "message": "MKV"
+ },
+ "menuMp3": {
+  "message": "MP3"
+ },
+ "menuMp4": {
+  "message": "MP4 (совместимый)"
+ },
+ "menuPanel": {
+  "message": "Открыть панель…"
+ },
+ "menuPickLang": {
+  "message": "Выбрать язык…"
+ },
+ "menuPickQuality": {
+  "message": "Выбрать качество…"
+ },
+ "menuRoot": {
+  "message": "Скачать или расшифровать"
+ },
+ "menuSaveSrt": {
+  "message": "Сохранить SRT"
+ },
+ "menuSaveTxt": {
+  "message": "Сохранить TXT"
+ },
+ "menuSummarize": {
+  "message": "Создать сводку с ИИ"
+ },
+ "menuText": {
+  "message": "Расшифровка"
+ },
+ "menuVideo": {
+  "message": "Видео"
+ },
+ "metrics": {
+  "message": "Записывать показатели работы на этом компьютере"
+ },
+ "navDownloads": {
+  "message": "Загрузки"
+ },
+ "navVideo": {
+  "message": "Это видео"
+ },
+ "noResults": {
+  "message": "Нет результатов"
+ },
+ "noVideo": {
+  "message": "На этой вкладке нет видео."
+ },
+ "noteAudioConvert": {
+  "message": "Конвертировано: качество немного снижено."
+ },
+ "noteNoSubsAsr": {
+  "message": "Нет субтитров: речь будет распознана на вашем ПК (медленнее)."
+ },
+ "noteNoSubsMine": {
+  "message": "Нет субтитров на ваших языках; будут использованы субтитры на языке оригинала."
+ },
+ "noteNoSubsNoAsr": {
+  "message": "Нет субтитров, а распознавание речи не установлено."
+ },
+ "noteRecode": {
+  "message": "Это качество недоступно в MP4: видео будет конвертировано. Это может занять несколько минут."
+ },
+ "notifyAiMissing": {
+  "message": "Настройте ИИ в настройках, чтобы использовать эту функцию."
+ },
+ "notifyAlreadyRunning": {
+  "message": "Уже выполняется"
+ },
+ "notifyDone": {
+  "message": "Готово"
+ },
+ "notifyFailed": {
+  "message": "Не удалось выполнить"
+ },
+ "notifyFolderFailed": {
+  "message": "Не удалось открыть папку «Загрузки»"
+ },
+ "notifyImageFailed": {
+  "message": "Не удалось сохранить изображение"
+ },
+ "notifyImageUnsupported": {
+  "message": "Это изображение нельзя скачать"
+ },
+ "notifyNoUrl": {
+  "message": "Нет подходящего URL"
+ },
+ "notifyNoUrlText": {
+  "message": "Откройте страницу HTTP(S) с видео и повторите попытку."
+ },
+ "notifyPanelUnavailable": {
+  "message": "Панель недоступна"
+ },
+ "notifyPanelUnavailableText": {
+  "message": "Закрепите кнопку расширения на панели инструментов или откройте его через меню расширений."
+ },
+ "notifyTranscriptReady": {
+  "message": "Расшифровка готова к вставке"
+ },
+ "original": {
+  "message": "Оригинал"
+ },
+ "originalLabel": {
+  "message": "$1 (оригинал)"
+ },
+ "pointedSub": {
+  "message": "Тот, на котором вы нажали правой кнопкой"
+ },
+ "pointedVideo": {
+  "message": "Видео, на котором вы нажали правой кнопкой"
+ },
+ "precision": {
+  "message": "Точность"
+ },
+ "precisionBalanced": {
+  "message": "Сбалансированная"
+ },
+ "precisionFast": {
+  "message": "Быстрая"
+ },
+ "precisionHigh": {
+  "message": "Высокая (медленно)"
+ },
+ "protocolMismatch": {
+  "message": "Внимание: версия локального компонента отличается"
+ },
+ "quality": {
+  "message": "Качество"
+ },
+ "removeLang": {
+  "message": "Удалить $1"
+ },
+ "reportCopied": {
+  "message": "Форма открыта. Краткий отчёт скопирован в буфер обмена — вставьте его, если он поможет."
+ },
+ "reportHint": {
+  "message": "Что-то не сработало? Откроется форма GitHub, где уже указаны версии Tomo, компонента, браузера и системы. Посещённые страницы и личные данные туда не попадают."
+ },
+ "reportOpened": {
+  "message": "Форма открыта. Опишите, что произошло, и при необходимости добавьте снимок экрана."
+ },
+ "reportProblem": {
+  "message": "Сообщить о проблеме"
+ },
+ "saved": {
+  "message": "Сохранено."
+ },
+ "selectDone": {
+  "message": "Готово"
+ },
+ "selectMany": {
+  "message": "Выбрать несколько"
+ },
+ "settings": {
+  "message": "Настройки"
+ },
+ "setupLink": {
+  "message": "См. инструкцию"
+ },
+ "setupText": {
+  "message": "Tomo нужна небольшая вспомогательная программа на вашем ПК. Установить её нужно только один раз; это займёт несколько минут в зависимости от скорости интернета. Следуйте инструкции (права администратора не нужны)."
+ },
+ "setupTitle": {
+  "message": "Остался один шаг: компонент для вашего ПК"
+ },
+ "showProgress": {
+  "message": "Показывать ход загрузки"
+ },
+ "starting": {
+  "message": "Запуск"
+ },
+ "stateCancelled": {
+  "message": "Отменено"
+ },
+ "stateDone": {
+  "message": "Готово"
+ },
+ "stateError": {
+  "message": "Ошибка"
+ },
+ "stateQueued": {
+  "message": "В очереди"
+ },
+ "stateRunning": {
+  "message": "Выполняется"
+ },
+ "suggested": {
+  "message": "Рекомендуется"
+ },
+ "supportText": {
+  "message": "Tomo бесплатен и не содержит рекламы. Если он вам полезен, поддержите проект пожертвованием."
+ },
+ "tabAudio": {
+  "message": "Аудио"
+ },
+ "tabText": {
+  "message": "Текст"
+ },
+ "tabVideo": {
+  "message": "Видео"
+ },
+ "uiLangAuto": {
+  "message": "Автоматически ($1)"
+ },
+ "uiLanguage": {
+  "message": "Язык расширения"
+ },
+ "universal": {
+  "message": "Универсальный"
+ },
+ "updateYtdlp": {
+  "message": "Обновить модуль загрузки"
+ },
+ "useSession": {
+  "message": "Использовать мой сеанс"
+ },
+ "useSessionHint": {
+  "message": "Для сайтов, где требуется вход (например, Reddit). Данные сеанса остаются на вашем ПК и используются только для сайта скачиваемого видео."
+ },
+ "videosOnPage": {
+  "message": "Видео на этой странице"
+ },
+ "videosPickOne": {
+  "message": "Видео: $1. Выберите одно из списка выше"
+ },
+ "welcomeHello": {
+  "message": "Добро пожаловать в Tomo"
+ },
+ "welcomeIntro": {
+  "message": "Сохраняйте видео, аудио и изображения в оригинальном качестве или копируйте расшифровку речи. Всё происходит на вашем компьютере."
+ },
+ "welcomeStart": {
+  "message": "Начать"
+ },
+ "welcomeText": {
+  "message": "Выберите язык расширения и добавьте другие языки, которые понимаете: вы увидите аудио и субтитры только на них и на языке оригинала видео. Это можно изменить в настройках."
+ },
+ "welcomeTip1": {
+  "message": "Щёлкните правой кнопкой мыши по видео или изображению."
+ },
+ "welcomeTip2": {
+  "message": "Выберите «Скачать или расшифровать», затем «Видео», «Аудио» или «Текст»."
+ },
+ "welcomeTip3": {
+  "message": "Найдите файл в папке «Загрузки»."
+ },
+ "welcomeTitle": {
+  "message": "Ваши языки"
+ },
+ "withAI": {
+  "message": "С ИИ"
+ },
+ "aiConsentDenied": {
+  "message": "ИИ нужно ваше разрешение на отправку текста страницы выбранному провайдеру."
+ },
+ "aiConsentPrompt": {
+  "message": "Tomo отправит субтитры или текст расшифровки и название видео выбранному вами ИИ-провайдеру ($PROVIDER$) для краткого пересказа или перевода. Автор Tomo ничего не получает. Разрешить?",
+  "placeholders": {
+   "provider": {
+    "content": "$1"
+   }
+  }
+ },
+ "siteUnavailable": {
+  "message": "Этот сайт недоступен в этом браузере."
+ },
+ "limitsNote": {
+  "message": "Ограничений на число загрузок нет. Видео с DRM и прямые эфиры скачать нельзя; максимальная длительность видео — 12 часов."
+ },
+ "imageOriginal": {"message": "Оригинал"},
+ "imagePanelHint": {"message": "Скачать исходное изображение без преобразования."},
+ "imageDownload": {"message": "Скачать изображение"},
+ "imageSaved": {"message": "Загрузка изображения началась."},
+ "imageAiDownload": {"message": "Скачать улучшенное (ИИ)"},
+ "imageAiTitle": {"message": "Улучшение изображения с ИИ"},
+ "imageAiHint": {"message": "Вставьте ключ Replicate (r8_) или Gemini (AIza). Он хранится на этом устройстве."},
+ "imageAiKey": {"message": "Ключ API"},
+ "imageAiSave": {"message": "Активировать ключ"},
+ "imageAiRemove": {"message": "Удалить ключ"},
+ "imageAiQuality": {"message": "Максимальное качество (Replicate Topaz)"},
+ "imageAiActive": {"message": "Активен"},
+ "imageAiInvalid": {"message": "Неверный ключ. Проверьте его."},
+ "imageAiCredit": {"message": "Нет средств или достигнут лимит."},
+ "imageAiOffline": {"message": "Нет соединения. Повторите."},
+ "imageAiConfirmRemove": {"message": "Удалить сохранённый ключ?"},
+ "setupCopy": {"message": "Скопировать команду установки"},
+ "setupCopied": {"message": "Скопировано. Вставьте в PowerShell и нажмите Enter."},
+ "setupAllSet": {"message": "Всё готово"},
+ "pinChrome": {"message": "Нажмите значок пазла, затем булавку рядом с Tomo."},
+ "pinFirefox": {"message": "Нажмите значок пазла, шестерёнку рядом с Tomo и «Закрепить»."},
+ "recommendVideo": {"message": "Похоже, это страница с видео. Попробуйте скачать видео."},
+ "recommendAudio": {"message": "Похоже, это аудио. Попробуйте скачать аудио."},
+ "recommendImage": {"message": "Это изображение. Попробуйте скачать изображение."},
+ "recommendText": {"message": "Нужен текст этой страницы? Попробуйте сохранить текст."}
+}

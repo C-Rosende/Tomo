@@ -1,0 +1,663 @@
+{
+ "imageAiConsentPrompt": {"message": "Tomo invierà l’immagine selezionata al tuo fornitore (Replicate o Gemini). L’API può avere un costo. Gemini può modificare i dettagli. L’autore non riceve dati. Consentire il miglioramento?"},
+ "actCancel": {
+  "message": "Annulla"
+ },
+ "actDismiss": {
+  "message": "Rimuovi"
+ },
+ "actOpen": {
+  "message": "Apri"
+ },
+ "actRetry": {
+  "message": "Riprova"
+ },
+ "actReveal": {
+  "message": "Mostra nella cartella"
+ },
+ "actionTitle": {
+  "message": "Scarica o trascrivi"
+ },
+ "addLanguage": {
+  "message": "Aggiungi una lingua…"
+ },
+ "advanced": {
+  "message": "Avanzate"
+ },
+ "aiBase": {
+  "message": "URL del servizio"
+ },
+ "aiCustom": {
+  "message": "Altro (compatibile OpenAI)"
+ },
+ "aiKey": {
+  "message": "Chiave API"
+ },
+ "aiModel": {
+  "message": "Modello"
+ },
+ "aiOff": {
+  "message": "Disattivata"
+ },
+ "aiOllama": {
+  "message": "Ollama (locale, gratis)"
+ },
+ "aiProvider": {
+  "message": "Fornitore"
+ },
+ "aiSetup": {
+  "message": "Aggiungi la tua chiave API nelle Impostazioni per riassumere e tradurre."
+ },
+ "aiSummarize": {
+  "message": "Riassumi"
+ },
+ "aiTest": {
+  "message": "Prova connessione"
+ },
+ "aiTesting": {
+  "message": "Prova in corso…"
+ },
+ "aiTranslate": {
+  "message": "Traduci in $1"
+ },
+ "asrFallback": {
+  "message": "Riconosci il parlato se non ci sono sottotitoli"
+ },
+ "audioLanguage": {
+  "message": "Lingua dell'audio"
+ },
+ "back": {
+  "message": "Indietro"
+ },
+ "backendChecking": {
+  "message": "Verifica…"
+ },
+ "backendComponent": {
+  "message": "Componente $1"
+ },
+ "backendMismatch": {
+  "message": "(reinstalla: versione diversa)"
+ },
+ "backendNoAsr": {
+  "message": "Nessuna trascrizione offline"
+ },
+ "backendNoDeno": {
+  "message": "Manca un componente per YouTube"
+ },
+ "backendNoFfmpeg": {
+  "message": "Manca il convertitore video"
+ },
+ "backendUnavailable": {
+  "message": "Non disponibile: $1"
+ },
+ "badgeActive": {
+  "message": "$1 in corso · $2"
+ },
+ "batchAs": {
+  "message": "Scarica come"
+ },
+ "batchBest": {
+  "message": "Qualità massima"
+ },
+ "batchGo": {
+  "message": "Avvia ($1)"
+ },
+ "batchMp3": {
+  "message": "Audio MP3"
+ },
+ "batchMp4": {
+  "message": "Video MP4"
+ },
+ "batchTxt": {
+  "message": "Trascrizione (TXT)"
+ },
+ "cache": {
+  "message": "Cache (MB)"
+ },
+ "cacheCleared": {
+  "message": "Cache svuotata."
+ },
+ "cancelledMsg": {
+  "message": "Annullato."
+ },
+ "cancelling": {
+  "message": "Annullamento…"
+ },
+ "cardAI": {
+  "message": "IA (facoltativa)"
+ },
+ "cardAIText": {
+  "message": "Usa la tua chiave per riassumere e tradurre le trascrizioni. Resta solo in questo browser e viene inviata solo al fornitore scelto."
+ },
+ "cardDownloads": {
+  "message": "Download"
+ },
+ "cardHelp": {
+  "message": "Aiuto"
+ },
+ "cardLanguages": {
+  "message": "Le tue lingue"
+ },
+ "cardLanguagesText": {
+  "message": "Sottotitoli e audio vengono offerti in queste lingue, oltre all'originale di ogni video. La principale è la lingua dell'estensione."
+ },
+ "cardPrivacy": {
+  "message": "Privacy"
+ },
+ "cardSupport": {
+  "message": "Sostieni il progetto"
+ },
+ "cardTranscription": {
+  "message": "Trascrizione"
+ },
+ "checkBackend": {
+  "message": "Verifica"
+ },
+ "clear": {
+  "message": "Pulisci"
+ },
+ "clearCache": {
+  "message": "Svuota cache"
+ },
+ "clearHistory": {
+  "message": "Cancella cronologia"
+ },
+ "compatible": {
+  "message": "Compatibile"
+ },
+ "componentClosed": {
+  "message": "Il componente locale si è chiuso prima di finire. Controlla l'installazione."
+ },
+ "componentMissing": {
+  "message": "Manca il componente per il tuo PC: installalo con un doppio clic su install.cmd."
+ },
+ "componentStartFailed": {
+  "message": "Impossibile avviare il componente locale. Esegui install.cmd."
+ },
+ "concurrency": {
+  "message": "Download simultanei"
+ },
+ "copyDiagnostics": {
+  "message": "Copia diagnostica"
+ },
+ "copyText": {
+  "message": "Copia testo"
+ },
+ "defaultFormat": {
+  "message": "Formato del clic rapido"
+ },
+ "diagnosticsCopied": {
+  "message": "Diagnostica copiata. Incollala quando segnali un problema."
+ },
+ "donateKofi": {
+  "message": "Sostieni Tomo su Ko-fi"
+ },
+ "download": {
+  "message": "Scarica"
+ },
+ "downloadAudioAs": {
+  "message": "Scarica audio in $1"
+ },
+ "downloadAudioOriginal": {
+  "message": "Scarica audio originale"
+ },
+ "downloadQuality": {
+  "message": "Scarica $1"
+ },
+ "downloadQualityIn": {
+  "message": "Scarica $1 in $2"
+ },
+ "embedSubs": {
+  "message": "Incorpora sottotitoli nelle tue lingue"
+ },
+ "saveSubfolder": {
+  "message": "Cartella in Download (facoltativa)"
+ },
+ "nameTemplate": {
+  "message": "Nome del file (facoltativo)"
+ },
+ "nameTemplateHint": {
+  "message": "Campi: {title} {author} {id} {date} {site}. Vuoto = automatico. Esempio: {author} - {title}"
+ },
+ "embeddedVideo": {
+  "message": "Video incorporato"
+ },
+ "emptyText": {
+  "message": "Fai clic destro su un video o usa la scheda «Questo video»."
+ },
+ "emptyTitle": {
+  "message": "Ancora nessun download"
+ },
+ "extDescription": {
+  "message": "Scarica video nella qualità originale, copia le trascrizioni e riassumile con l'IA. Tutto viene elaborato sul tuo PC."
+ },
+ "extName": {
+  "message": "Tomo"
+ },
+ "footerPrivacy": {
+  "message": "Tutto viene elaborato sul tuo computer, senza account né tracciamento."
+ },
+ "format": {
+  "message": "Formato"
+ },
+ "groupFinished": {
+  "message": "Completati"
+ },
+ "groupHistory": {
+  "message": "Cronologia"
+ },
+ "groupRunning": {
+  "message": "In corso"
+ },
+ "healing": {
+  "message": "Il sito è cambiato: aggiornamento e nuovo tentativo…"
+ },
+ "historyCleared": {
+  "message": "Cronologia cancellata."
+ },
+ "includeTimestamps": {
+  "message": "Includi timestamp"
+ },
+ "keepHistory": {
+  "message": "Conserva la cronologia dei download"
+ },
+ "kindAudio": {
+  "message": "Audio"
+ },
+ "kindVideo": {
+  "message": "Video"
+ },
+ "labelAudio": {
+  "message": "Audio originale"
+ },
+ "labelBest": {
+  "message": "Video · qualità massima"
+ },
+ "labelCustom": {
+  "message": "Video · qualità scelta"
+ },
+ "labelDownload": {
+  "message": "Download"
+ },
+ "labelM4a": {
+  "message": "Audio · M4A"
+ },
+ "labelMkv": {
+  "message": "Video · MKV"
+ },
+ "labelMp3": {
+  "message": "Audio · MP3"
+ },
+ "labelMp4": {
+  "message": "Video · MP4 compatibile"
+ },
+ "labelMp4Remux": {
+  "message": "Video · MP4 senza ricodifica"
+ },
+ "labelSummary": {
+  "message": "Riassunto con IA"
+ },
+ "labelTranscript": {
+  "message": "Trascrizione"
+ },
+ "labelTranscriptFile": {
+  "message": "Trascrizione · $1"
+ },
+ "labelTranscriptTimed": {
+  "message": "Trascrizione con timestamp"
+ },
+ "labelTranslate": {
+  "message": "Traduzione con IA · $1"
+ },
+ "labelUpdate": {
+  "message": "Aggiornamento del motore di download"
+ },
+ "labelWebm": {
+  "message": "Video · WebM"
+ },
+ "language": {
+  "message": "Lingua"
+ },
+ "live": {
+  "message": "In diretta"
+ },
+ "loading": {
+  "message": "Ricerca delle qualità disponibili"
+ },
+ "localError": {
+  "message": "Errore nel processo locale."
+ },
+ "lossless": {
+  "message": "Senza perdita"
+ },
+ "mainLanguage": {
+  "message": "Principale"
+ },
+ "maxQuality": {
+  "message": "Massima"
+ },
+ "menuAudio": {
+  "message": "Audio"
+ },
+ "menuAudioOriginal": {
+  "message": "Originale"
+ },
+ "menuBest": {
+  "message": "Qualità massima"
+ },
+ "menuCopy": {
+  "message": "Copia testo"
+ },
+ "menuCopyTimed": {
+  "message": "Copia con timestamp"
+ },
+ "menuDefault": {
+  "message": "Scarica nel mio formato"
+ },
+ "menuFolder": {
+  "message": "Apri cartella Download"
+ },
+ "menuImage": {
+  "message": "Salva immagine"
+ },
+ "menuM4a": {
+  "message": "M4A"
+ },
+ "menuMkv": {
+  "message": "MKV"
+ },
+ "menuMp3": {
+  "message": "MP3"
+ },
+ "menuMp4": {
+  "message": "MP4 compatibile"
+ },
+ "menuPanel": {
+  "message": "Apri pannello…"
+ },
+ "menuPickLang": {
+  "message": "Scegli lingua…"
+ },
+ "menuPickQuality": {
+  "message": "Scegli qualità…"
+ },
+ "menuRoot": {
+  "message": "Scarica o trascrivi"
+ },
+ "menuSaveSrt": {
+  "message": "Salva SRT"
+ },
+ "menuSaveTxt": {
+  "message": "Salva TXT"
+ },
+ "menuSummarize": {
+  "message": "Riassumi con IA"
+ },
+ "menuText": {
+  "message": "Trascrizione"
+ },
+ "menuVideo": {
+  "message": "Video"
+ },
+ "metrics": {
+  "message": "Registra le prestazioni su questo computer"
+ },
+ "navDownloads": {
+  "message": "Download"
+ },
+ "navVideo": {
+  "message": "Questo video"
+ },
+ "noResults": {
+  "message": "Nessun risultato"
+ },
+ "noVideo": {
+  "message": "Non c'è nessun video in questa scheda."
+ },
+ "noteAudioConvert": {
+  "message": "Viene convertito: lieve perdita di qualità."
+ },
+ "noteNoSubsAsr": {
+  "message": "Nessun sottotitolo: il parlato verrà riconosciuto sul tuo PC (più lento)."
+ },
+ "noteNoSubsMine": {
+  "message": "Nessun sottotitolo nelle tue lingue; verrà usato l'originale."
+ },
+ "noteNoSubsNoAsr": {
+  "message": "Nessun sottotitolo e riconoscimento vocale non installato."
+ },
+ "noteRecode": {
+  "message": "Questa qualità non esiste in MP4: verrà convertita e potrebbe richiedere diversi minuti."
+ },
+ "notifyAiMissing": {
+  "message": "Configura l'IA nelle Impostazioni per usare questa opzione."
+ },
+ "notifyAlreadyRunning": {
+  "message": "Già in corso"
+ },
+ "notifyDone": {
+  "message": "Fatto"
+ },
+ "notifyFailed": {
+  "message": "Impossibile completare"
+ },
+ "notifyFolderFailed": {
+  "message": "Impossibile aprire Download"
+ },
+ "notifyImageFailed": {
+  "message": "Impossibile salvare l'immagine"
+ },
+ "notifyImageUnsupported": {
+  "message": "Questa immagine non può essere scaricata"
+ },
+ "notifyNoUrl": {
+  "message": "Nessun URL utilizzabile"
+ },
+ "notifyNoUrlText": {
+  "message": "Apri una pagina HTTP(S) con il video e riprova."
+ },
+ "notifyPanelUnavailable": {
+  "message": "Pannello non disponibile"
+ },
+ "notifyPanelUnavailableText": {
+  "message": "Fissa il pulsante dell'estensione nella barra degli strumenti o aprilo dal menu delle estensioni."
+ },
+ "notifyTranscriptReady": {
+  "message": "Trascrizione pronta da incollare"
+ },
+ "original": {
+  "message": "Originale"
+ },
+ "originalLabel": {
+  "message": "$1 (originale)"
+ },
+ "pointedSub": {
+  "message": "Quello su cui hai fatto clic destro"
+ },
+ "pointedVideo": {
+  "message": "Video su cui hai fatto clic destro"
+ },
+ "precision": {
+  "message": "Precisione"
+ },
+ "precisionBalanced": {
+  "message": "Bilanciata"
+ },
+ "precisionFast": {
+  "message": "Veloce"
+ },
+ "precisionHigh": {
+  "message": "Alta (lenta)"
+ },
+ "protocolMismatch": {
+  "message": "Avviso: versione diversa del componente locale"
+ },
+ "quality": {
+  "message": "Qualità"
+ },
+ "removeLang": {
+  "message": "Rimuovi $1"
+ },
+ "reportCopied": {
+  "message": "Modulo aperto. Negli appunti c'è un breve rapporto; incollalo se può essere utile."
+ },
+ "reportHint": {
+  "message": "Qualcosa non ha funzionato? Si apre un modulo di GitHub con le versioni di Tomo, del componente, del browser e del sistema già compilate. Non include mai le pagine che visiti né dati personali."
+ },
+ "reportOpened": {
+  "message": "Modulo aperto. Descrivi cosa è successo e aggiungi uno screenshot se può essere utile."
+ },
+ "reportProblem": {
+  "message": "Segnala un problema"
+ },
+ "saved": {
+  "message": "Salvato."
+ },
+ "selectDone": {
+  "message": "Fatto"
+ },
+ "selectMany": {
+  "message": "Seleziona più video"
+ },
+ "settings": {
+  "message": "Impostazioni"
+ },
+ "setupLink": {
+  "message": "Vedi le istruzioni"
+ },
+ "setupText": {
+  "message": "Tomo richiede un piccolo programma di supporto sul tuo PC, da installare una sola volta. L'installazione richiede qualche minuto, a seconda della connessione. Segui la guida (non servono permessi di amministratore)."
+ },
+ "setupTitle": {
+  "message": "Manca un passo: il componente per il tuo PC"
+ },
+ "showProgress": {
+  "message": "Mostra l'avanzamento del download"
+ },
+ "starting": {
+  "message": "Avvio"
+ },
+ "stateCancelled": {
+  "message": "Annullato"
+ },
+ "stateDone": {
+  "message": "Fatto"
+ },
+ "stateError": {
+  "message": "Errore"
+ },
+ "stateQueued": {
+  "message": "In coda"
+ },
+ "stateRunning": {
+  "message": "In corso"
+ },
+ "suggested": {
+  "message": "Suggerite"
+ },
+ "supportText": {
+  "message": "Tomo è gratuito e senza pubblicità. Se ti è utile, puoi sostenerlo con una donazione."
+ },
+ "tabAudio": {
+  "message": "Audio"
+ },
+ "tabText": {
+  "message": "Testo"
+ },
+ "tabVideo": {
+  "message": "Video"
+ },
+ "uiLangAuto": {
+  "message": "Automatica ($1)"
+ },
+ "uiLanguage": {
+  "message": "Lingua dell'estensione"
+ },
+ "universal": {
+  "message": "Universale"
+ },
+ "updateYtdlp": {
+  "message": "Aggiorna il motore di download"
+ },
+ "useSession": {
+  "message": "Usa la mia sessione"
+ },
+ "useSessionHint": {
+  "message": "Per i siti che richiedono l'accesso (come Reddit). Resta sul tuo PC e viene usata solo con il sito del video scaricato."
+ },
+ "videosOnPage": {
+  "message": "Video in questa pagina"
+ },
+ "videosPickOne": {
+  "message": "$1 video: scegline uno sopra"
+ },
+ "welcomeHello": {
+  "message": "Benvenuto in Tomo"
+ },
+ "welcomeIntro": {
+  "message": "Salva video, audio e immagini in qualità originale oppure copia ciò che viene detto come testo. Tutto avviene sul tuo computer."
+ },
+ "welcomeStart": {
+  "message": "Inizia"
+ },
+ "welcomeText": {
+  "message": "Scegli la lingua dell'estensione e aggiungi le altre lingue che capisci: vedrai sottotitoli e audio solo in queste, oltre all'originale di ogni video. Puoi cambiarlo nelle Impostazioni."
+ },
+ "welcomeTip1": {
+  "message": "Fai clic con il pulsante destro su un video o un'immagine."
+ },
+ "welcomeTip2": {
+  "message": "Scegli Scarica o trascrivi, poi Video, Audio o Testo."
+ },
+ "welcomeTip3": {
+  "message": "Trova il file nella cartella Download."
+ },
+ "welcomeTitle": {
+  "message": "Le tue lingue"
+ },
+ "withAI": {
+  "message": "Con l'IA"
+ },
+ "aiConsentDenied": {
+  "message": "L'IA ha bisogno del tuo permesso per inviare il testo della pagina al fornitore scelto."
+ },
+ "aiConsentPrompt": {
+  "message": "Tomo invierà i sottotitoli o il testo della trascrizione e il titolo del video al provider di IA che hai scelto ($PROVIDER$), per riassumerli o tradurli. L'autore di Tomo non riceve nulla. Consentire?",
+  "placeholders": {
+   "provider": {
+    "content": "$1"
+   }
+  }
+ },
+ "siteUnavailable": {
+  "message": "Questo sito non è disponibile in questo browser."
+ },
+ "limitsNote": {
+  "message": "Nessun limite di download. I video con DRM e le dirette non si possono scaricare; massimo 12 ore per video."
+ },
+ "imageOriginal": {"message": "Originale"},
+ "imagePanelHint": {"message": "Scarica l’immagine originale senza conversione."},
+ "imageDownload": {"message": "Scarica immagine"},
+ "imageSaved": {"message": "Download dell’immagine avviato."},
+ "imageAiDownload": {"message": "Scarica migliorata (IA)"},
+ "imageAiTitle": {"message": "Miglioramento immagini con IA"},
+ "imageAiHint": {"message": "Incolla una chiave Replicate (r8_) o Gemini (AIza). Resta su questo dispositivo."},
+ "imageAiKey": {"message": "Chiave API"},
+ "imageAiSave": {"message": "Attiva chiave"},
+ "imageAiRemove": {"message": "Rimuovi chiave"},
+ "imageAiQuality": {"message": "Qualità massima (Replicate Topaz)"},
+ "imageAiActive": {"message": "Attiva"},
+ "imageAiInvalid": {"message": "Chiave non valida. Controllala."},
+ "imageAiCredit": {"message": "Credito esaurito o limite raggiunto."},
+ "imageAiOffline": {"message": "Nessuna connessione. Riprova."},
+ "imageAiConfirmRemove": {"message": "Rimuovere la chiave salvata?"},
+ "setupCopy": {"message": "Copia comando di installazione"},
+ "setupCopied": {"message": "Copiato. Incolla in PowerShell e premi Invio."},
+ "setupAllSet": {"message": "Tutto pronto"},
+ "pinChrome": {"message": "Fai clic sull’icona del puzzle e sulla puntina accanto a Tomo."},
+ "pinFirefox": {"message": "Fai clic sull’icona del puzzle, sull’ingranaggio accanto a Tomo e su «Fissa»."},
+ "recommendVideo": {"message": "Sembra una pagina video. Prova Scarica video."},
+ "recommendAudio": {"message": "Sembra un audio. Prova Scarica audio."},
+ "recommendImage": {"message": "È un’immagine. Prova Scarica immagine."},
+ "recommendText": {"message": "Ti serve il testo di questa pagina? Prova Salva testo."}
+}

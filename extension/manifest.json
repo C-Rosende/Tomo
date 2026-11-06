@@ -1,0 +1,25 @@
+{
+  "manifest_version": 2,
+  "default_locale": "en",
+  "name": "__MSG_extName__",
+  "version": "0.7.12",
+  "description": "__MSG_extDescription__",
+  "permissions": ["menus", "nativeMessaging", "notifications", "storage", "activeTab", "downloads"],
+  "optional_permissions": ["cookies", "<all_urls>", "https://api.replicate.com/*", "https://generativelanguage.googleapis.com/*"],
+  "content_scripts": [{"matches": ["<all_urls>"], "js": ["context.js"], "run_at": "document_start", "all_frames": true}],
+  "background": {"scripts": ["probe.js", "platform.js", "i18n.js", "images.js", "image-ai.js", "background.js"]},
+  "browser_action": {
+    "default_title": "__MSG_actionTitle__",
+    "default_popup": "popup.html",
+    "default_icon": {"48": "icon48.png", "96": "icon96.png"}
+  },
+  "options_ui": {"page": "popup.html#settings", "open_in_tab": false},
+  "icons": {"48": "icon48.png", "96": "icon96.png", "128": "icon128.png"},
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "tomo@tomo.app",
+      "strict_min_version": "140.0",
+      "data_collection_permissions": {"required": ["none"], "optional": ["websiteContent"]}
+    }
+  }
+}

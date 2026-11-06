@@ -1,0 +1,663 @@
+{
+ "imageAiConsentPrompt": {"message": "Tomo va trimite imaginea selectată furnizorului ales (Replicate sau Gemini). API-ul poate implica costuri. Gemini poate modifica detaliile imaginii. Autorul nu primește date. Permiți îmbunătățirea imaginilor?"},
+ "actCancel": {
+  "message": "Anulează"
+ },
+ "actDismiss": {
+  "message": "Elimină"
+ },
+ "actOpen": {
+  "message": "Deschide"
+ },
+ "actRetry": {
+  "message": "Încearcă din nou"
+ },
+ "actReveal": {
+  "message": "Arată în dosar"
+ },
+ "actionTitle": {
+  "message": "Descarcă sau transcrie"
+ },
+ "addLanguage": {
+  "message": "Adaugă o limbă…"
+ },
+ "advanced": {
+  "message": "Avansat"
+ },
+ "aiBase": {
+  "message": "URL-ul serviciului"
+ },
+ "aiCustom": {
+  "message": "Altul (compatibil OpenAI)"
+ },
+ "aiKey": {
+  "message": "Cheie API"
+ },
+"aiModel": {
+  "message": "Model"
+ },
+ "aiOff": {
+  "message": "Dezactivat"
+ },
+ "aiOllama": {
+  "message": "Ollama (local, gratuit)"
+ },
+ "aiProvider": {
+  "message": "Furnizor"
+ },
+ "aiSetup": {
+  "message": "Adaugă cheia AI în Setări pentru rezumate și traduceri."
+ },
+ "aiSummarize": {
+  "message": "Rezumă"
+ },
+ "aiTest": {
+  "message": "Testează conexiunea"
+ },
+ "aiTesting": {
+  "message": "Se testează…"
+ },
+ "aiTranslate": {
+  "message": "Tradu în $1"
+ },
+ "asrFallback": {
+  "message": "Recunoaște vorbirea dacă nu există subtitrări"
+ },
+ "audioLanguage": {
+  "message": "Limba audio"
+ },
+ "back": {
+  "message": "Înapoi"
+ },
+ "backendChecking": {
+  "message": "Se verifică…"
+ },
+ "backendComponent": {
+  "message": "Componenta $1"
+ },
+ "backendMismatch": {
+  "message": "(reinstalează: versiuni diferite)"
+ },
+ "backendNoAsr": {
+  "message": "Transcrierea offline nu este disponibilă"
+ },
+ "backendNoDeno": {
+  "message": "Lipsește componenta pentru YouTube"
+ },
+ "backendNoFfmpeg": {
+  "message": "Lipsește convertorul video"
+ },
+ "backendUnavailable": {
+  "message": "Indisponibil: $1"
+ },
+ "badgeActive": {
+  "message": "$1 în curs · $2"
+ },
+ "batchAs": {
+  "message": "Descarcă în formatul"
+ },
+ "batchBest": {
+  "message": "Calitate maximă"
+ },
+ "batchGo": {
+  "message": "Începe ($1)"
+ },
+ "batchMp3": {
+  "message": "Audio MP3"
+ },
+ "batchMp4": {
+  "message": "Video MP4"
+ },
+ "batchTxt": {
+  "message": "Transcriere (TXT)"
+ },
+"cache": {
+  "message": "Memorie cache (MB)"
+ },
+ "cacheCleared": {
+  "message": "Cache golit."
+ },
+ "cancelledMsg": {
+  "message": "Anulat."
+ },
+ "cancelling": {
+  "message": "Se anulează…"
+ },
+ "cardAI": {
+  "message": "AI (opțional)"
+ },
+ "cardAIText": {
+  "message": "Folosește propria cheie pentru a rezuma și traduce transcrieri. Este păstrată doar în acest browser și trimisă numai furnizorului ales."
+ },
+ "cardDownloads": {
+  "message": "Descărcări"
+ },
+ "cardHelp": {
+  "message": "Ajutor"
+ },
+ "cardLanguages": {
+  "message": "Limbile tale"
+ },
+ "cardLanguagesText": {
+  "message": "Subtitrările și audio sunt oferite în aceste limbi, plus limba originală a fiecărui videoclip. Limba principală este cea a extensiei."
+ },
+ "cardPrivacy": {
+  "message": "Confidențialitate"
+ },
+ "cardSupport": {
+  "message": "Susține proiectul"
+ },
+ "cardTranscription": {
+  "message": "Transcriere"
+ },
+ "checkBackend": {
+  "message": "Verifică"
+ },
+ "clear": {
+  "message": "Șterge"
+ },
+ "clearCache": {
+  "message": "Golește cache-ul"
+ },
+ "clearHistory": {
+  "message": "Șterge istoricul"
+ },
+ "compatible": {
+  "message": "Compatibil"
+ },
+ "componentClosed": {
+  "message": "Componenta locală s-a închis înainte de finalizare. Verifică instalarea."
+ },
+ "componentMissing": {
+  "message": "Componenta auxiliară lipsește de pe PC. Instaleaz-o prin dublu clic pe install.cmd."
+ },
+ "componentStartFailed": {
+  "message": "Componenta locală nu a putut porni. Rulează install.cmd."
+ },
+ "concurrency": {
+  "message": "Descărcări simultane"
+ },
+ "copyDiagnostics": {
+  "message": "Copiază datele de diagnostic"
+ },
+ "copyText": {
+  "message": "Copiază textul"
+ },
+ "defaultFormat": {
+  "message": "Format pentru un clic"
+ },
+ "diagnosticsCopied": {
+  "message": "Datele de diagnostic au fost copiate. Lipește-le când raportezi o problemă."
+ },
+ "donateKofi": {
+  "message": "Susține Tomo pe Ko-fi"
+ },
+ "download": {
+  "message": "Descarcă"
+ },
+ "downloadAudioAs": {
+  "message": "Descarcă audio ca $1"
+ },
+ "downloadAudioOriginal": {
+  "message": "Descarcă audio original"
+ },
+ "downloadQuality": {
+  "message": "Descarcă $1"
+ },
+ "downloadQualityIn": {
+  "message": "Descarcă $1 ca $2"
+ },
+ "embedSubs": {
+  "message": "Încorporează subtitrările în limbile tale"
+ },
+ "saveSubfolder": {
+  "message": "Dosar în Descărcări (opțional)"
+ },
+ "nameTemplate": {
+  "message": "Nume de fișier (opțional)"
+ },
+ "nameTemplateHint": {
+  "message": "Câmpuri: {title} {author} {id} {date} {site}. Gol = automat. Exemplu: {author} - {title}"
+ },
+ "embeddedVideo": {
+  "message": "Videoclip încorporat"
+ },
+ "emptyText": {
+  "message": "Fă clic dreapta pe un videoclip sau folosește fila «Acest videoclip»."
+ },
+ "emptyTitle": {
+  "message": "Nicio descărcare încă"
+ },
+ "extDescription": {
+  "message": "Descarcă videoclipuri, audio și imagini sau transcrie conținutul direct din browser."
+ },
+ "extName": {
+  "message": "Tomo"
+ },
+ "footerPrivacy": {
+  "message": "Totul este procesat pe computerul tău, fără conturi și fără urmărire."
+ },
+"format": {
+  "message": "Format"
+ },
+ "groupFinished": {
+  "message": "Finalizate"
+ },
+ "groupHistory": {
+  "message": "Istoric"
+ },
+ "groupRunning": {
+  "message": "În curs"
+ },
+ "healing": {
+  "message": "Site-ul s-a schimbat: se actualizează și se încearcă din nou…"
+ },
+ "historyCleared": {
+  "message": "Istoricul a fost șters."
+ },
+ "includeTimestamps": {
+  "message": "Include marcaje temporale"
+ },
+ "keepHistory": {
+  "message": "Păstrează istoricul descărcărilor"
+ },
+ "kindAudio": {
+  "message": "Audio"
+ },
+"kindVideo": {
+  "message": "Videoclip"
+ },
+ "labelAudio": {
+  "message": "Audio original"
+ },
+ "labelBest": {
+  "message": "Video · calitate maximă"
+ },
+ "labelCustom": {
+  "message": "Video · calitatea aleasă"
+ },
+ "labelDownload": {
+  "message": "Descărcare"
+ },
+ "labelM4a": {
+  "message": "Audio · M4A"
+ },
+"labelMkv": {
+  "message": "Video · MKV"
+ },
+ "labelMp3": {
+  "message": "Audio · MP3"
+ },
+ "labelMp4": {
+  "message": "Video · MP4 compatibil"
+ },
+ "labelMp4Remux": {
+  "message": "Video · MP4 (fără recodare)"
+ },
+ "labelSummary": {
+  "message": "Rezumat AI"
+ },
+ "labelTranscript": {
+  "message": "Transcriere"
+ },
+ "labelTranscriptFile": {
+  "message": "Transcriere · $1"
+ },
+ "labelTranscriptTimed": {
+  "message": "Transcriere cu marcaje temporale"
+ },
+ "labelTranslate": {
+  "message": "Traducere AI · $1"
+ },
+ "labelUpdate": {
+  "message": "Se actualizează motorul de descărcare"
+ },
+"labelWebm": {
+  "message": "Video · WebM"
+ },
+ "language": {
+  "message": "Limbă"
+ },
+"live": {
+  "message": "În direct"
+ },
+ "loading": {
+  "message": "Se caută calitățile disponibile"
+ },
+ "localError": {
+  "message": "Eroare în procesul local."
+ },
+ "lossless": {
+  "message": "Fără pierderi"
+ },
+ "mainLanguage": {
+  "message": "Principală"
+ },
+ "maxQuality": {
+  "message": "Maximă"
+ },
+ "menuAudio": {
+  "message": "Audio"
+ },
+ "menuAudioOriginal": {
+  "message": "Original"
+ },
+ "menuBest": {
+  "message": "Calitate maximă"
+ },
+ "menuCopy": {
+  "message": "Copiază textul"
+ },
+"menuCopyTimed": {
+  "message": "Copiază cu marcaje temporale"
+ },
+"menuDefault": {
+  "message": "Descarcă în formatul meu"
+ },
+ "menuFolder": {
+  "message": "Deschide dosarul de descărcări"
+ },
+ "menuImage": {
+  "message": "Salvează imaginea"
+ },
+ "menuM4a": {
+  "message": "M4A"
+ },
+ "menuMkv": {
+  "message": "MKV"
+ },
+ "menuMp3": {
+  "message": "MP3"
+ },
+"menuMp4": {
+  "message": "MP4 (compatibil)"
+ },
+ "menuPanel": {
+  "message": "Deschide Tomo"
+ },
+"menuPickLang": {
+  "message": "Alege limba…"
+ },
+"menuPickQuality": {
+  "message": "Alege calitatea…"
+ },
+"menuRoot": {
+  "message": "Descarcă sau transcrie"
+ },
+"menuSaveSrt": {
+  "message": "Salvează SRT"
+ },
+"menuSaveTxt": {
+  "message": "Salvează TXT"
+ },
+"menuSummarize": {
+  "message": "Rezumă cu IA"
+ },
+ "menuText": {
+  "message": "Text"
+ },
+"menuVideo": {
+  "message": "Videoclip"
+ },
+"metrics": {
+  "message": "Înregistrează valorile de performanță pe acest computer"
+ },
+"navDownloads": {
+  "message": "Descărcări"
+ },
+"navVideo": {
+  "message": "Acest videoclip"
+ },
+"noResults": {
+  "message": "Niciun rezultat"
+ },
+"noVideo": {
+  "message": "Nu există niciun videoclip în această filă."
+ },
+"noteAudioConvert": {
+  "message": "Va fi convertit, cu o mică pierdere de calitate."
+ },
+"noteNoSubsAsr": {
+  "message": "Fără subtitrări: vocea va fi recunoscută pe computerul tău (mai lent)."
+ },
+"noteNoSubsMine": {
+  "message": "Nu există subtitrări în limbile tale; va fi folosită limba originală."
+ },
+"noteNoSubsNoAsr": {
+  "message": "Nu există subtitrări, iar recunoașterea vocală nu este instalată."
+ },
+"noteRecode": {
+  "message": "Această calitate nu este disponibilă în MP4: videoclipul va fi convertit, ceea ce poate dura câteva minute."
+ },
+"notifyAiMissing": {
+  "message": "Configurează IA în Setări pentru a folosi această opțiune."
+ },
+"notifyAlreadyRunning": {
+  "message": "Deja în curs"
+ },
+"notifyDone": {
+  "message": "Gata"
+ },
+"notifyFailed": {
+  "message": "Nu s-a putut finaliza"
+ },
+"notifyFolderFailed": {
+  "message": "Nu s-a putut deschide dosarul Descărcări"
+ },
+"notifyImageFailed": {
+  "message": "Nu s-a putut salva imaginea"
+ },
+"notifyImageUnsupported": {
+  "message": "Această imagine nu poate fi descărcată"
+ },
+"notifyNoUrl": {
+  "message": "Nicio adresă URL utilizabilă"
+ },
+"notifyNoUrlText": {
+  "message": "Deschide o pagină HTTP(S) cu videoclipul și încearcă din nou."
+ },
+"notifyPanelUnavailable": {
+  "message": "Panoul nu este disponibil"
+ },
+"notifyPanelUnavailableText": {
+  "message": "Fixează butonul extensiei în bara de instrumente sau deschide-l din meniul extensiilor."
+ },
+"notifyTranscriptReady": {
+  "message": "Transcrierea este gata de lipit"
+ },
+ "original": {
+  "message": "Original"
+ },
+"originalLabel": {
+  "message": "$1 (original)"
+ },
+"pointedSub": {
+  "message": "Cel pe care ai făcut clic dreapta"
+ },
+"pointedVideo": {
+  "message": "Videoclipul pe care ai făcut clic dreapta"
+ },
+"precision": {
+  "message": "Precizie"
+ },
+"precisionBalanced": {
+  "message": "Echilibrată"
+ },
+"precisionFast": {
+  "message": "Rapidă"
+ },
+"precisionHigh": {
+  "message": "Ridicată (lentă)"
+ },
+"protocolMismatch": {
+  "message": "Atenție: versiunea componentei locale este diferită"
+ },
+"quality": {
+  "message": "Calitate"
+ },
+"removeLang": {
+  "message": "Elimină $1"
+ },
+"reportCopied": {
+  "message": "Formularul este deschis. Un raport scurt se află în clipboard; lipește-l dacă ajută."
+ },
+"reportHint": {
+  "message": "Nu a funcționat ceva? Se deschide un formular GitHub cu versiunile Tomo, ale componentei, ale browserului și ale sistemului deja completate. Nu include niciodată paginile pe care le vizitezi sau date personale."
+ },
+"reportOpened": {
+  "message": "Formularul este deschis. Descrie ce s-a întâmplat și adaugă o captură de ecran dacă ajută."
+ },
+"reportProblem": {
+  "message": "Raportează o problemă"
+ },
+"saved": {
+  "message": "Salvat."
+ },
+"selectDone": {
+  "message": "Gata"
+ },
+"selectMany": {
+  "message": "Selectează mai multe"
+ },
+"settings": {
+  "message": "Setări"
+ },
+"setupLink": {
+  "message": "Vezi instrucțiunile"
+ },
+"setupText": {
+  "message": "Tomo are nevoie de un mic program auxiliar pe computerul tău, instalat o singură dată. Durează câteva minute, în funcție de conexiune. Urmează pașii din ghid (fără drepturi de administrator)."
+ },
+"setupTitle": {
+  "message": "Mai este un pas: componenta pentru computerul tău"
+ },
+"showProgress": {
+  "message": "Arată progresul descărcării"
+ },
+"starting": {
+  "message": "Se pornește"
+ },
+"stateCancelled": {
+  "message": "Anulată"
+ },
+"stateDone": {
+  "message": "Finalizată"
+ },
+ "stateError": {
+  "message": "Error"
+ },
+"stateQueued": {
+  "message": "În așteptare"
+ },
+"stateRunning": {
+  "message": "În curs"
+ },
+"suggested": {
+  "message": "Recomandate"
+ },
+ "supportText": {
+  "message": "Tomo este gratuit și fără reclame. Dacă îți este util, îl poți susține printr-o donație."
+ },
+ "tabAudio": {
+  "message": "Audio"
+ },
+"tabText": {
+  "message": "Text"
+ },
+ "tabVideo": {
+  "message": "Video"
+ },
+"uiLangAuto": {
+  "message": "Automată ($1)"
+ },
+ "uiLanguage": {
+  "message": "Limba interfeței"
+ },
+ "universal": {
+  "message": "Universal"
+ },
+"updateYtdlp": {
+  "message": "Actualizează motorul de descărcare"
+ },
+"useSession": {
+  "message": "Folosește sesiunea mea"
+ },
+"useSessionHint": {
+  "message": "Pentru site-urile care cer autentificare (precum Reddit). Sesiunea rămâne pe computerul tău și este folosită numai pentru site-ul videoclipului descărcat."
+ },
+"videosOnPage": {
+  "message": "Videoclipuri pe această pagină"
+ },
+"videosPickOne": {
+  "message": "$1 videoclipuri: alege unul de mai sus"
+ },
+"welcomeHello": {
+  "message": "Bine ai venit la Tomo"
+ },
+ "welcomeIntro": {
+  "message": "Salvează videoclipuri, audio și imagini la calitatea originală sau copiază cuvintele ca text. Totul se întâmplă pe computerul tău."
+ },
+ "welcomeStart": {
+  "message": "Începe"
+ },
+ "welcomeText": {
+  "message": "Alege limba extensiei și limbile pe care le înțelegi. Le poți schimba ulterior din Setări."
+ },
+ "welcomeTip1": {
+  "message": "Fă clic dreapta pe un videoclip sau o imagine."
+ },
+ "welcomeTip2": {
+  "message": "Alege descărcarea sau transcrierea."
+ },
+ "welcomeTip3": {
+  "message": "Găsește fișierul în dosarul Descărcări."
+ },
+ "welcomeTitle": {
+  "message": "Limbile tale"
+ },
+"withAI": {
+  "message": "Cu IA"
+ },
+"aiConsentDenied": {
+  "message": "IA are nevoie de permisiunea ta pentru a trimite textul paginii către furnizorul ales."
+ },
+"aiConsentPrompt": {
+  "message": "Tomo va trimite subtitrările sau transcrierea videoclipului și titlul său către furnizorul de IA ales ($PROVIDER$), pentru rezumare sau traducere. Autorul Tomo nu primește nimic. Permiți?",
+  "placeholders": {
+   "provider": {
+    "content": "$1"
+   }
+  }
+ },
+ "siteUnavailable": {
+  "message": "Acest site nu este disponibil în acest browser."
+ },
+ "limitsNote": {
+  "message": "Fără limită de descărcări. Videoclipurile cu DRM și transmisiunile live nu pot fi descărcate; durata maximă este de 12 ore."
+ },
+ "imageOriginal": {"message": "Original"},
+ "imagePanelHint": {"message": "Descarcă imaginea originală fără conversie."},
+ "imageDownload": {"message": "Descarcă imaginea"},
+ "imageSaved": {"message": "Descărcarea imaginii a început."},
+ "imageAiDownload": {"message": "Descarcă îmbunătățită (IA)"},
+ "imageAiTitle": {"message": "Îmbunătățirea imaginii cu IA"},
+ "imageAiHint": {"message": "Lipește o cheie Replicate (r8_) sau Gemini (AIza). Rămâne pe acest dispozitiv."},
+ "imageAiKey": {"message": "Cheie API"},
+ "imageAiSave": {"message": "Activează cheia"},
+ "imageAiRemove": {"message": "Șterge cheia"},
+ "imageAiQuality": {"message": "Calitate maximă (Replicate Topaz)"},
+ "imageAiActive": {"message": "Activă"},
+ "imageAiInvalid": {"message": "Cheie invalidă. Verific-o."},
+ "imageAiCredit": {"message": "Fără credit sau limită atinsă."},
+ "imageAiOffline": {"message": "Fără conexiune. Încearcă din nou."},
+ "imageAiConfirmRemove": {"message": "Ștergi cheia salvată?"},
+ "setupCopy": {"message": "Copiază comanda de instalare"},
+ "setupCopied": {"message": "Copiat. Lipește în PowerShell și apasă Enter."},
+ "setupAllSet": {"message": "Totul este gata"},
+ "pinChrome": {"message": "Apasă pictograma puzzle, apoi acul de lângă Tomo."},
+ "pinFirefox": {"message": "Apasă pictograma puzzle, rotița de lângă Tomo și alege «Fixează»."},
+ "recommendVideo": {"message": "Aceasta pare o pagină video. Încearcă să descarci videoclipul."},
+ "recommendAudio": {"message": "Acesta pare un fișier audio. Încearcă să descarci sunetul."},
+ "recommendImage": {"message": "Aceasta este o imagine. Încearcă să descarci imaginea."},
+ "recommendText": {"message": "Ai nevoie de textul paginii? Încearcă să salvezi textul."}
+}

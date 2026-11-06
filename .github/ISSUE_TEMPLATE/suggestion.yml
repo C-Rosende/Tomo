@@ -1,0 +1,35 @@
+name: Suggestion or question
+description: An idea, a site to support, or a question
+title: "Idea: "
+labels: ["suggestion"]
+body:
+  - type: textarea
+    id: what
+    attributes:
+      label: What would you like, or what do you want to know?
+      description: If it is about a site, name it (for example reddit.com) and say what you tried to save.
+    validations:
+      required: true
+  - type: dropdown
+    id: os
+    attributes:
+      label: Operating system
+      options:
+        - Windows
+        - macOS
+        - Linux
+        - Other
+    validations:
+      required: true
+  - type: dropdown
+    id: browser
+    attributes:
+      label: Browser
+      options:
+        - Firefox
+        - Chrome
+        - Edge
+        - Brave
+        - Other
+    validations:
+      required: true
