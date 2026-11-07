@@ -22,8 +22,8 @@ function assertZipValid(file) {
     const start = offset + 30 + nameSize + extraSize;
     const packed = zip.subarray(start, start + compressed);
     const data = method === 8 ? zlib.inflateRawSync(packed) : packed;
-    assert.strictEqual(method === 8 || method === 0, true, `método ZIP ${method}`);
-    assert.strictEqual(data.length, size, `tamaño de ${zip.toString("utf8", offset + 30, offset + 30 + nameSize)}`);
+    assert.strictEqual(method === 8 || method === 0, true, `ZIP method ${method}`);
+    assert.strictEqual(data.length, size, `size of ${zip.toString("utf8", offset + 30, offset + 30 + nameSize)}`);
     assert.strictEqual(zlib.crc32(data), crc, "CRC ZIP");
     offset = start + compressed;
     count++;
@@ -62,25 +62,25 @@ assert.ok([...cm.permissions, ...cm.optional_permissions, ...(cm.host_permission
 for (const [name, data] of chrome.entries) {
   if (!/\.(?:js|json|html|css)$/.test(name)) continue;
   const mentions = /youtube|youtu\.be|ytimg/i.test(data.toString("utf8"));
-  assert.ok(!mentions || ["platform.js", "manifest.json"].includes(name), `mención no permitida en Chrome: ${name}`);
+  assert.ok(!mentions || ["platform.js", "manifest.json"].includes(name), `mention not allowed in Chrome: ${name}`);
 }
-assert.ok(!/imageVariants\([^)]*\)\s*\{[^}]*ytimg/i.test(text(chrome, "platform.js")), "Chrome no procesa miniaturas del sitio excluido");
+assert.ok(!/imageVariants\([^)]*\)\s*\{[^}]*ytimg/i.test(text(chrome, "platform.js")), "Chrome does not process thumbnails from the excluded site");
 const chromePlatform = new vm.Script(`${text(chrome, "platform.js")}; platform.blocks`);
 const blocks = chromePlatform.runInNewContext({URL});
 for (const url of ["https://youtube.com/watch?v=x", "https://m.youtube.com/shorts/x", "https://youtu.be/x", "https://www.youtube-nocookie.com/embed/x", "https://i.ytimg.com/vi/x/hqdefault.jpg"]) {
   assert.ok(blocks(url), `Chrome no bloquea ${url}`);
 }
 assert.ok(!blocks("https://notyoutube.com/video"));
-assert.ok(!/youtube|youtu\.be/i.test(text(chrome, "popup.js")), "Chrome no detecta medios del sitio excluido");
+assert.ok(!/youtube|youtu\.be/i.test(text(chrome, "popup.js")), "Chrome does not detect media from the excluded site");
 for (const name of [...chrome.entries.keys()].filter((n) => n.startsWith("_locales/"))) {
   assert.ok(!/youtube|youtu\.be/i.test(text(chrome, name)), `locale Chrome: ${name}`);
 }
 const referenced = [cm.background.service_worker, ...cm.content_scripts.flatMap((c) => c.js), cm.action.default_popup,
   ...Object.values(cm.icons), ...Object.values(cm.action.default_icon)];
-for (const name of referenced) assert.ok(chrome.entries.has(name), `falta ${name} en Chrome`);
+for (const name of referenced) assert.ok(chrome.entries.has(name), `${name} missing from Chrome`);
 const sw = text(chrome, "sw.js");
 for (const [, list] of sw.matchAll(/importScripts\(([^)]*)\)/g)) {
-  for (const [, name] of list.matchAll(/"([^"]+)"/g)) assert.ok(chrome.entries.has(name), `importScripts: falta ${name}`);
+  for (const [, name] of list.matchAll(/"([^"]+)"/g)) assert.ok(chrome.entries.has(name), `importScripts: ${name} missing`);
 }
 
 const fm = JSON.parse(text(firefox, "manifest.json"));
@@ -92,7 +92,7 @@ assert.strictEqual(fm.browser_specific_settings.gecko.id, "tomo@tomo.app");
 const chromiumIds = fs.readFileSync(path.join(__dirname, "../chromium-ids.txt"), "utf8").split(/\r?\n/)
   .map((line) => line.replace(/#.*/, "").trim()).filter(Boolean);
 assert.deepStrictEqual(chromiumIds, ["ejdlbopdblhemopclkioijjcnmlbenfp"]);
-for (const name of fm.background.scripts) assert.ok(firefox.entries.has(name), `falta ${name} en Firefox`);
+for (const name of fm.background.scripts) assert.ok(firefox.entries.has(name), `${name} missing from Firefox`);
 assert.ok(!firefox.entries.has("sw.js") && !firefox.entries.has("compat.js"));
 
 for (const [name, data] of chrome.entries) {
@@ -126,23 +126,23 @@ try {
   assert.deepStrictEqual(runtimeNames, [...runtime.entries.keys()].sort());
   const installer = runtime.entries.get(`${prefix}install.ps1`).toString("utf8");
   const managed = installer.match(/\$files = @\(([^)]+)\)/)[1].matchAll(/'([^']+)'/g);
-  for (const [, name] of managed) assert.ok(runtime.entries.has(`${prefix}backend/${name}`), `falta dependencia del instalador: ${name}`);
+  for (const [, name] of managed) assert.ok(runtime.entries.has(`${prefix}backend/${name}`), `installer dependency missing: ${name}`);
   for (const name of ["install.cmd", "install.sh", "uninstall.ps1", "chromium-ids.txt", "LICENSE", "docs/TERMS.md"]) {
-    assert.ok(runtime.entries.has(prefix + name), `falta archivo de distribución: ${name}`);
+    assert.ok(runtime.entries.has(prefix + name), `distribution file missing: ${name}`);
   }
   for (const pkg of [chrome, firefox, runtime]) {
-    assert.ok([...pkg.entries.keys()].every((name) => !/(?:^|\/)(?:\.git|\.env[^/]*|\.venv|tests|tools|AGENTS\.md|\x43LAUDE\.md|GEMINI\.md|config\.json|history\.json)(?:\/|$)/i.test(name)), "archivo privado en paquete");
+    assert.ok([...pkg.entries.keys()].every((name) => !/(?:^|\/)(?:\.git|\.env[^/]*|\.venv|tests|tools|AGENTS\.md|\x43LAUDE\.md|GEMINI\.md|config\.json|history\.json)(?:\/|$)/i.test(name)), "private file in package");
   }
   const staged = stagePublic(path.join(out, "public"));
   const stagedFiles = fs.readdirSync(staged, {recursive: true}).filter((name) => fs.statSync(path.join(staged, name)).isFile());
   for (const forbidden of [".git", "backend", "extension", "chrome", "tests", "tools", ".github/workflows", "docs/DEVELOPMENT.md", "docs/RELEASING.md", "docs/PUBLICATION.md"]) {
-    assert.ok(!fs.existsSync(path.join(staged, forbidden)), `archivo de desarrollo en exportación pública: ${forbidden}`);
+    assert.ok(!fs.existsSync(path.join(staged, forbidden)), `development file in public export: ${forbidden}`);
   }
   for (const name of stagedFiles.filter((name) => name.endsWith(".md"))) {
     const content = fs.readFileSync(path.join(staged, name), "utf8");
     for (const [, target] of content.matchAll(/\[[^\]]+\]\(([^)]+)\)/g)) {
       if (/^(?:[a-z]+:|#)/i.test(target)) continue;
-      assert.ok(fs.existsSync(path.resolve(path.dirname(path.join(staged, name)), target.split("#")[0])), `enlace público roto: ${name} -> ${target}`);
+      assert.ok(fs.existsSync(path.resolve(path.dirname(path.join(staged, name)), target.split("#")[0])), `broken public link: ${name} -> ${target}`);
     }
   }
   const before = fs.readFileSync(path.join(staged, "README.md"));

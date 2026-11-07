@@ -32,12 +32,14 @@
     <h3 class="card-title step-title" data-i18n="welcomeTitle"></h3>
     <label class="stack"><span data-i18n="uiLanguage"></span><select class="ui-lang"></select></label>
     <p class="muted" data-i18n="welcomeText"></p>
+    <p class="muted" data-i18n="welcomeHelperNext"></p>
     <div class="lang-picker" data-picker="welcome"></div>
-    <div class="footer"><button id="welcome-done" type="button" class="primary" data-i18n="welcomeStart"></button></div>
+    <div class="footer"><button id="welcome-done" type="button" class="primary" data-i18n="welcomeContinue"></button></div>
   </section>
 
   <section id="view-video" class="view" hidden>
     <p id="status" class="notice" role="status" hidden></p>
+    <button id="retry-resolve" type="button" class="secondary" data-i18n="actRetry" hidden></button>
     <div id="image-panel" hidden>
       <h2 class="card-title" data-i18n="menuImage"></h2>
       <p class="muted" data-i18n="imagePanelHint"></p>
@@ -169,6 +171,7 @@
   </section>
 
   <section id="view-jobs" class="view" hidden>
+    <p id="jobs-status" class="notice" role="status" hidden></p>
     <div id="jobs-active" class="group" hidden>
       <h2 class="group-title" data-i18n="groupRunning"></h2>
       <ul id="jobs-running" class="list"></ul>
@@ -287,6 +290,7 @@
         <label class="switch"><input type="checkbox" name="metrics"><span data-i18n="metrics"></span></label>
         <label class="inline"><span data-i18n="cache"></span> <input type="number" name="cacheMb" min="0" max="5000" step="50"></label>
         <p id="backend-status" class="muted small"></p>
+        <a id="backend-guide" href="https://github.com/C-Rosende/Tomo#install" target="_blank" rel="noopener" data-i18n="setupLink" hidden></a>
         <div class="row wrap">
           <button type="button" id="check-backend" class="secondary" data-i18n="checkBackend"></button>
           <button type="button" id="update-ytdlp" class="secondary" data-i18n="updateYtdlp"></button>

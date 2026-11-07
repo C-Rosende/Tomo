@@ -56,7 +56,7 @@ const settle = () => new Promise((resolve) => setTimeout(resolve, 20));
 (async () => {
   let app = load();
   await settle();
-  assert.ok([...app.menus.keys()].indexOf("dl-default") === 1, "dl-default va justo después de root");
+  assert.ok([...app.menus.keys()].indexOf("dl-default") === 1, "dl-default comes right after root");
   assert.strictEqual(app.menus.get("dl-default").title, "menuDefault: menuBest");
 
   let prefs = await app.send({type: "setPrefs", prefs: {defaultPreset: "mp3"}});
@@ -74,7 +74,7 @@ const settle = () => new Promise((resolve) => setTimeout(resolve, 20));
     app.handlers.clicked({menuItemId: "dl-default", pageUrl: "https://example.com/watch?v=1"}, {id: 1, url: "https://example.com/watch?v=1", title: "t"});
     await settle();
     const job = app.sent.find((m) => m.action === "download");
-    assert.ok(job, `descarga enviada para ${preset}`);
+    assert.ok(job, `download sent for ${preset}`);
     assert.strictEqual(job.preset, preset);
   }
 
@@ -88,21 +88,21 @@ const settle = () => new Promise((resolve) => setTimeout(resolve, 20));
   await settle();
   app.handlers.tabUpdated(1, {}, {id: 1, active: true, url: "https://www.youtube.com/watch?v=test"});
   await settle();
-  assert.strictEqual(app.menus.get("root").visible, false, "Chrome oculta el menú en la pestaña excluida");
-  assert.strictEqual(app.menus.get("img-save").visible, false, "Chrome oculta también la imagen");
+  assert.strictEqual(app.menus.get("root").visible, false, "Chrome hides the menu on the excluded tab");
+  assert.strictEqual(app.menus.get("img-save").visible, false, "Chrome also hides the image entry");
   app.handlers.tabUpdated(1, {}, {id: 1, active: true, url: "https://example.com/video"});
   await settle();
-  assert.strictEqual(app.menus.get("root").visible, true, "Chrome restaura el menú en otros sitios");
+  assert.strictEqual(app.menus.get("root").visible, true, "Chrome restores the menu on other sites");
   app.handlers.clicked({menuItemId: "dl-default", pageUrl: "https://www.youtube.com/watch?v=test"},
     {id: 1, url: "https://www.youtube.com/watch?v=test", title: "t"});
   await settle();
-  assert.strictEqual(app.sent.length, 0, "Chromium no envía descargas de YouTube al componente");
+  assert.strictEqual(app.sent.length, 0, "Chromium does not send YouTube downloads to the helper");
   assert.strictEqual((await app.send({type: "start", request: {action: "download", url: "https://youtu.be/test"}})), null);
-  assert.strictEqual(app.sent.length, 0, "Chromium tampoco inicia YouTube desde el popup");
+  assert.strictEqual(app.sent.length, 0, "Chromium does not start YouTube from the popup either");
   app.handlers.clicked({menuItemId: "img-save", pageUrl: "https://example.com/", srcUrl: "https://i.ytimg.com/vi/x/hqdefault.jpg"},
     {id: 1, url: "https://example.com/"});
   await settle();
-  assert.strictEqual(app.sent.length, 0, "Chromium no procesa imágenes del dominio excluido");
+  assert.strictEqual(app.sent.length, 0, "Chromium does not process images from the excluded domain");
 
   app = load({prefs: {defaultPreset: "../../x"}});
   await settle();
@@ -121,18 +121,18 @@ const settle = () => new Promise((resolve) => setTimeout(resolve, 20));
   consent = true;
   await app.send({type: "setPrefs", prefs: {ai: {provider: "openai", key: "TEST_ONLY"}}});
   assert.ok(await app.send({type: "start", request: {action: "transcript", mode: "summary", url: "https://example.com/v"}}),
-    "el consentimiento del proveedor nuevo permite iniciar la tarea inmediatamente");
+    "consent for the new provider lets the task start immediately");
 
   app = load({}, {nativePost: () => { throw new Error("native write failed"); }});
   await settle();
   await app.send({type: "start", request: {action: "download", url: "https://example.com/v"}});
   await settle();
-  assert.strictEqual((await app.send({type: "state"})).jobs[0].state, "error", "fallo al enviar no deja la tarea ejecutándose");
+  assert.strictEqual((await app.send({type: "state"})).jobs[0].state, "error", "a send failure does not leave the task running");
   let disconnected = 0;
   app = load({}, {nativePost: () => { throw new Error("native write failed"); }, nativeDisconnect: () => disconnected++});
   await settle();
   assert.match((await app.send({type: "ping"})).error, /native write failed/);
-  assert.strictEqual(disconnected, 1, "fallo al enviar una llamada nativa desconecta el puerto");
+  assert.strictEqual(disconnected, 1, "a failed native call disconnects the port");
 
   const jar = {A: [], B: [{domain: "site.tld", hostOnly: true, path: "/", secure: true, name: "sid", value: "FROM_B", httpOnly: false}]};
   const cookies = {getAllCookieStores: () => Promise.resolve([{id: "A"}, {id: "B"}]),
@@ -144,13 +144,13 @@ const settle = () => new Promise((resolve) => setTimeout(resolve, 20));
   app.handlers.clicked({menuItemId: "dl-default", pageUrl: page}, {id: 1, url: page, cookieStoreId: "A"});
   await settle();
   let sent = app.sent.find((m) => m.action === "download");
-  assert.ok(sent && !sent.cookies && !("store" in sent), "el contenedor A no recibe cookies del B");
+  assert.ok(sent && !sent.cookies && !("store" in sent), "container A does not receive cookies from B");
   app = load({prefs: {showProgress: false, session: true}}, extra);
   await settle();
   app.handlers.clicked({menuItemId: "dl-default", pageUrl: page}, {id: 2, url: page, cookieStoreId: "B"});
   await settle();
   sent = app.sent.find((m) => m.action === "download");
-  assert.ok(sent && /FROM_B/.test(sent.cookies) && !("store" in sent), "el contenedor B sí envía su sesión");
+  assert.ok(sent && /FROM_B/.test(sent.cookies) && !("store" in sent), "container B sends its own session");
   app = load({prefs: {showProgress: false}});
   await settle();
   const posts = [];
@@ -163,8 +163,8 @@ const settle = () => new Promise((resolve) => setTimeout(resolve, 20));
   app.handlers.native({status: "done", message: "ok", path: "C:/d/a.mp4"});
   await new Promise((resolve) => setTimeout(resolve, 600));
   const jobs = posts.filter((m) => m.type === "jobs");
-  assert.ok(jobs.length - before <= 4, `ráfaga agrupada (${jobs.length - before})`);
-  assert.strictEqual(jobs.at(-1).jobs[0].state, "done", "el estado final llega al panel");
+  assert.ok(jobs.length - before <= 4, `burst grouped (${jobs.length - before})`);
+  assert.strictEqual(jobs.at(-1).jobs[0].state, "done", "the final state reaches the panel");
   const site = "https://galeria.cl/m/";
   const shown = {base: site, src: site + "t/1.jpg", link: "", data: [], srcset: [site + "g/big.jpg 2000w"]};
   const a = load({}, {imageHelper: true, tabs: {create: () => Promise.resolve(), executeScript: async () => [{image: shown}]}});

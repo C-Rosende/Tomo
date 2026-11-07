@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 set -euo pipefail
+printf 'Experimental macOS/Linux installer; not supported for first-time users.\n' >&2
 
 src=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd -P)
 case $(uname -s) in

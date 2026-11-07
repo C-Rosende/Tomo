@@ -26,24 +26,24 @@ class AIError(RuntimeError):
 
 def config(raw, T) -> dict:
     if not isinstance(raw, dict):
-        raise AIError(T("Configura la IA en Ajustes (proveedor y clave)."))
+        raise AIError(T("Set up AI in Settings (provider and key)."))
     provider = raw.get("provider")
     if provider not in PROVIDERS:
-        raise AIError(T("Proveedor de IA no válido."))
+        raise AIError(T("Invalid AI provider."))
     base_default, model_default = PROVIDERS[provider]
     base = str(raw.get("base") or base_default).strip().rstrip("/")
     parts = urlsplit(base)
     local = parts.hostname in LOCAL_HOSTS
     if parts.scheme not in ("https", "http") or (parts.scheme == "http" and not local) or not parts.hostname:
-        raise AIError(T("La URL del servicio de IA debe ser https:// (o http:// solo en este equipo)."))
+        raise AIError(T("The AI service URL must be https:// (or http:// only on this computer)."))
     key = str(raw.get("key") or "").strip()
     if len(key) > 400 or re.search(r"\s", key):
-        raise AIError(T("La clave de la API tiene un formato no válido."))
+        raise AIError(T("The API key has an invalid format."))
     if not key and not local:
-        raise AIError(T("Falta la clave de la API en Ajustes."))
+        raise AIError(T("The API key is missing in Settings."))
     model = str(raw.get("model") or model_default).strip()
     if not MODEL.match(model):
-        raise AIError(T("Nombre de modelo no válido."))
+        raise AIError(T("Invalid model name."))
     return {"provider": provider, "base": base, "key": key, "model": model}
 
 
@@ -64,16 +64,16 @@ def _post(url: str, headers: dict, body: dict, T, timeout: int = 180) -> dict:
     except urllib.error.HTTPError as exc:
         status = exc.code
         if status in (401, 403):
-            raise AIError(T("La clave de la API no es válida o no tiene permiso para ese modelo.")) from None
+            raise AIError(T("The API key is invalid or has no access to that model.")) from None
         if status == 404:
-            raise AIError(T("El servicio no encontró el modelo: revisa su nombre en Ajustes.")) from None
+            raise AIError(T("The service couldn't find the model: check its name in Settings.")) from None
         if status == 429:
-            raise AIError(T("Límite de uso o saldo de la API agotado. Inténtalo más tarde.")) from None
-        raise AIError(T("El servicio de IA respondió con un error (HTTP {code}).", code=status)) from None
+            raise AIError(T("API usage limit or credit exhausted. Try again later.")) from None
+        raise AIError(T("The AI service returned an error (HTTP {code}).", code=status)) from None
     except (urllib.error.URLError, TimeoutError, OSError):
-        raise AIError(T("No se pudo conectar con el servicio de IA.")) from None
+        raise AIError(T("Couldn't connect to the AI service.")) from None
     except ValueError:
-        raise AIError(T("Respuesta no válida del servicio de IA.")) from None
+        raise AIError(T("Invalid response from the AI service.")) from None
 
 
 def complete(cfg: dict, system: str, prompt: str, T, max_tokens: int = 4096) -> str:
@@ -93,7 +93,7 @@ def complete(cfg: dict, system: str, prompt: str, T, max_tokens: int = 4096) -> 
         text = ((data.get("choices") or [{}])[0].get("message") or {}).get("content") or ""
     text = str(text).strip()
     if not text:
-        raise AIError(T("El servicio de IA no devolvió texto."))
+        raise AIError(T("The AI service returned no text."))
     return text
 
 
@@ -125,7 +125,7 @@ def translate_lines(cfg: dict, lines: list[str], language: str, T, progress=None
             items = None
         if (not isinstance(items, list) or len(items) != len(batch)
                 or any(not isinstance(x, str) or not x.strip() for x in items)):
-            raise AIError(T("El servicio de IA devolvió una traducción inválida."))
+            raise AIError(T("The AI service returned an invalid translation."))
         result += [x.strip() for x in items]
         if progress:
             progress(min(100.0, (start + len(batch)) * 100 / len(lines)))

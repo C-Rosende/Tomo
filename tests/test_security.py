@@ -224,7 +224,7 @@ class SecurityTests(unittest.TestCase):
         for path in (host.METRICS, host.METRICS.with_suffix(".1.jsonl")):
             path.write_text("private", "utf-8")
         self.assertEqual(host.HANDLERS["clear-history"]({}, Mock()), {"ok": True})
-        with self.assertRaisesRegex(ValueError, "Archivo no encontrado"):
+        with self.assertRaisesRegex(ValueError, "File not found"):
             host.allowed_output(str(saved))
         self.assertEqual(json.loads(host.HISTORY.read_text("utf-8")), [])
         self.assertFalse(host.METRICS.exists())

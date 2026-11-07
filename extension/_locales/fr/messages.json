@@ -597,8 +597,8 @@
  "welcomeIntro": {
   "message": "Enregistre des vidéos, de l'audio et des images en qualité d'origine, ou copie les paroles sous forme de texte. Tout se passe sur ton ordinateur."
  },
- "welcomeStart": {
-  "message": "Commencer"
+ "welcomeContinue": {
+  "message": "Continuer"
  },
  "welcomeText": {
   "message": "Choisis la langue de l'extension et les autres langues que tu comprends. Tu ne verras les sous-titres et l'audio que dans ces langues, en plus de la langue originale. Tu peux changer ce choix dans les réglages."
@@ -659,5 +659,12 @@
  "recommendVideo": {"message": "Cette page semble contenir une vidéo. Essayez Télécharger la vidéo."},
  "recommendAudio": {"message": "Cela semble être un fichier audio. Essayez Télécharger l’audio."},
  "recommendImage": {"message": "C’est une image. Essayez Télécharger l’image."},
- "recommendText": {"message": "Besoin du texte de cette page ? Essayez Enregistrer le texte."}
+ "recommendText": {"message": "Besoin du texte de cette page ? Essayez Enregistrer le texte."},
+ "welcomeContinue": {"message": "Continuer"},
+ "welcomeHelperNext": {"message": "Pour télécharger des vidéos, de l'audio et des transcriptions, installez le composant sur votre ordinateur après cette étape."},
+ "resolveFailed": {"message": "Impossible d'analyser cet élément. Vérifiez la connexion ou le composant sur votre ordinateur, puis réessayez."},
+ "jobActionFailed": {"message": "L'action a échoué. Réessayez."},
+ "clearHistoryConfirm": {"message": "Effacer tout l'historique des téléchargements ?"},
+ "backendConnected": {"message": "Composant connecté. Revenez à Vidéo pour continuer."},
+ "updateFailed": {"message": "Impossible de lancer la mise à jour de yt-dlp. Vérifiez le composant et réessayez."}
 }

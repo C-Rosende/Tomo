@@ -597,8 +597,8 @@
  "welcomeIntro": {
   "message": "Video, ses ve görselleri özgün kalitede kaydet veya konuşulanları metin olarak kopyala. Her şey bilgisayarında gerçekleşir."
  },
- "welcomeStart": {
-  "message": "Başla"
+ "welcomeContinue": {
+  "message": "Devam et"
  },
  "welcomeText": {
   "message": "Uzantının dilini seç ve anladığın diğer dilleri ekle. Yalnızca bu dillerdeki altyazı ve sesleri, ayrıca her videonun özgün dilini görürsün. Bunu Ayarlar'da değiştirebilirsin."
@@ -659,5 +659,12 @@
  "recommendVideo": {"message": "Bu bir video sayfası gibi görünüyor. Videoyu indir seçeneğini deneyin."},
  "recommendAudio": {"message": "Bu bir ses dosyası gibi görünüyor. Sesi indir seçeneğini deneyin."},
  "recommendImage": {"message": "Bu bir görsel. Görseli indir seçeneğini deneyin."},
- "recommendText": {"message": "Bu sayfanın metni mi gerekiyor? Metni kaydet seçeneğini deneyin."}
+ "recommendText": {"message": "Bu sayfanın metni mi gerekiyor? Metni kaydet seçeneğini deneyin."},
+ "welcomeContinue": {"message": "Devam et"},
+ "welcomeHelperNext": {"message": "Video, ses ve dökümleri indirmek için bu adımdan sonra bilgisayar bileşenini yükleyin."},
+ "resolveFailed": {"message": "Bu öğe incelenemedi. Bağlantıyı veya bilgisayar bileşenini kontrol edip yeniden deneyin."},
+ "jobActionFailed": {"message": "İşlem başarısız oldu. Yeniden deneyin."},
+ "clearHistoryConfirm": {"message": "Tüm indirme geçmişi silinsin mi?"},
+ "backendConnected": {"message": "Bilgisayar bileşeni bağlandı. Devam etmek için Video'ya dönün."},
+ "updateFailed": {"message": "yt-dlp güncellemesi başlatılamadı. Bileşeni kontrol edip yeniden deneyin."}
 }

@@ -19,13 +19,14 @@ import sys
 import tempfile
 import threading
 import time
+import unicodedata
 from concurrent.futures import ThreadPoolExecutor
 from contextlib import contextmanager
 from urllib.parse import unquote, urljoin, urlsplit
 import urllib.error
 import urllib.request
 
-BACKEND_VERSION = "0.7.12"
+BACKEND_VERSION = "0.8.0"
 PROTOCOL = 2
 MAX_MESSAGE = 256 * 1024
 HOME = Path(__file__).resolve().parent
@@ -87,7 +88,7 @@ LANG = re.compile(r"^[A-Za-z]{2,3}(?:-[A-Za-z0-9]{1,8}){0,3}$")
 SKIP_SUBS = {"live_chat", "rechat", "danmaku", "comments"}
 
 
-_LANG = "es"
+_LANG = "en"
 _CATALOG: dict | None = None
 
 
@@ -99,13 +100,13 @@ def set_lang(value) -> None:
 
 def T(text: str, **values) -> str:
     global _CATALOG
-    if _LANG != "es":
+    if _LANG != "en":
         if _CATALOG is None:
             try:
                 _CATALOG = json.loads(Path(__file__).with_name("locales.json").read_text("utf-8"))
             except (OSError, ValueError):
                 _CATALOG = {}
-        text = (_CATALOG.get(_LANG) or {}).get(text) or (_CATALOG.get("en") or {}).get(text) or text
+        text = (_CATALOG.get(_LANG) or {}).get(text) or text
     return text.format(**values) if values else text
 
 
@@ -142,7 +143,7 @@ def short_url(value):
 def send(message: dict) -> None:
     payload = json.dumps(message, ensure_ascii=False).encode("utf-8")
     if len(payload) > MAX_REPLY:
-        payload = json.dumps({"status": "error", "message": T("Respuesta demasiado grande.")},
+        payload = json.dumps({"status": "error", "message": T("Response too large.")},
                              ensure_ascii=False).encode("utf-8")
     with _out_lock:
         _OUT.write(struct.pack("<I", len(payload)))
@@ -167,23 +168,23 @@ def read_message(stream=None) -> dict | None:
     if not length:
         return None
     if len(length) != 4:
-        raise ValueError(T("No se recibió una solicitud válida del navegador."))
+        raise ValueError(T("No valid request was received from the browser."))
     size = struct.unpack("<I", length)[0]
     if size < 2 or size > MAX_MESSAGE:
-        raise ValueError(T("Tamaño de solicitud no permitido."))
+        raise ValueError(T("Request size not allowed."))
     data = _read_exact(stream, size)
     if len(data) != size:
-        raise ValueError(T("No se recibió una solicitud válida del navegador."))
+        raise ValueError(T("No valid request was received from the browser."))
     result = json.loads(data)
     if not isinstance(result, dict):
-        raise ValueError(T("Solicitud inválida."))
+        raise ValueError(T("Invalid request."))
     return result
 
 
 def receive() -> dict:
     message = read_message()
     if message is None:
-        raise ValueError(T("No se recibió una solicitud válida del navegador."))
+        raise ValueError(T("No valid request was received from the browser."))
     return message
 
 
@@ -218,7 +219,7 @@ def watch_input() -> None:
 
 
         try:
-            send({"status": "cancelled", "message": T("Cancelado.")})
+            send({"status": "cancelled", "message": T("Cancelled.")})
         except Exception:
             pass
         sysdep.kill_children()
@@ -415,16 +416,16 @@ def is_youtube_host(host: str) -> bool:
 
 def validate_url(url: str, *, check_dns: bool = True) -> str:
     if not isinstance(url, str) or len(url) > 8192 or re.search(r"[\x00-\x20\x7f]", url):
-        raise ValueError(T("URL inválida o demasiado larga."))
+        raise ValueError(T("Invalid or too long URL."))
     value = urlsplit(url)
     if value.scheme not in ("http", "https") or not value.hostname or value.username:
-        raise ValueError(T("Solo se aceptan vídeos HTTP(S)."))
+        raise ValueError(T("Only HTTP(S) videos are accepted."))
     if CHROMIUM_CLIENT and is_youtube_host(value.hostname):
-        raise ValueError(T("Esta versión de Tomo no admite YouTube. Usa la versión de Firefox."))
+        raise ValueError(T("This version of Tomo does not support YouTube. Use the Firefox version."))
     addresses = resolve_addresses(value.hostname) if check_dns else []
     if (is_internal_host(value.hostname)
             or check_dns and (not addresses or any(is_internal_host(a) for a in addresses))):
-        raise ValueError(T("No se aceptan direcciones de la red local."))
+        raise ValueError(T("Local network addresses are not accepted."))
     vimeo = re.fullmatch(r"https?://(?:www\.)?vimeo\.com/(\d+)(?:/([0-9a-f]{10}))?/?(?:[?#].*)?", url)
     if vimeo:
         return f"https://player.vimeo.com/video/{vimeo[1]}" + (f"?h={vimeo[2]}" if vimeo[2] else "")
@@ -446,7 +447,7 @@ def choice(value, allowed, default):
     if value is None or value == "":
         return default
     if value not in allowed:
-        raise ValueError(T("Parámetro no permitido."))
+        raise ValueError(T("Parameter not allowed."))
     return value
 
 
@@ -454,7 +455,7 @@ def format_id(value) -> str:
     if value in (None, ""):
         return ""
     if not isinstance(value, str) or not FORMAT_ID.match(value):
-        raise ValueError(T("Identificador de formato inválido."))
+        raise ValueError(T("Invalid format ID."))
     return value
 
 
@@ -462,7 +463,7 @@ def lang_code(value) -> str:
     if value in (None, "", "auto"):
         return ""
     if not isinstance(value, str) or not LANG.match(value):
-        raise ValueError(T("Código de idioma inválido."))
+        raise ValueError(T("Invalid language code."))
     return value
 
 
@@ -479,6 +480,10 @@ def redact(text: str) -> str:
     return text[:300]
 
 
+LOGIN_ERROR = (r"[Ss]ign in|log ?in|cookies|age-restricted|members-only|[Pp]rivate|[Qq]uarantined|"
+               r"[Aa]uthentication is required|account .{0,60}is required")
+
+
 def error_kind(exc: BaseException) -> str:
     text = str(exc)
     if type(exc) in (RuntimeError, ValueError):
@@ -486,8 +491,8 @@ def error_kind(exc: BaseException) -> str:
     if re.search(r"HTTP Error 403|Forbidden|Requested format is not available|[Uu]nable to extract|"
                  r"[Ss]ignature|nsig|player|[Pp]age needs to be reloaded", text):
         return "extractor"
-    if re.search(r"429|DRM|[Ss]ign in|log ?in|cookies|age-restricted|members-only|[Pp]rivate|404|Not Found|"
-                 r"does not exist|deleted|unavailable|Unsupported URL|getaddrinfo|timed out|Connection|Network", text):
+    if re.search(r"429|DRM|404|Not Found|does not exist|deleted|unavailable|Unsupported URL|getaddrinfo|"
+                 r"timed out|Connection|Network|No media found|is processing|unable to access|" + LOGIN_ERROR, text):
         return "site"
     return "extractor"
 
@@ -495,26 +500,26 @@ def error_kind(exc: BaseException) -> str:
 def friendly(exc: BaseException) -> str:
     text = str(exc)
     if type(exc) in (RuntimeError, ValueError):
-        return redact(text) or T("Error en el proceso local.")
+        return redact(text) or T("Error in the local process.")
     rules = [
-        (r"Requested format is not available", T("Ese formato no está disponible para este vídeo.")),
-        (r"Unsupported URL", T("No hay ningún vídeo en esta página.")),
-        (r"HTTP Error 429|Too Many Requests", T("El sitio limitó las solicitudes (HTTP 429). Espera unos minutos.")),
-        (r"DRM", T("Contenido protegido con DRM: no se puede descargar.")),
-        (r"[Ss]ign in|log ?in|cookies|age-restricted|members-only|[Pp]rivate video",
-         T("El sitio exige iniciar sesión. Inicia sesión en el navegador y activa «Usar mi sesión» en Ajustes.")),
-        (r"HTTP Error 404|Not Found|does not exist|been deleted|unavailable",
-         T("El vídeo no existe, se eliminó o no está disponible públicamente.")),
-        (r"HTTP Error 403|Forbidden", T("El sitio denegó el acceso (HTTP 403). Puede requerir sesión o bloquear descargas.")),
+        (r"Requested format is not available", T("That format isn't available for this video.")),
+        (r"Unsupported URL|No media found", T("There's no video on this page.")),
+        (r"HTTP Error 429|Too Many Requests", T("The site is rate-limiting requests (HTTP 429). Wait a few minutes.")),
+        (r"DRM", T("DRM-protected content: it can't be downloaded.")),
+        (LOGIN_ERROR,
+         T("The site requires signing in. Sign in in your browser and turn on “Use my session” in Settings.")),
+        (r"HTTP Error 404|Not Found|does not exist|been deleted|unavailable|is processing",
+         T("The video doesn't exist, was removed or isn't publicly available.")),
+        (r"HTTP Error 403|Forbidden|unable to access", T("The site denied access (HTTP 403). It may require signing in or block downloads.")),
         (r"Unable to download webpage|getaddrinfo|timed out|Connection|Network",
-         T("Error de red al contactar con el sitio. Comprueba la conexión y reintenta.")),
-        (r"ffmpeg.*not found|ffprobe.*not found|Falta una herramienta",
-         T("Falta FFmpeg. Vuelve a ejecutar el instalador.")),
+         T("Network error while contacting the site. Check your connection and retry.")),
+        (r"ffmpeg.*not found|ffprobe.*not found|Falta una herramienta|A tool is missing",
+         T("FFmpeg is missing. Run the installer again.")),
     ]
     for pattern, message in rules:
         if re.search(pattern, text):
             return message
-    return redact(text) or T("Error en el proceso local.")
+    return redact(text) or T("Error in the local process.")
 
 
 def run(argv: list[str], cwd: Path | None = None, timeout: int = 7200) -> str:
@@ -526,14 +531,14 @@ def run(argv: list[str], cwd: Path | None = None, timeout: int = 7200) -> str:
             errors="replace", timeout=timeout, shell=False, check=False, creationflags=NO_WINDOW,
         )
     except FileNotFoundError as exc:
-        raise RuntimeError(T("Falta una herramienta: {name}.", name=Path(argv[0]).name)) from exc
+        raise RuntimeError(T("A tool is missing: {name}.", name=Path(argv[0]).name)) from exc
     except subprocess.TimeoutExpired as exc:
-        raise RuntimeError(T("Tiempo de espera agotado.")) from exc
+        raise RuntimeError(T("Timed out.")) from exc
     if process.returncode != 0:
         text = (process.stderr or process.stdout).splitlines()
         relevant = [line.strip() for line in text if line.strip() and
                     ("ERROR:" in line or "error" in line.lower())]
-        raise RuntimeError(redact(relevant[-1] if relevant else T("Código {code}.", code=process.returncode)))
+        raise RuntimeError(redact(relevant[-1] if relevant else T("Code {code}.", code=process.returncode)))
     return process.stdout
 
 
@@ -545,7 +550,7 @@ def run_ffmpeg(args: list[str], duration: float | None, progress: Progress, stag
                                 stderr=subprocess.PIPE, text=True,
                                 encoding="utf-8", errors="replace", creationflags=NO_WINDOW)
     except FileNotFoundError as exc:
-        raise RuntimeError(T("Falta una herramienta: {name}.", name="ffmpeg")) from exc
+        raise RuntimeError(T("A tool is missing: {name}.", name="ffmpeg")) from exc
     errors: list[str] = []
     reader = threading.Thread(target=lambda: errors.extend(proc.stderr), daemon=True)
     reader.start()
@@ -567,7 +572,7 @@ def run_ffmpeg(args: list[str], duration: float | None, progress: Progress, stag
         proc.stderr.close()
     if proc.returncode != 0:
         lines = [e.strip() for e in errors if e.strip()]
-        raise RuntimeError(redact(lines[-1] if lines else T("FFmpeg terminó con código {code}.", code=proc.returncode)))
+        raise RuntimeError(redact(lines[-1] if lines else T("FFmpeg exited with code {code}.", code=proc.returncode)))
 
 
 downloads_folder = sysdep.downloads_folder
@@ -676,7 +681,7 @@ def history_lock():
         except OSError:
             break
     if not held:
-        raise OSError(T("No se pudo bloquear el historial."))
+        raise OSError(T("Could not lock the history."))
     try:
         yield
     finally:
@@ -701,13 +706,13 @@ def record_history(path: Path) -> None:
 
 def allowed_output(value) -> Path:
     if not isinstance(value, str) or len(value) > 1024:
-        raise ValueError(T("Ruta inválida."))
+        raise ValueError(T("Invalid path."))
     items = read_json_retry(HISTORY, [])
     path = Path(value)
     if not isinstance(items, list) or value not in items or not path.is_file():
-        raise ValueError(T("Archivo no encontrado o no creado por la extensión."))
+        raise ValueError(T("File not found or not created by the extension."))
     if not path.resolve().is_relative_to(downloads_folder().resolve()):
-        raise ValueError("Ruta fuera de Descargas.")
+        raise ValueError(T("Path outside Downloads."))
     return path
 
 
@@ -715,7 +720,7 @@ def get_media_file(folder: Path) -> Path:
     excludes = {".part", ".ytdl", ".vtt", ".srt", ".json", ".txt", ".tmp"}
     files = [f for f in folder.iterdir() if f.is_file() and f.suffix.lower() not in excludes]
     if len(files) != 1:
-        raise RuntimeError(T("No se pudo identificar el archivo descargado (posible DRM o enlace no compatible)."))
+        raise RuntimeError(T("Couldn't identify the downloaded file (possible DRM or unsupported link)."))
     return files[0]
 
 
@@ -738,7 +743,7 @@ def ffprobe_duration(source: Path) -> float | None:
 
 
 def verify_output(source: Path, audio_only: bool = False) -> None:
-    bad = T("El archivo descargado está vacío o dañado y no se guardó. Inténtalo de nuevo o prueba otro formato.")
+    bad = T("The downloaded file is empty or damaged and was not saved. Try again or pick another format.")
     try:
         if source.stat().st_size == 0:
             raise RuntimeError(bad)
@@ -798,7 +803,7 @@ MAX_FILESIZE = "16G"
 def check_limits(info: dict) -> None:
     duration = info.get("duration")
     if isinstance(duration, (int, float)) and duration > MAX_DURATION:
-        raise RuntimeError(T("El vídeo dura más de {hours} horas.", hours=MAX_DURATION // 3600))
+        raise RuntimeError(T("The video is longer than {hours} hours.", hours=MAX_DURATION // 3600))
 
 
 def guard_redirects(ydl):
@@ -832,11 +837,11 @@ def guard_redirects(ydl):
         from yt_dlp.downloader import get_suitable_downloader
         downloader = get_suitable_downloader(info, ydl.params)
         if downloader is None or downloader.__name__ not in {"HttpFD", "DashSegmentsFD", "HlsFD"}:
-            raise ValueError(T("Este formato requiere un transporte de red no permitido."))
+            raise ValueError(T("This format requires a network transport that is not allowed."))
         return download(name, info, *args, **kwargs)
 
     def refuse_ffmpeg_download(*args, **kwargs):
-        raise ValueError(T("Este formato requiere un transporte de red no permitido."))
+        raise ValueError(T("This format requires a network transport that is not allowed."))
 
     from yt_dlp.downloader.external import FFmpegFD
     FFmpegFD.real_download = refuse_ffmpeg_download
@@ -847,10 +852,10 @@ def guard_redirects(ydl):
 def approved_connection(address, timeout=socket._GLOBAL_DEFAULT_TIMEOUT, source_address=None):
     host, port = address
     if is_internal_host(host):
-        raise ValueError(T("No se aceptan direcciones de la red local."))
+        raise ValueError(T("Local network addresses are not accepted."))
     endpoints = socket.getaddrinfo(host, port, type=socket.SOCK_STREAM)
     if not endpoints or any(is_internal_host(item[4][0]) for item in endpoints):
-        raise ValueError(T("No se aceptan direcciones de la red local."))
+        raise ValueError(T("Local network addresses are not accepted."))
     last = None
     for family, kind, proto, _, endpoint in endpoints:
         sock = socket.socket(family, kind, proto)
@@ -926,6 +931,14 @@ def info_cache_file(url: str) -> Path:
     return CACHE / "info" / (hashlib.sha256(url.encode("utf-8")).hexdigest()[:32] + ".json")
 
 
+BLOCKED_ERROR = re.compile(r"HTTP Error 40[13]|Forbidden|Just a moment|Cloudflare", re.I)
+ACCESS_ERROR = re.compile(rf"{LOGIN_ERROR}|DRM|geo[- ]?(?:blocked|restricted)|not available in your (?:country|region)", re.I)
+
+
+def can_impersonate() -> bool:
+    return importlib.util.find_spec("curl_cffi") is not None
+
+
 def resolve_info(url: str, page_url: str = "", fresh: bool = False) -> dict:
     path = info_cache_file(url)
     if not fresh and not AUTHENTICATED:
@@ -935,8 +948,23 @@ def resolve_info(url: str, page_url: str = "", fresh: bool = False) -> dict:
                 return json.loads(path.read_text("utf-8"))
         except (OSError, ValueError):
             pass
-    with make_ydl([*referer_args(url, page_url), "--flat-playlist"]) as ydl:
-        info = ydl.sanitize_info(ydl.extract_info(url, download=False))
+    base = [*referer_args(url, page_url), "--flat-playlist"]
+    try:
+        with make_ydl(base) as ydl:
+            info = ydl.sanitize_info(ydl.extract_info(url, download=False))
+    except Exception as exc:
+        if not (BLOCKED_ERROR.search(str(exc)) and not ACCESS_ERROR.search(str(exc)) and can_impersonate()):
+            raise
+        check_cancel()
+        try:
+            with make_ydl([*base, "--impersonate", "chrome"]) as ydl:
+                info = ydl.sanitize_info(ydl.extract_info(url, download=False))
+        except Exception as retry_exc:
+            if not BLOCKED_ERROR.search(str(retry_exc)) or ACCESS_ERROR.search(str(retry_exc)):
+                raise
+            check_cancel()
+            with make_ydl([*base, "--force-generic-extractor", "--impersonate", "chrome"]) as ydl:
+                info = ydl.sanitize_info(ydl.extract_info(url, download=False))
     STATS["info_cache"] = False
     cache_json(path, info)
     return info
@@ -1055,7 +1083,7 @@ def best_variants(info: dict | None, url: str, page: str, src: str, fresh: bool)
 def resolve_target(req: dict, progress: Progress) -> tuple[dict, str, str]:
     url, page, src = req["url"], req["page_url"], req["src_url"]
     fresh = bool(req.get("fresh"))
-    progress("resolve", None, T("Analizando el vídeo"), force=True)
+    progress("resolve", None, T("Analyzing the video"), force=True)
     try:
         info = resolve_info(url, page, fresh=fresh)
     except Cancelled:
@@ -1068,7 +1096,7 @@ def resolve_target(req: dict, progress: Progress) -> tuple[dict, str, str]:
         return info, url, page
     if info is not None and not is_playlist(info) and (not is_generic(info) or is_manifest(info)):
         return info, url, page
-    progress("resolve", None, T("Buscando la versión original"), force=True)
+    progress("resolve", None, T("Looking for the original version"), force=True)
     variants = best_variants(info, url, page, src if src != url else "", fresh)
     if variants:
         return variants, url, page
@@ -1106,7 +1134,7 @@ def download_hooks(progress: Progress):
         info = d.get("info_dict") or {}
         total = d.get("total_bytes") or d.get("total_bytes_estimate")
         percent = d.get("downloaded_bytes", 0) * 100 / total if total else None
-        detail = T("Descargando audio") if info.get("vcodec") == "none" else T("Descargando vídeo")
+        detail = T("Downloading audio") if info.get("vcodec") == "none" else T("Downloading video")
         if d.get("speed"):
             detail += f" · {human_bytes(d['speed'])}/s"
         if d.get("eta") is not None:
@@ -1114,9 +1142,9 @@ def download_hooks(progress: Progress):
         progress("download", percent, detail)
 
 
-    names = {"Merger": T("Uniendo vídeo y audio"), "ExtractAudio": T("Extrayendo audio"),
-             "VideoRemuxer": T("Cambiando contenedor"), "Metadata": T("Añadiendo metadatos"),
-             "EmbedSubtitle": T("Incrustando subtítulos")}
+    names = {"Merger": T("Merging video and audio"), "ExtractAudio": T("Extracting audio"),
+             "VideoRemuxer": T("Changing container"), "Metadata": T("Adding metadata"),
+             "EmbedSubtitle": T("Embedding subtitles")}
 
     def pp_hook(d: dict) -> None:
         check_cancel()
@@ -1291,7 +1319,7 @@ def preset_args(req: dict) -> tuple[list[str], bool]:
         else:
             height = req.get("height")
             if not isinstance(height, int) or isinstance(height, bool) or not 1 <= height <= 8640:
-                raise ValueError(T("Calidad de vídeo inválida."))
+                raise ValueError(T("Invalid video quality."))
             f = (f"[height={height}]" + ("[fps>30]" if req.get("fps60") is True else "[fps<=?30]") +
                  ("[dynamic_range!=SDR]" if req.get("hdr") is True else "[dynamic_range=?SDR]"))
             spec = f"bv*{f}+ba{audio_filter}/b{f}"
@@ -1314,7 +1342,7 @@ def ensure_compatible_mp4(source: Path, folder: Path, progress: Progress) -> tup
     video_ok = vc == "h264" and pix in {"yuv420p", "yuvj420p"}
     audio_ok = ac in ("", "aac")
     if video_ok and audio_ok and source.suffix.lower() == ".mp4":
-        return source, "sin recodificar"
+        return source, "no re-encoding"
     out = folder / "out"
     out.mkdir(exist_ok=True)
     destination = out / (source.stem + ".mp4")
@@ -1328,11 +1356,11 @@ def ensure_compatible_mp4(source: Path, folder: Path, progress: Progress) -> tup
         args += ["-b:a", "192k"]
 
     args += ["-movflags", "+faststart", "-write_tmcd", "0", str(destination)]
-    label = T("Recodificando a H.264 (CPU)") if not video_ok else \
-        T("Convirtiendo audio a AAC") if not audio_ok else T("Cambiando contenedor a MP4")
+    label = T("Re-encoding to H.264 (CPU)") if not video_ok else \
+        T("Converting audio to AAC") if not audio_ok else T("Changing container to MP4")
     run_ffmpeg(args, ffprobe_duration(source), progress, "convert", label)
-    note = "vídeo recodificado a H.264 (más lento, pérdida mínima)" if not video_ok else \
-        "audio convertido a AAC" if not audio_ok else "sin recodificar"
+    note = "video re-encoded to H.264 (slower, minimal loss)" if not video_ok else \
+        "audio converted to AAC" if not audio_ok else "no re-encoding"
     return destination, note
 
 
@@ -1348,14 +1376,48 @@ def author_of(info: dict) -> str:
 
 NAME_FIELDS = ("title", "author", "id", "date", "site")
 
+SOUNDTRACK_SITES = ("tiktok",)
+SOUNDTRACK_FIELDS = ("track", "artist", "artists", "album", "album_artist", "album_artists")
+
+
+def full_title(info: dict) -> str:
+    title = str(info.get("title") or "")
+    description = str(info.get("description") or "")
+    head = re.sub(r"(?:\.\.\.|…)$", "", title).rstrip()
+    if head != title and len(head) >= 8 and description.startswith(head):
+        return description
+    return title
+
+
+def without_soundtrack(info: dict) -> dict:
+    site = str(info.get("extractor_key") or info.get("extractor") or "").lower()
+    if not site.startswith(SOUNDTRACK_SITES):
+        return info
+    return {k: v for k, v in info.items() if k not in SOUNDTRACK_FIELDS}
+
+
+TITLE_SITES = ("YouTube", "TikTok", "Twitter", "Instagram", "Vimeo", "Facebook", "Reddit", "Tumblr", "Twitch",
+               "Dailymotion", "SoundCloud", "Bandcamp", "Pinterest", "Bilibili", "Imgur", "Giphy", "Streamable",
+               "Rumble", "LinkedIn", "Bluesky", "Odysee", "Mixcloud")
+TITLE_SITE_TAIL = re.compile(
+    r"\s*(?:[|–—·•/-]\s*(?:" + "|".join(TITLE_SITES) + r")(?:\s+(?:video|videos|clip|clips|photos?))*"
+    r"|\bon\s+(?:X|" + "|".join(TITLE_SITES) + r"))\s*$", re.I)
+
 
 def clean_title(value: str, site: str = "") -> str:
     title = value or ""
+    title = "".join("\x00" if unicodedata.category(c) in ("So", "Cs", "Co") else c for c in title)
+    title = re.sub(r"[\u200d\ufe0e\ufe0f\U0001f3fb-\U0001f3ff]", "", title)
     if site.lower().startswith(("tiktok", "twitter", "x", "instagram")):
-        title = re.split(r"(?<=[.!?])\s+", title, maxsplit=1)[0]
-    title = re.sub(r"https?://\S+|(?<!\w)[#@][\w.-]+", " ", title)
-    title = re.sub(r"\s*(?:[|–-]\s*(?:YouTube|TikTok|Twitter|Instagram|Vimeo)|\bon X)\s*$", "", title, flags=re.I)
-    return re.sub(r"\s+", " ", title).strip(" .!?-–|")
+        title = re.split(r"(?<=[.!?])\s+|\s*\x00[\x00\s]*", title.strip(" \x00"), maxsplit=1)[0]
+    title = re.sub(r"https?://\S+|(?<!\w)[#@][\w.-]+|\x00", " ", title)
+    title = re.sub(r"\s+", " ", title).strip()
+    while True:
+        trimmed = TITLE_SITE_TAIL.sub("", title).rstrip()
+        if trimmed == title:
+            break
+        title = trimmed
+    return title.strip(" .!?-–|")
 
 
 def templated_name(info: dict, ext: str, template) -> str | None:
@@ -1363,7 +1425,7 @@ def templated_name(info: dict, ext: str, template) -> str | None:
         return None
     date = str(info.get("upload_date") or "")
     values = {
-        "title": clean_title(str(info.get("title") or "Video"), str(info.get("extractor_key") or "")),
+        "title": clean_title(full_title(info) or "Video", str(info.get("extractor_key") or "")),
         "author": author_of(info), "id": str(info.get("id") or ""),
         "date": f"{date[:4]}-{date[4:6]}-{date[6:8]}" if re.fullmatch(r"\d{8}", date) else "",
         "site": str(info.get("extractor_key") or ""),
@@ -1377,12 +1439,13 @@ def templated_name(info: dict, ext: str, template) -> str | None:
 
 
 def display_name(info: dict, ext: str, template=None, suffix: str = "") -> str:
+    info = without_soundtrack(info)
     custom = templated_name(info, ext, template)
     if custom:
         name = custom.rsplit(".", 1)[0]
     else:
         site = str(info.get("extractor_key") or info.get("extractor") or "").strip()
-        title = clean_title(str(info.get("title") or ""), site)
+        title = clean_title(full_title(info), site)
         author = author_of(info).strip()
         if info.get("artist") and info.get("track"):
             name = f"{safe_name(str(info['artist']), 40)} - {safe_name(str(info['track']), 130)}"
@@ -1435,14 +1498,15 @@ def job_download(req: dict, progress: Progress) -> dict:
     info, url, page = resolve_target(req, progress)
     if is_playlist(info):
         count = len(info.get("entries") or [])
-        raise RuntimeError(T("La página contiene {count} vídeos: elige uno en el panel de la extensión.", count=count))
+        raise RuntimeError(T("The page has {count} videos: pick one in the extension panel.", count=count))
     if info.get("is_live"):
-        raise RuntimeError(T("Las emisiones en directo no se admiten todavía."))
+        raise RuntimeError(T("Live streams aren't supported yet."))
     check_limits(info)
+    info = without_soundtrack(info)
     thumb = info.get("thumbnail")
     if isinstance(thumb, str) and thumb.startswith("https://"):
         info = {**info, "thumbnails": [{"url": thumb, "id": "cover"}]}
-    progress("resolve", None, T("Preparando descarga"), force=True, meta={
+    progress("resolve", None, T("Preparing download"), force=True, meta={
         "title": str(info.get("title") or "")[:200], "author": author_of(info)[:100],
         "thumbnail": thumb if isinstance(thumb, str) and thumb.startswith("https://") else None})
     hooks, pp_hooks = download_hooks(progress)
@@ -1472,9 +1536,9 @@ def job_download(req: dict, progress: Progress) -> dict:
         if compatible:
             source, note = ensure_compatible_mp4(source, folder, progress)
         if req["preset"] == "webm" and source.suffix.lower() != ".webm":
-            raise RuntimeError(T("No hay una versión WebM disponible para este vídeo."))
-        if compatible and note != "sin recodificar":
-            progress("finish", None, T("Añadiendo carátula"))
+            raise RuntimeError(T("There's no WebM version of this video."))
+        if compatible and note != "no re-encoding":
+            progress("finish", None, T("Adding cover art"))
             embed_cover(source, folder / "cover" / "cover.jpg")
         verify_output(source, req["preset"] in AUDIO_PRESETS)
         variant = f"{req['height']}p" if req["preset"] == "custom" and isinstance(req.get("height"), int) else ""
@@ -1482,7 +1546,7 @@ def job_download(req: dict, progress: Progress) -> dict:
             variant = f"audio {lang_code(req['audio_lang'])}"
         destination = move_to_downloads(source, display_name(info, source.suffix, req.get("name_template"), variant),
                                         req.get("subfolder"))
-    message = T("Guardado en Descargas: {name}", name=destination.name) + (f" ({T(note)})" if note and note != "sin recodificar" else "")
+    message = T("Saved to Downloads: {name}", name=destination.name) + (f" ({T(note)})" if note and note != "no re-encoding" else "")
     return {"message": message, "path": str(destination), "title": info.get("title"),
             "extractor": info.get("extractor_key"), "duration": info.get("duration")}
 
@@ -1612,7 +1676,7 @@ def pick_track(info: dict, requested: str, prefs: list[str]) -> tuple[str, str] 
 def best_subtitle(path: Path) -> Path:
     subs = [p for p in path.iterdir() if p.is_file() and p.suffix.lower() in (".vtt", ".srt")]
     if not subs:
-        raise RuntimeError(T("Este vídeo no ofrece subtítulos descargables."))
+        raise RuntimeError(T("This video has no downloadable subtitles."))
     def key(p: Path) -> tuple[int, int]:
         name = p.name.lower()
         lang = re.search(r"\.([a-z]{2}(?:[-_][a-z0-9]+)?)\.(vtt|srt)$", name)
@@ -1642,7 +1706,7 @@ def subtitle_cues(info: dict, url: str, page: str, code: str, kind: str, progres
     STATS["tx_cache"] = cues is not None
     if cues is not None:
         return cues
-    progress("subtitles", None, T("Descargando subtítulos ({code})", code=code), force=True)
+    progress("subtitles", None, T("Downloading subtitles ({code})", code=code), force=True)
     with job_tmp() as tmp:
         folder = Path(tmp)
         argv = [*referer_args(url, page), "--skip-download",
@@ -1655,7 +1719,7 @@ def subtitle_cues(info: dict, url: str, page: str, code: str, kind: str, progres
         source = best_subtitle(folder)
         cues = words_merge(parse_cues(source.read_text(encoding="utf-8-sig", errors="replace")))
     if not cues:
-        raise RuntimeError(T("No fue posible extraer texto legible de los subtítulos."))
+        raise RuntimeError(T("Couldn't extract readable text from the subtitles."))
     cache_json(key, cues)
     return cues
 
@@ -1673,7 +1737,7 @@ def asr_cues(info: dict, url: str, page: str, lang: str, model_name: str, progre
     if cues is not None:
         return cues
     if not asr_available():
-        raise RuntimeError(T("Este video no tiene subtítulos y la transcripción sin conexión no está instalada. Es opcional: la guía de instalación explica cómo agregarla."))
+        raise RuntimeError(T("This video has no subtitles and offline transcription isn't installed. It's optional: the install guide explains how to add it."))
     from faster_whisper import WhisperModel
     import numpy as np
     import wave
@@ -1686,13 +1750,13 @@ def asr_cues(info: dict, url: str, page: str, lang: str, model_name: str, progre
         media = get_media_file(folder)
         audio = folder / "speech.wav"
         run_ffmpeg(["-n", "-i", str(media), "-vn", "-ac", "1", "-ar", "16000", "-c:a", "pcm_s16le", str(audio)],
-                   ffprobe_duration(media), progress, "asr", T("Preparando audio"))
+                   ffprobe_duration(media), progress, "asr", T("Preparing audio"))
 
 
         with wave.open(str(audio), "rb") as wav:
             samples = np.frombuffer(wav.readframes(wav.getnframes()), np.int16).astype(np.float32) / 32768.0
     total = max(len(samples) / 16000, 1.0)
-    progress("asr", 0, T("Cargando modelo «{model}» (la primera vez se descarga)", model=model_name), force=True)
+    progress("asr", 0, T("Loading model “{model}” (downloaded the first time)", model=model_name), force=True)
     threads = max(1, min(8, (os.cpu_count() or 4) // 2))
     model = WhisperModel(model_name, device="cpu", compute_type="int8", cpu_threads=threads)
     segments, _ = model.transcribe(samples, language=lang.split("-")[0].lower() if lang else None,
@@ -1702,9 +1766,9 @@ def asr_cues(info: dict, url: str, page: str, lang: str, model_name: str, progre
         text = segment.text.strip()
         if text:
             cues.append((round(segment.start, 2), round(segment.end, 2), text))
-        progress("asr", segment.end / total * 100, T("Transcribiendo localmente · {done} de {total}", done=fmt_clock(segment.end), total=fmt_clock(total)))
+        progress("asr", segment.end / total * 100, T("Transcribing locally · {done} of {total}", done=fmt_clock(segment.end), total=fmt_clock(total)))
     if not cues:
-        raise RuntimeError(T("No se detectó voz reconocible."))
+        raise RuntimeError(T("No recognizable speech was detected."))
     cache_json(key, cues)
     return cues
 
@@ -1720,19 +1784,19 @@ def job_transcript(req: dict, progress: Progress) -> dict:
     asr_fallback = req.get("asr_fallback", True) is not False
     info, url, page = resolve_target(req, progress)
     if is_playlist(info):
-        raise RuntimeError(T("La página contiene varios vídeos: elige uno en el panel de la extensión."))
+        raise RuntimeError(T("The page has several videos: pick one in the extension panel."))
     track = None if source == "asr" else pick_track(info, lang, prefs)
     if track:
         code, kind = track
         cues = subtitle_cues(info, url, page, code, kind, progress)
-        origin = T("subtítulos manuales ({code})" if kind == "manual" else "subtítulos automáticos ({code})", code=code)
+        origin = T("subtitles ({code})" if kind == "manual" else "automatic subtitles ({code})", code=code)
     elif source == "subs" or not asr_fallback:
-        raise RuntimeError(T("Este vídeo no ofrece subtítulos en «{lang}».", lang=lang) if lang
-                           else T("Este vídeo no ofrece subtítulos."))
+        raise RuntimeError(T("This video has no subtitles in “{lang}”.", lang=lang) if lang
+                           else T("This video has no subtitles."))
     else:
         check_limits(info)
         cues = asr_cues(info, url, page, lang, model, progress)
-        origin = T("transcripción local ({model}, puede contener errores)", model=model)
+        origin = T("local transcription ({model}, may contain errors)", model=model)
     if mode in ("summary", "translate"):
         return ai_result(mode, req, info, cues, progress)
     if mode == "copy":
@@ -1740,19 +1804,19 @@ def job_transcript(req: dict, progress: Progress) -> dict:
         try:
             clipboard_set(text)
         except ClipboardBusy:
-            path = save_transcript(info, text, "txt", T("transcripción"))
-            return {"message": T("El portapapeles está bloqueado por otro programa; transcripción guardada en Descargas: {name}.",
+            path = save_transcript(info, text, "txt", T("transcript"), req.get("subfolder"))
+            return {"message": T("Another app is locking the clipboard; transcript saved to Downloads: {name}.",
                                  name=path.name), "path": str(path), "title": info.get("title"),
                     "extractor": info.get("extractor_key"), "duration": info.get("duration")}
-        return {"message": T("Transcripción copiada: {chars} caracteres de {origin}. Pega con Ctrl+V.", chars=f"{len(text):,}",
+        return {"message": T("Transcript copied: {chars} characters from {origin}. Paste with Ctrl+V.", chars=f"{len(text):,}",
                                origin=origin),
                 "title": info.get("title"), "chars": len(text), "extractor": info.get("extractor_key"),
                 "duration": info.get("duration")}
     text = {"txt": render_timed(cues) if timed else render_text(cues), "srt": render_srt(cues),
             "vtt": render_vtt(cues)}[export]
-    label = T("subtítulos") + (f" {track[0]}" if track else "") if export in ("srt", "vtt") else T("transcripción")
-    destination = save_transcript(info, text, export, label)
-    return {"message": T("Transcripción guardada en Descargas: {name} ({origin}).", name=destination.name, origin=origin),
+    label = T("subtitles") + (f" {track[0]}" if track else "") if export in ("srt", "vtt") else T("transcript")
+    destination = save_transcript(info, text, export, label, req.get("subfolder"))
+    return {"message": T("Transcript saved to Downloads: {name} ({origin}).", name=destination.name, origin=origin),
             "path": str(destination), "title": info.get("title"), "extractor": info.get("extractor_key"),
             "duration": info.get("duration")}
 
@@ -1775,21 +1839,21 @@ def ai_result(mode: str, req: dict, info: dict, cues, progress: Progress) -> dic
     language = f"{name} ({target})" if name else target
     base = {"title": info.get("title"), "extractor": info.get("extractor_key"), "duration": info.get("duration")}
     if mode == "summary":
-        progress("ai", None, T("Resumiendo con IA ({model})", model=cfg["model"]), force=True)
+        progress("ai", None, T("Summarizing with AI ({model})", model=cfg["model"]), force=True)
         text = ai.summarize(cfg, render_timed(cues), str(info.get("title") or ""), language, T)
-        destination = save_transcript(info, text, "md", T("resumen"))
+        destination = save_transcript(info, text, "md", T("summary"), req.get("subfolder"))
         try:
             clipboard_set(text)
-            message = T("Resumen copiado y guardado en Descargas: {name}", name=destination.name)
+            message = T("Summary copied and saved to Downloads: {name}", name=destination.name)
         except (ClipboardBusy, RuntimeError):
-            message = T("Resumen guardado en Descargas: {name}", name=destination.name)
+            message = T("Summary saved to Downloads: {name}", name=destination.name)
         return {"message": message, "path": str(destination), **base}
-    progress("ai", 0, T("Traduciendo con IA ({model})", model=cfg["model"]), force=True)
+    progress("ai", 0, T("Translating with AI ({model})", model=cfg["model"]), force=True)
     lines = ai.translate_lines(cfg, [text for _, _, text in cues], language, T,
-                               lambda pct: progress("ai", pct, T("Traduciendo con IA ({model})", model=cfg["model"])))
+                               lambda pct: progress("ai", pct, T("Translating with AI ({model})", model=cfg["model"])))
     translated = [(start, end, text) for (start, end, _), text in zip(cues, lines)]
-    destination = save_transcript(info, render_srt(translated), "srt", f"{T('subtítulos')} {target}")
-    return {"message": T("Subtítulos traducidos guardados en Descargas: {name}", name=destination.name),
+    destination = save_transcript(info, render_srt(translated), "srt", f"{T('subtitles')} {target}", req.get("subfolder"))
+    return {"message": T("Translated subtitles saved to Downloads: {name}", name=destination.name),
             "path": str(destination), **base}
 
 
@@ -1813,12 +1877,12 @@ def job_tmp():
     return _JobTmp()
 
 
-def save_transcript(info: dict, text: str, ext: str, suffix: str = "") -> Path:
+def save_transcript(info: dict, text: str, ext: str, suffix: str = "", subfolder=None) -> Path:
     with job_tmp() as tmp:
         name = display_name(info, ext, suffix=suffix)
         temp = Path(tmp) / name
         temp.write_text(text + "\n", encoding="utf-8")
-        return move_to_downloads(temp)
+        return move_to_downloads(temp, subfolder=subfolder)
 
 
 def clipboard_set(text: str) -> None:
@@ -1826,7 +1890,7 @@ def clipboard_set(text: str) -> None:
         try:
             sysdep.clipboard_set_posix(text)
         except Exception as exc:
-            raise RuntimeError(T("No se pudo copiar la transcripción.")) from exc
+            raise RuntimeError(T("Couldn't copy the transcript.")) from exc
         return
     import ctypes
     from ctypes import wintypes
@@ -1845,11 +1909,11 @@ def clipboard_set(text: str) -> None:
     raw = (text + "\x00").encode("utf-16-le")
     memory = k32.GlobalAlloc(GMEM_MOVEABLE, len(raw))
     if not memory:
-        raise RuntimeError(T("No se pudo reservar memoria para el portapapeles."))
+        raise RuntimeError(T("Couldn't allocate memory for the clipboard."))
     ptr = k32.GlobalLock(memory)
     if not ptr:
         k32.GlobalFree(memory)
-        raise RuntimeError(T("No se pudo preparar el portapapeles."))
+        raise RuntimeError(T("Couldn't prepare the clipboard."))
     ctypes.memmove(ptr, raw, len(raw))
     k32.GlobalUnlock(memory)
     opened = False
@@ -1861,9 +1925,9 @@ def clipboard_set(text: str) -> None:
                 break
             time.sleep(min(0.05 * (attempt + 1), 0.3))
         if not opened:
-            raise ClipboardBusy(T("El portapapeles está ocupado por otro programa."))
+            raise ClipboardBusy(T("Another app is using the clipboard."))
         if not user.EmptyClipboard() or not user.SetClipboardData(CF_UNICODETEXT, memory):
-            raise RuntimeError(T("No se pudo copiar la transcripción."))
+            raise RuntimeError(T("Couldn't copy the transcript."))
         memory = None
     finally:
         if opened:
@@ -1908,7 +1972,7 @@ def job_open_downloads(req: dict, progress: Progress) -> dict:
 
 def job_clear_cache(req: dict, progress: Progress) -> dict:
     shutil.rmtree(CACHE, ignore_errors=True)
-    return {"message": T("Caché local vaciada.")}
+    return {"message": T("Local cache cleared.")}
 
 
 def job_clear_history(req: dict, progress: Progress) -> dict:
@@ -1985,7 +2049,9 @@ def job_save_image(req: dict, progress: Progress) -> dict:
                     and width * height <= IMAGE_MAX_PIXELS):
                 raise ValueError("Image dimensions are too large")
             stem = Path(filename).stem if Path(filename).suffix.lower() in (".jpg", ".jpeg", ".png", ".gif", ".webp") else filename
-            destination = unique_destination(downloads_folder() / (stem + extension))
+            folder = downloads_folder() / safe_subfolder(req.get("subfolder"))
+            folder.mkdir(parents=True, exist_ok=True)
+            destination = unique_destination(folder / (stem + extension))
             staged.seek(0)
             with destination.open("xb") as output:
                 shutil.copyfileobj(staged, output)
@@ -2007,14 +2073,14 @@ def job_update_ytdlp(req: dict, progress: Progress) -> dict:
         raise RuntimeError("The verified dependency lock is missing")
     pip = [sys.executable, "-m", "pip", "install", "--disable-pip-version-check", "-q",
            "--require-hashes", "--only-binary=:all:", "--upgrade", "-r", str(lock)]
-    progress("update", None, T("Actualizando yt-dlp"), force=True)
+    progress("update", None, T("Updating yt-dlp"), force=True)
     try:
         run(pip, timeout=900)
         after = run([sys.executable, "-I", "-m", "yt_dlp", "--version"], timeout=120).strip()
     except RuntimeError as exc:
-        raise RuntimeError(T("La actualización falló ({error}).", error=exc)) from exc
-    message = (T("yt-dlp ya estaba al día ({version}).", version=after) if after == before
-               else T("yt-dlp actualizado: {old} → {new}.", old=before, new=after))
+        raise RuntimeError(T("The update failed ({error}).", error=exc)) from exc
+    message = (T("yt-dlp was already up to date ({version}).", version=after) if after == before
+               else T("yt-dlp updated: {old} → {new}.", old=before, new=after))
     return {"message": message, "ytdlp": after}
 
 
@@ -2022,7 +2088,7 @@ def job_ai_test(req: dict, progress: Progress) -> dict:
     ai = load_ai()
     cfg = ai.config(req.get("ai"), T)
     ai.complete(cfg, "Reply with the single word OK.", "OK?", T, max_tokens=16)
-    return {"message": T("Conexión correcta con {model}.", model=cfg["model"])}
+    return {"message": T("Connected to {model}.", model=cfg["model"])}
 
 
 HANDLERS = {"ping": job_ping, "resolve": job_resolve, "download": job_download,
@@ -2038,15 +2104,15 @@ HEAVY = {"download", "transcript", "update-ytdlp", "save-image"}
 def normalize(request: dict) -> tuple[str, dict]:
     action = request.get("action")
     if not isinstance(action, str):
-        raise ValueError(T("Acción desconocida."))
+        raise ValueError(T("Unknown action."))
     req = dict(request)
     if action in LEGACY:
         action, extra = LEGACY[action]
         req.update(extra)
     if action not in HANDLERS:
-        raise ValueError(T("Acción desconocida."))
+        raise ValueError(T("Unknown action."))
     if "record" in req and not isinstance(req["record"], bool):
-        raise ValueError(T("El parámetro record debe ser booleano."))
+        raise ValueError(T("The record parameter must be a boolean."))
     if action in NEEDS_URL:
         req["url"] = validate_url(req.get("url", ""))
         req["page_url"] = optional_url(req.get("page_url"))
@@ -2137,12 +2203,12 @@ def main() -> None:
         record_metrics(action, req, progress, "done", result)
     except Cancelled:
         FINISHED.set()
-        send({"status": "cancelled", "message": T("Cancelado.")})
+        send({"status": "cancelled", "message": T("Cancelled.")})
         record_metrics(action, req, progress, "cancelled", {})
     except Exception as exc:
         FINISHED.set()
         if CANCEL.is_set():
-            send({"status": "cancelled", "message": T("Cancelado.")})
+            send({"status": "cancelled", "message": T("Cancelled.")})
             record_metrics(action, req, progress, "cancelled", {})
         else:
             message = friendly(exc)

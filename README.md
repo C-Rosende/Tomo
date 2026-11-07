@@ -27,7 +27,7 @@ Right-click a video, an audio player or an image, and Tomo saves the original fi
 - **Your favourite format.** Choose it once and it appears at the top of the menu.
 - **Light.** Nothing runs in the background, apart from a short update check.
 - **Private.** Downloads stay on your computer. The optional AI features (text summaries, image enhancement) use your own API key and ask for your consent first. They send content only to the provider you choose.
-- **11 interface languages.** English, Español, Português, Français, Deutsch, Italiano, Русский, Polski, Türkçe, 日本語 and Română. Some secondary Romanian messages are still in English.
+- **11 interface languages.** English, Español, Português, Français, Deutsch, Italiano, Русский, Polski, Türkçe, 日本語 and Română.
 
 ## Chrome and Firefox
 
@@ -59,13 +59,11 @@ Two parts: the extension in your browser and a small helper on your PC that save
 
 ### 2. Add the helper (Windows 10/11)
 
-> **Release setup pending.** The pinned installer refuses to run until a signed release is published and its verification key is configured. Do not bypass signature verification.
-
 1. Press the Windows key, type `PowerShell` and press Enter.
 2. Paste this line and press Enter:
 
 ```powershell
-irm https://raw.githubusercontent.com/C-Rosende/Tomo/v0.7.12/get.ps1 | iex
+irm https://raw.githubusercontent.com/C-Rosende/Tomo/v0.8.0/get.ps1 | iex
 ```
 
 3. Wait until it says **Done**. The first run takes a few minutes. Then click the Tomo icon in your browser; it finds the helper by itself.
@@ -76,11 +74,11 @@ It installs in your own user folder and needs no administrator rights. Run the s
 <summary>Text for videos without subtitles (optional, about 300 MB)</summary>
 
 ```powershell
-& ([scriptblock]::Create((irm https://raw.githubusercontent.com/C-Rosende/Tomo/v0.7.12/get.ps1))) -WithASR
+& ([scriptblock]::Create((irm https://raw.githubusercontent.com/C-Rosende/Tomo/v0.8.0/get.ps1))) -WithASR
 ```
 </details>
 
-macOS and Linux are not supported yet. [Help us test](#help-wanted).
+macOS and Linux have an experimental installer (`install.sh`), but are not supported for first-time users yet. [Help us test](#help-wanted).
 
 ## Use
 

@@ -597,8 +597,8 @@
  "welcomeIntro": {
   "message": "Salva video, audio e immagini in qualità originale oppure copia ciò che viene detto come testo. Tutto avviene sul tuo computer."
  },
- "welcomeStart": {
-  "message": "Inizia"
+ "welcomeContinue": {
+  "message": "Continua"
  },
  "welcomeText": {
   "message": "Scegli la lingua dell'estensione e aggiungi le altre lingue che capisci: vedrai sottotitoli e audio solo in queste, oltre all'originale di ogni video. Puoi cambiarlo nelle Impostazioni."
@@ -659,5 +659,12 @@
  "recommendVideo": {"message": "Sembra una pagina video. Prova Scarica video."},
  "recommendAudio": {"message": "Sembra un audio. Prova Scarica audio."},
  "recommendImage": {"message": "È un’immagine. Prova Scarica immagine."},
- "recommendText": {"message": "Ti serve il testo di questa pagina? Prova Salva testo."}
+ "recommendText": {"message": "Ti serve il testo di questa pagina? Prova Salva testo."},
+ "welcomeContinue": {"message": "Continua"},
+ "welcomeHelperNext": {"message": "Per scaricare video, audio e trascrizioni, installa il componente sul computer dopo questo passaggio."},
+ "resolveFailed": {"message": "Impossibile analizzare questo elemento. Controlla la connessione o il componente sul computer e riprova."},
+ "jobActionFailed": {"message": "Azione non riuscita. Riprova."},
+ "clearHistoryConfirm": {"message": "Cancellare tutta la cronologia dei download?"},
+ "backendConnected": {"message": "Componente connesso. Torna a Video per continuare."},
+ "updateFailed": {"message": "Impossibile avviare l'aggiornamento di yt-dlp. Controlla il componente e riprova."}
 }

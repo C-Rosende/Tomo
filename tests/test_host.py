@@ -1,3 +1,4 @@
+import hashlib
 import http.server
 import importlib.util
 import io
@@ -49,6 +50,9 @@ class TestImageDownload(unittest.TestCase):
                 opener.return_value.open.return_value = response(png)
                 result = host.job_save_image({"url": "https://example.org/image", "filename": "original.png"}, Mock())
                 self.assertEqual(Path(result["path"]).read_bytes(), png)
+                opener.return_value.open.return_value = response(png)
+                nested = host.job_save_image({"url": "https://example.org/image", "filename": "nested.png", "subfolder": "Tomo/../Images"}, Mock())
+                self.assertEqual(Path(nested["path"]).parent, Path(directory) / "Tomo" / "Images")
                 opener.return_value.open.return_value = response(png, host.IMAGE_MAX_BYTES + 1)
                 with self.assertRaises(ValueError):
                     host.job_save_image({"url": "https://example.org/image", "filename": "huge.png"}, Mock())
@@ -131,14 +135,14 @@ class TestText(unittest.TestCase):
         self.assertEqual(text.replace("\n\n", " "), " ".join(c[2] for c in cues))
 
     def test_busy_clipboard_falls_back_to_txt(self):
-        info = {"title": "Vídeo", "id": "abc", "subtitles": {"es": [{"ext": "vtt"}]}}
+        info = {"title": "Video", "id": "abc", "subtitles": {"es": [{"ext": "vtt"}]}}
         with tempfile.TemporaryDirectory() as tmp, \
                 patch.object(host, "resolve_target", lambda req, p: (info, "https://a.tld/v", "")), \
                 patch.object(host, "subtitle_cues", lambda *a: [(0.0, 1.0, "hola mundo")]), \
                 patch.object(host, "clipboard_set", side_effect=host.ClipboardBusy("ocupado")), \
                 patch.object(host, "downloads_folder", lambda: Path(tmp)):
             result = host.job_transcript({"url": "https://a.tld/v", "page_url": "", "src_url": ""}, lambda *a, **k: None)
-            self.assertIn("bloqueado", result["message"])
+            self.assertIn("locking", result["message"])
             self.assertEqual(Path(result["path"]).read_text(encoding="utf-8").strip(), "hola mundo")
 
     def test_unique_destination(self):
@@ -308,7 +312,7 @@ class TestSecurity(unittest.TestCase):
         with host.make_ydl([]) as ydl:
             with self.assertRaises(ValueError) as caught:
                 ydl.urlopen(start)
-        self.assertIn("red local", str(caught.exception))
+        self.assertIn("Local network", str(caught.exception))
         with patch.object(host, "is_internal_host", return_value=False), host.make_ydl([]) as ydl:
             self.assertEqual(ydl.urlopen(start).read(), b"payload")
 
@@ -485,7 +489,7 @@ class TestConvert(unittest.TestCase):
             result, note = host.ensure_compatible_mp4(sample, Path(tmp), lambda *a, **k: None)
             self.assertEqual(result.name, "video.mp4")
             self.assertEqual(host.ffprobe_codecs(result), ("h264", "aac", "yuv420p"))
-            self.assertIn("recodificado", note)
+            self.assertIn("re-encoded", note)
             types = subprocess.run(["ffprobe", "-v", "error", "-show_entries", "stream=codec_type", "-of", "csv=p=0",
                                     str(result)], capture_output=True, text=True).stdout.split()
             self.assertEqual(types, ["video", "audio"])
@@ -495,7 +499,7 @@ class TestConvert(unittest.TestCase):
             sample = Path(tmp) / "video.mp4"
             make_sample(sample, "libx264", "aac")
             result, note = host.ensure_compatible_mp4(sample, Path(tmp), lambda *a, **k: None)
-            self.assertEqual((result, note), (sample, "sin recodificar"))
+            self.assertEqual((result, note), (sample, "no re-encoding"))
 
     def test_h264_in_mkv_is_remuxed_not_reencoded(self):
         with tempfile.TemporaryDirectory() as tmp:
@@ -503,7 +507,7 @@ class TestConvert(unittest.TestCase):
             make_sample(sample, "libx264", "libopus")
             result, note = host.ensure_compatible_mp4(sample, Path(tmp), lambda *a, **k: None)
             self.assertEqual(host.ffprobe_codecs(result)[:2], ("h264", "aac"))
-            self.assertEqual(note, "audio convertido a AAC")
+            self.assertEqual(note, "audio converted to AAC")
 
     def test_ffmpeg_cancel_kills_process(self):
         with tempfile.TemporaryDirectory() as tmp:
@@ -617,21 +621,43 @@ class TestAI(unittest.TestCase):
 
 class TestI18n(unittest.TestCase):
     def tearDown(self):
-        host.set_lang("es")
+        host.set_lang("en")
 
     def test_messages_follow_browser_language(self):
         host.set_lang("en-US")
-        self.assertEqual(host.T("Analizando el vídeo"), "Analyzing the video")
+        self.assertEqual(host.T("Analyzing the video"), "Analyzing the video")
         host.set_lang("fr")
-        self.assertEqual(host.T("Guardado en Descargas: {name}", name="a.mp4"), "Enregistré dans Téléchargements : a.mp4")
+        self.assertEqual(host.T("Saved to Downloads: {name}", name="a.mp4"), "Enregistré dans Téléchargements : a.mp4")
         host.set_lang("xx")
-        self.assertEqual(host.T("Cancelado."), "Cancelled.")
+        self.assertEqual(host.T("Cancelled."), "Cancelled.")
+
+    def test_former_untranslated_error_and_tool_pattern(self):
+        host.set_lang("en")
+        self.assertEqual(host.T("Path outside Downloads."), "Path outside Downloads.")
+        for lang in ("es", "fr"):
+            host.set_lang(lang)
+            self.assertEqual(host.T("Path outside Downloads."), "Ruta fuera de Descargas.")
+        host.set_lang("en")
+        for error in ("Falta una herramienta: ffmpeg.", "A tool is missing: ffmpeg."):
+            self.assertEqual(host.friendly(Exception(error)), "FFmpeg is missing. Run the installer again.")
+
+    def test_rendered_messages_match_pre_migration(self):
+        reference = json.loads((ROOT / "tests" / "locale_baseline.json").read_text("utf-8"))
+        catalog = json.loads((ROOT / "backend" / "locales.json").read_text("utf-8"))
+        self.assertEqual(set(reference["keys"]), set(catalog["es"]) - {"Path outside Downloads."})
+        for key, expected in reference["keys"].items():
+            rendered = []
+            for lang in reference["languages"]:
+                host.set_lang(lang)
+                rendered.append(host.T(key))
+            digest = hashlib.sha256(json.dumps(rendered, ensure_ascii=False, separators=(",", ":")).encode("utf-8")).hexdigest()
+            self.assertEqual(digest, expected, key)
 
     def test_every_language_covers_every_key(self):
         catalog = json.loads((Path(host.__file__).with_name("locales.json")).read_text("utf-8"))
-        keys = set(catalog["en"])
-        used = {"vídeo recodificado a H.264 (más lento, pérdida mínima)", "audio convertido a AAC",
-                "subtítulos automáticos ({code})"}
+        keys = set(catalog["es"])
+        used = {"video re-encoded to H.264 (slower, minimal loss)", "audio converted to AAC",
+                "automatic subtitles ({code})"}
         for name in ("host.py", "ai.py"):
             used |= set(re.findall(r'\bT\(\s*"((?:[^"\\]|\\.)*)"', (ROOT / "backend" / name).read_text("utf-8")))
         self.assertEqual(used, keys)
@@ -639,6 +665,143 @@ class TestI18n(unittest.TestCase):
             self.assertEqual(set(table), keys, lang)
             for k, v in table.items():
                 self.assertEqual(set(re.findall(r"\{(\w+)\}", k)), set(re.findall(r"\{(\w+)\}", v)), f"{lang}: {k}")
+
+
+class TestAcceptanceFixes(unittest.TestCase):
+    def test_site_suffixes_are_stripped_from_titles(self):
+        for tail in (" - Reddit", " | Facebook", " - Tumblr", " on Instagram", " - YouTube - YouTube", " | TikTok video"):
+            self.assertEqual(host.clean_title("Sunset over the bay" + tail), "Sunset over the bay", tail)
+        self.assertEqual(host.clean_title("Kick the habit"), "Kick the habit")
+
+    def test_reddit_errors_get_a_clear_message(self):
+        login = host.T("The site requires signing in. Sign in in your browser and turn on “Use my session” in Settings.")
+        for text in ("Account authentication is required. Use --cookies-from-browser",
+                     "Quarantined subreddit; an account that has opted in is required",
+                     "Private subreddit; an account that has been approved is required"):
+            self.assertEqual(host.friendly(Exception(text)), login, text)
+            self.assertEqual(host.error_kind(Exception(text)), "site", text)
+        self.assertEqual(host.friendly(Exception("No media found")), host.T("There's no video on this page."))
+        self.assertEqual(host.error_kind(Exception("Your IP address is unable to access the Reddit API")), "site")
+
+    def test_blocked_page_is_retried_with_browser_impersonation(self):
+        calls = []
+
+        class Ydl:
+            def __init__(self, args):
+                self.args = args
+
+            def __enter__(self):
+                return self
+
+            def __exit__(self, *exc):
+                return False
+
+            def extract_info(self, url, download=False):
+                if "--impersonate" not in self.args:
+                    raise Exception("Unable to download webpage: HTTP Error 403: Forbidden")
+                return {"id": "x"}
+
+            def sanitize_info(self, info):
+                return info
+
+        def make(args, *rest):
+            calls.append(args)
+            return Ydl(args)
+
+        with patch.object(host, "make_ydl", make), patch.object(host, "can_impersonate", return_value=True), \
+                patch.object(host, "cache_json"):
+            self.assertEqual(host.resolve_info("https://www.tumblr.com/x/1", fresh=True), {"id": "x"})
+        self.assertEqual(len(calls), 2)
+        with patch.object(host, "make_ydl", make), patch.object(host, "can_impersonate", return_value=False), \
+                patch.object(host, "cache_json"), self.assertRaises(Exception):
+            host.resolve_info("https://www.tumblr.com/x/2", fresh=True)
+
+    def test_blocked_extractor_uses_generic_fallback(self):
+        calls = []
+
+        class Ydl:
+            def __init__(self, args):
+                self.args = args
+
+            def __enter__(self):
+                return self
+
+            def __exit__(self, *exc):
+                return False
+
+            def extract_info(self, url, download=False):
+                calls.append((url, self.args))
+                if "--force-generic-extractor" not in self.args:
+                    raise Exception("HTTP Error 403: Forbidden")
+                return {"id": "tumblr-media", "extractor_key": "Generic"}
+
+            def sanitize_info(self, info):
+                return info
+
+        with patch.object(host, "make_ydl", Ydl), patch.object(host, "can_impersonate", return_value=True), \
+                patch.object(host, "cache_json"):
+            info = host.resolve_info("https://blog.tumblr.com/post/123", fresh=True)
+        self.assertEqual(info["id"], "tumblr-media")
+        self.assertEqual(len(calls), 3)
+        self.assertNotIn("--impersonate", calls[0][1])
+        self.assertIn("--impersonate", calls[1][1])
+        self.assertIn("--force-generic-extractor", calls[2][1])
+
+    def test_successful_extractor_is_not_retried(self):
+        calls = []
+
+        class Ydl:
+            def __init__(self, args):
+                calls.append(args)
+
+            def __enter__(self):
+                return self
+
+            def __exit__(self, *exc):
+                return False
+
+            def extract_info(self, url, download=False):
+                return {"id": "ok"}
+
+            def sanitize_info(self, info):
+                return info
+
+        with patch.object(host, "make_ydl", Ydl), patch.object(host, "can_impersonate", return_value=True), \
+                patch.object(host, "cache_json"):
+            self.assertEqual(host.resolve_info("https://example.com/video", fresh=True), {"id": "ok"})
+        self.assertEqual(len(calls), 1)
+
+    def test_access_restrictions_are_not_retried(self):
+        for message in ("HTTP Error 403: Sign in to continue", "HTTP Error 403: DRM protected",
+                        "HTTP Error 403: Not available in your country"):
+            calls = []
+
+            class Ydl:
+                def __init__(self, args):
+                    calls.append(args)
+
+                def __enter__(self):
+                    return self
+
+                def __exit__(self, *exc):
+                    return False
+
+                def extract_info(self, url, download=False):
+                    raise Exception(message)
+
+                def sanitize_info(self, info):
+                    return info
+
+            with self.subTest(message=message), patch.object(host, "make_ydl", Ydl), \
+                    patch.object(host, "can_impersonate", return_value=True), self.assertRaisesRegex(Exception, message):
+                host.resolve_info("https://example.com/video", fresh=True)
+            self.assertEqual(len(calls), 1)
+
+    def test_spanish_sources_use_video_without_accent(self):
+        source = (ROOT / "backend" / "host.py").read_text("utf-8")
+        catalog = json.loads((ROOT / "backend" / "locales.json").read_text("utf-8"))
+        self.assertNotRegex(source, r"[vV]ídeo")
+        self.assertFalse([k for table in catalog.values() for k in table if re.search(r"[vV]ídeo", k)])
 
 
 class TestErrorKind(unittest.TestCase):
@@ -691,6 +854,16 @@ class TestNames(unittest.TestCase):
         self.assertEqual(host.clean_title("Watch this https://t.co/abc! More details", "Twitter"), "Watch this")
         self.assertEqual(host.display_name({"title": "Song | YouTube", "artist": "Luna", "track": "Café / Noche"}, "mp3"),
                          "Luna - Café - Noche.mp3")
+        self.assertEqual(host.display_name({"title": "Another week at NASA. More soon", "extractor_key": "TikTok",
+                                            "artist": "Luna", "track": "original sound - Luna", "uploader": "mira"}, "mp4"),
+                         "Another week at NASA - mira.mp4")
+        self.assertEqual(host.display_name({"title": "Another week of building at NASA 🚀 🌔 Artem...", "extractor_key": "TikTok",
+                                            "description": "Another week of building at NASA 🚀 🌔 Artemis III core stage integrated",
+                                            "uploader": "mira"}, "mp4"),
+                         "Another week of building at NASA - mira.mp4")
+        self.assertEqual(host.clean_title("Wait for it... 😱"), "Wait for it")
+        self.assertNotIn("track", host.without_soundtrack({"extractor_key": "TikTok", "track": "x", "title": "y"}))
+        self.assertEqual(host.without_soundtrack({"extractor_key": "Youtube", "track": "x"}), {"extractor_key": "Youtube", "track": "x"})
         self.assertEqual(host.display_name({"title": "Clip - YouTube", "uploader": "Mira"}, "mp4", suffix="audio es"),
                          "Clip - Mira (audio es).mp4")
         self.assertEqual(host.display_name({"uploader": "Mira", "extractor_key": "TikTok",

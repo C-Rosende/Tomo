@@ -597,8 +597,8 @@
  "welcomeIntro": {
   "message": "Save videos, audio and images in original quality, or copy what is said as text. Everything happens on your computer."
  },
- "welcomeStart": {
-  "message": "Get started"
+ "welcomeContinue": {
+  "message": "Continue"
  },
  "welcomeText": {
   "message": "Choose the extension's language and add the other languages you understand: you'll only see subtitles and audio in them, plus each video's original. You can change this in Settings."
@@ -659,5 +659,12 @@
  "recommendVideo": {"message": "This looks like a video page. Try Download video."},
  "recommendAudio": {"message": "This looks like audio. Try Download audio."},
  "recommendImage": {"message": "This is an image. Try Download image."},
- "recommendText": {"message": "Need words from this page? Try Save text."}
+ "recommendText": {"message": "Need words from this page? Try Save text."},
+ "welcomeContinue": {"message": "Continue"},
+ "welcomeHelperNext": {"message": "To download videos, audio and transcripts, install the computer component after this step."},
+ "resolveFailed": {"message": "Could not analyze this item. Check the connection or computer component, then try again."},
+ "jobActionFailed": {"message": "Action failed. Try again."},
+ "clearHistoryConfirm": {"message": "Clear all download history?"},
+ "backendConnected": {"message": "Computer component connected. Return to Video to continue."},
+ "updateFailed": {"message": "Could not start the yt-dlp update. Check the computer component and try again."}
 }

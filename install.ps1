@@ -10,6 +10,11 @@ $dst = Join-Path $env:LOCALAPPDATA 'Tomo'
 $hostName = 'local.tomo'
 $extensionId = 'tomo@tomo.app'
 $files = @('host.py', 'sysdep.py', 'ai.py', 'locales.json', 'host.bat', 'requirements.lock', 'requirements-asr.lock')
+function Assert-Winget {
+    if (-not (Get-Command winget -ErrorAction SilentlyContinue)) {
+        throw 'Windows App Installer (winget) is missing. Install or update App Installer from Microsoft Store, then run this command again: https://learn.microsoft.com/en-us/troubleshoot/windows-client/shell-experience/troubleshoot-apps-start-failure-use-windows-package-manager'
+    }
+}
 
 function Get-PyVersion([string]$exe) {
     if (-not $exe -or $exe -like '*\WindowsApps\*' -or -not (Test-Path $exe)) { return $null }
@@ -45,9 +50,11 @@ function Find-Python {
     }
     $best = $valid | Sort-Object Rank, @{ e = { $_.Version }; Descending = $true } | Select-Object -First 1
     if (-not $best -and $Deps) {
+        Assert-Winget
         winget install -e --id Python.Python.3.12 --scope user --accept-source-agreements --accept-package-agreements
+        if ($LASTEXITCODE -ne 0) { throw 'Python installation failed. Check Windows App Installer and run this command again.' }
         $py = Join-Path $env:LOCALAPPDATA 'Programs\Python\Python312\python.exe'
-        if (Test-Path $py) { return $py }
+        if ((Get-PyVersion $py) -ge [version]'3.12') { return $py }
     }
     if (-not $best) { throw 'Python 3.12+ is required (for example: winget install -e --id Python.Python.3.12). Install it and run this again.' }
     return $best.Path
@@ -88,8 +95,19 @@ $ffmpeg = Find-Tool 'ffmpeg' 'Gyan.FFmpeg'
 $deno = Find-Tool 'deno' 'DenoLand.Deno'
 $node = (Get-Command node -ErrorAction SilentlyContinue | Select-Object -First 1).Source
 if ($Deps) {
-    if (-not $ffmpeg) { winget install -e --id Gyan.FFmpeg --accept-source-agreements --accept-package-agreements; $ffmpeg = Find-Tool 'ffmpeg' 'Gyan.FFmpeg' }
-    if (-not $deno -and -not $node) { winget install -e --id DenoLand.Deno --accept-source-agreements --accept-package-agreements; $deno = Find-Tool 'deno' 'DenoLand.Deno' }
+    if (-not $ffmpeg) {
+        Assert-Winget
+        winget install -e --id Gyan.FFmpeg --accept-source-agreements --accept-package-agreements
+        if ($LASTEXITCODE -ne 0) { throw 'FFmpeg installation failed. Check Windows App Installer and run this command again.' }
+        $ffmpeg = Find-Tool 'ffmpeg' 'Gyan.FFmpeg'
+    }
+    if (-not $deno -and -not $node) {
+        Assert-Winget
+        winget install -e --id DenoLand.Deno --accept-source-agreements --accept-package-agreements
+        if ($LASTEXITCODE -ne 0) { throw 'Deno installation failed. Check Windows App Installer and run this command again.' }
+        $deno = Find-Tool 'deno' 'DenoLand.Deno'
+        if (-not $deno) { throw 'Deno was not found after installation. Run this command again.' }
+    }
     if (-not $ffmpeg) { throw 'FFmpeg could not be installed (needed to merge audio and video and to convert). Install it with: winget install -e --id Gyan.FFmpeg and run this again.' }
 }
 

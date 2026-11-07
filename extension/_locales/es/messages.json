@@ -85,7 +85,7 @@
   "message": "Falta un complemento para YouTube"
  },
  "backendNoFfmpeg": {
-  "message": "Falta el conversor de vídeo"
+  "message": "Falta el conversor de video"
  },
  "backendUnavailable": {
   "message": "No disponible: $1"
@@ -106,7 +106,7 @@
   "message": "Audio MP3"
  },
  "batchMp4": {
-  "message": "Vídeo MP4"
+  "message": "Video MP4"
  },
  "batchTxt": {
   "message": "Transcripción (TXT)"
@@ -139,7 +139,7 @@
   "message": "Tus idiomas"
  },
  "cardLanguagesText": {
-  "message": "Los subtítulos y el audio se ofrecen en estos idiomas, además del original de cada vídeo. El principal es el idioma de la extensión."
+  "message": "Los subtítulos y el audio se ofrecen en estos idiomas, además del original de cada video. El principal es el idioma de la extensión."
  },
  "cardPrivacy": {
   "message": "Privacidad"
@@ -220,16 +220,16 @@
   "message": "Campos: {title} {author} {id} {date} {site}. Vacío = automático. Ejemplo: {author} - {title}"
  },
  "embeddedVideo": {
-  "message": "Vídeo incrustado"
+  "message": "Video incrustado"
  },
  "emptyText": {
-  "message": "Haz clic derecho sobre un vídeo o usa la pestaña «Este vídeo»."
+  "message": "Haz clic derecho sobre un video o usa la pestaña «Este video»."
  },
  "emptyTitle": {
   "message": "Aún no hay descargas"
  },
  "extDescription": {
-  "message": "Descarga vídeos en su calidad original, copia transcripciones y resúmelas con IA. Todo se procesa en tu PC."
+  "message": "Descarga videos en su calidad original, copia transcripciones y resúmelas con IA. Todo se procesa en tu PC."
  },
  "extName": {
   "message": "Tomo"
@@ -265,16 +265,16 @@
   "message": "Audio"
  },
  "kindVideo": {
-  "message": "Vídeo"
+  "message": "Video"
  },
  "labelAudio": {
   "message": "Audio original"
  },
  "labelBest": {
-  "message": "Vídeo · máxima calidad"
+  "message": "Video · máxima calidad"
  },
  "labelCustom": {
-  "message": "Vídeo · calidad elegida"
+  "message": "Video · calidad elegida"
  },
  "labelDownload": {
   "message": "Descarga"
@@ -283,16 +283,16 @@
   "message": "Audio · M4A"
  },
  "labelMkv": {
-  "message": "Vídeo · MKV"
+  "message": "Video · MKV"
  },
  "labelMp3": {
   "message": "Audio · MP3"
  },
  "labelMp4": {
-  "message": "Vídeo · MP4 compatible"
+  "message": "Video · MP4 compatible"
  },
  "labelMp4Remux": {
-  "message": "Vídeo · MP4 sin recodificar"
+  "message": "Video · MP4 sin recodificar"
  },
  "labelSummary": {
   "message": "Resumen con IA"
@@ -313,7 +313,7 @@
   "message": "Actualizando el motor de descargas"
  },
  "labelWebm": {
-  "message": "Vídeo · WebM"
+  "message": "Video · WebM"
  },
  "language": {
   "message": "Idioma"
@@ -397,7 +397,7 @@
   "message": "Transcripción"
  },
  "menuVideo": {
-  "message": "Vídeo"
+  "message": "Video"
  },
  "metrics": {
   "message": "Registrar métricas en este equipo"
@@ -406,13 +406,13 @@
   "message": "Descargas"
  },
  "navVideo": {
-  "message": "Este vídeo"
+  "message": "Este video"
  },
  "noResults": {
   "message": "Sin resultados"
  },
  "noVideo": {
-  "message": "No hay ningún vídeo en esta pestaña."
+  "message": "No hay ningún video en esta pestaña."
  },
  "noteAudioConvert": {
   "message": "Se convierte: algo de pérdida de calidad."
@@ -454,7 +454,7 @@
   "message": "No hay URL utilizable"
  },
  "notifyNoUrlText": {
-  "message": "Abre una página HTTP(S) con el vídeo y vuelve a intentarlo."
+  "message": "Abre una página HTTP(S) con el video y vuelve a intentarlo."
  },
  "notifyPanelUnavailable": {
   "message": "Panel no disponible"
@@ -475,7 +475,7 @@
   "message": "El del clic derecho"
  },
  "pointedVideo": {
-  "message": "Vídeo señalado"
+  "message": "Video señalado"
  },
  "precision": {
   "message": "Precisión"
@@ -565,7 +565,7 @@
   "message": "Texto"
  },
  "tabVideo": {
-  "message": "Vídeo"
+  "message": "Video"
  },
  "uiLangAuto": {
   "message": "Automático ($1)"
@@ -583,31 +583,31 @@
   "message": "Usar mi sesión"
  },
  "useSessionHint": {
-  "message": "Para sitios que piden iniciar sesión (como Reddit). Se usa solo en tu PC y solo con el sitio del vídeo que descargas."
+  "message": "Para sitios que piden iniciar sesión (como Reddit). Se usa solo en tu PC y solo con el sitio del video que descargas."
  },
  "videosOnPage": {
-  "message": "Vídeos en esta página"
+  "message": "Videos en esta página"
  },
  "videosPickOne": {
-  "message": "$1 vídeos: elige uno de arriba"
+  "message": "$1 videos: elige uno de arriba"
  },
  "welcomeHello": {
   "message": "Te damos la bienvenida a Tomo"
  },
  "welcomeIntro": {
-  "message": "Guarda vídeos, audio e imágenes en su calidad original, o copia una transcripción. Todo ocurre en tu PC."
+  "message": "Guarda videos, audio e imágenes en su calidad original, o copia una transcripción. Todo ocurre en tu PC."
  },
- "welcomeStart": {
-  "message": "Empezar"
+ "welcomeContinue": {
+  "message": "Continuar"
  },
  "welcomeText": {
-  "message": "Elige el idioma de la extensión y añade los otros que entiendas: solo verás subtítulos y audio en ellos, además del original de cada vídeo. Puedes cambiarlo en Ajustes."
+  "message": "Elige el idioma de la extensión y añade los otros que entiendas: solo verás subtítulos y audio en ellos, además del original de cada video. Puedes cambiarlo en Ajustes."
  },
  "welcomeTip1": {
-  "message": "Haz clic derecho sobre un vídeo o una imagen."
+  "message": "Haz clic derecho sobre un video o una imagen."
  },
  "welcomeTip2": {
-  "message": "Elige Descargar o transcribir y luego Vídeo, Audio o Texto."
+  "message": "Elige Descargar o transcribir y luego Video, Audio o Texto."
  },
  "welcomeTip3": {
   "message": "Encuentra el archivo en tu carpeta Descargas."
@@ -622,7 +622,7 @@
   "message": "La IA necesita tu permiso para enviar el texto de la página al proveedor que elegiste."
  },
  "aiConsentPrompt": {
-  "message": "Tomo enviará los subtítulos o el texto de la transcripción y el título del vídeo al proveedor de IA que elegiste ($PROVIDER$), para resumir o traducir. El autor de Tomo no recibe nada. ¿Permitirlo?",
+  "message": "Tomo enviará los subtítulos o el texto de la transcripción y el título del video al proveedor de IA que elegiste ($PROVIDER$), para resumir o traducir. El autor de Tomo no recibe nada. ¿Permitirlo?",
   "placeholders": {
    "provider": {
     "content": "$1"
@@ -633,7 +633,7 @@
   "message": "Este sitio no está disponible en este navegador."
  },
  "limitsNote": {
-  "message": "Sin límites de descargas. No se pueden descargar vídeos con DRM ni emisiones en directo; máximo 12 horas por vídeo."
+  "message": "Sin límites de descargas. No se pueden descargar videos con DRM ni emisiones en directo; máximo 12 horas por video."
  },
  "imageOriginal": {"message": "Original"},
  "imagePanelHint": {"message": "Descarga la imagen original sin conversión."},
@@ -656,8 +656,15 @@
  "setupAllSet": {"message": "Todo listo"},
  "pinChrome": {"message": "Pulsa el icono de rompecabezas y luego la chincheta junto a Tomo."},
  "pinFirefox": {"message": "Pulsa el icono de rompecabezas, el engranaje junto a Tomo y «Fijar a la barra»."},
- "recommendVideo": {"message": "Parece una página de vídeo. Prueba Descargar vídeo."},
+ "recommendVideo": {"message": "Parece una página de video. Prueba Descargar video."},
  "recommendAudio": {"message": "Parece audio. Prueba Descargar audio."},
  "recommendImage": {"message": "Es una imagen. Prueba Descargar imagen."},
- "recommendText": {"message": "¿Necesitas el texto de esta página? Prueba Guardar texto."}
+ "recommendText": {"message": "¿Necesitas el texto de esta página? Prueba Guardar texto."},
+ "welcomeContinue": {"message": "Continuar"},
+ "welcomeHelperNext": {"message": "Para descargar videos, audio y transcripciones, instala el componente para tu equipo después de este paso."},
+ "resolveFailed": {"message": "No se pudo analizar este elemento. Comprueba la conexión o el componente para tu equipo y vuelve a intentarlo."},
+ "jobActionFailed": {"message": "La acción falló. Vuelve a intentarlo."},
+ "clearHistoryConfirm": {"message": "¿Borrar todo el historial de descargas?"},
+ "backendConnected": {"message": "Componente conectado. Vuelve a Video para continuar."},
+ "updateFailed": {"message": "No se pudo iniciar la actualización de yt-dlp. Comprueba el componente y vuelve a intentarlo."}
 }

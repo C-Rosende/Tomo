@@ -597,8 +597,8 @@
  "welcomeIntro": {
   "message": "Salve vídeos, áudio e imagens na qualidade original ou copie o que é dito como texto. Tudo acontece no seu computador."
  },
- "welcomeStart": {
-  "message": "Começar"
+ "welcomeContinue": {
+  "message": "Continuar"
  },
  "welcomeText": {
   "message": "Escolha o idioma da extensão e adicione os outros que você entende: só verá legendas e áudio neles, além do original de cada vídeo. Você pode mudar isso nas Configurações."
@@ -659,5 +659,12 @@
  "recommendVideo": {"message": "Esta parece ser uma página de vídeo. Experimente Transferir vídeo."},
  "recommendAudio": {"message": "Isto parece ser áudio. Experimente Transferir áudio."},
  "recommendImage": {"message": "É uma imagem. Experimente Transferir imagem."},
- "recommendText": {"message": "Precisa do texto desta página? Experimente Guardar texto."}
+ "recommendText": {"message": "Precisa do texto desta página? Experimente Guardar texto."},
+ "welcomeContinue": {"message": "Continuar"},
+ "welcomeHelperNext": {"message": "Para descarregar vídeos, áudio e transcrições, instala o componente no computador após este passo."},
+ "resolveFailed": {"message": "Não foi possível analisar este item. Verifica a ligação ou o componente no computador e tenta novamente."},
+ "jobActionFailed": {"message": "A ação falhou. Tenta novamente."},
+ "clearHistoryConfirm": {"message": "Limpar todo o histórico de transferências?"},
+ "backendConnected": {"message": "Componente ligado. Volta a Vídeo para continuar."},
+ "updateFailed": {"message": "Não foi possível iniciar a atualização do yt-dlp. Verifica o componente e tenta novamente."}
 }

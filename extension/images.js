@@ -25,12 +25,10 @@ function maxImageUrls(src, siteVariants = () => []) {
     const d = path.match(/^\/(\w{7})_d\.\w+$/);
     if (d) add(`https://${host}/${d[1]}.jpg`);
   } else if (/^media\d*\.giphy\.com$/.test(host)) {
-    const m = path.match(/^(\/media\/[^/]+\/)(?:\d+w?|fixed_[^/.]+|downsized[^/.]*|preview|giphy-preview)\.(gif|webp|mp4)$/i);
-    if (m) add(`${u.origin}${m[1]}giphy.${m[2]}`);
+    const m = path.match(/^\/media\/(?:v1\.[^/]+\/)?([^/]+)\/(?:\d+w?|fixed_[^/.]+|downsized[^/.]*|preview|giphy-preview|giphy)\.(gif|webp|mp4)$/i);
+    if (m) add(`${u.origin}/media/${m[1]}/giphy.${m[2].toLowerCase() === "mp4" ? "mp4" : "gif"}`);
   } else if (host === "images.unsplash.com" || host === "images.pexels.com") {
-    const full = new URL(u);
-    for (const key of ["w", "h", "fit"]) full.searchParams.delete(key);
-    add(full.href);
+    add(`${u.origin}${path}`);
   } else if (/^(?:\d+\.)?media\.tumblr\.com$/.test(host) || host === "static.tumblr.com") {
     const full = path.replace(/_(?:75sq|100|250|400|500|540|640|1280)(\.(?:jpe?g|png|gif|webp))$/i, "_1280$1")
       .replace(/\/s\d+x\d+\//, "/s2048x3072/");
@@ -43,8 +41,6 @@ function maxImageUrls(src, siteVariants = () => []) {
   out.push(src);
   return out;
 }
-
-const IMAGE_EXT = /\.(jpe?g|png|gif|webp|avif|apng|svg|bmp|tiff?)$/i;
 
 function largestSrcset(srcset, base) {
   const re = /[\s,]*([^\s,]\S*[^\s,]|[^\s,])\s*(?:(\d+(?:\.\d+)?)([wx]))?\s*(?:,|$)/g;
@@ -117,12 +113,19 @@ function imageFileName(url, contentType, title = "", pageTitle = "") {
     } catch (_) {}
   }
   if (mime === "video/mp4" && /^media\d*\.giphy\.com$/.test(new URL(url).hostname)) ext = "mp4";
-  if (!ext) return "";
+  return ext ? `${imageBaseName(url, title, pageTitle)}.${ext}` : "";
+}
+
+function imageBaseName(url, title = "", pageTitle = "") {
   let base;
   try { base = decodeURIComponent(new URL(url).pathname.split("/").pop() || ""); } catch { base = ""; }
   const generic = (s) => /^(?:image|img|photo|picture|thumbnail|untitled|imagen|foto|bild|image\s*\d+|img[_-]?\d+)$/i.test(s);
   const hashed = (s) => /^(?:[a-f0-9]{12,}|[a-z0-9_-]{24,})$/i.test(s);
-  const cleanTitle = (s) => String(s || "").replace(/https?:\/\/\S+|(?<!\w)[#@][\w.-]+/g, " ")
+  let labels = [];
+  try { labels = new URL(url).hostname.toLowerCase().split("."); } catch (_) {}
+  const siteTail = (s) => s.replace(/\s+[-–—·]\s+([^-–—·|]{2,40})$/,
+    (all, seg) => labels.includes(seg.trim().split(/\s+/)[0].toLowerCase()) ? "" : all);
+  const cleanTitle = (s) => siteTail(String(s || "")).replace(/https?:\/\/\S+|(?<!\w)[#@][\w.-]+/g, " ")
     .replace(/\s*(?:\|\s*[^|]+|-\s*(?:[A-Z][a-z]+[A-Z][a-z]+|TikTok|Twitter|Instagram|Vimeo)|\bon X)\s*$/, "")
     .replace(/\s+/g, " ").trim();
   const social = /(?:tiktok|twitter|\bon X\b)/i.test(pageTitle) || /^(?:pbs\.twimg\.com|[^/]*tiktokcdn\.com)$/.test(new URL(url).hostname);
@@ -145,8 +148,7 @@ function imageFileName(url, contentType, title = "", pageTitle = "") {
     const cut = Array.from(base).slice(0, 120).join("");
     base = cut.includes(" ") ? cut.slice(0, cut.lastIndexOf(" ")) : cut;
   }
-  base = base.replace(/[ .-]+$/g, "");
-  return `${base}.${ext}`;
+  return base.replace(/[ .-]+$/g, "");
 }
 
-if (typeof module !== "undefined") module.exports = {maxImageUrls, imageCandidates, imageFileName, largestSrcset, privateHost};
+if (typeof module !== "undefined") module.exports = {maxImageUrls, imageCandidates, imageFileName, imageBaseName, largestSrcset, privateHost};

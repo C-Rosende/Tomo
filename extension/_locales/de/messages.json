@@ -597,8 +597,8 @@
  "welcomeIntro": {
   "message": "Speichere Videos, Audio und Bilder in Originalqualität oder kopiere das Gesprochene als Text. Alles läuft auf deinem Computer."
  },
- "welcomeStart": {
-  "message": "Los geht's"
+ "welcomeContinue": {
+  "message": "Weiter"
  },
  "welcomeText": {
   "message": "Wähle die Sprache der Erweiterung und weitere Sprachen, die du verstehst. Untertitel und Audio erscheinen nur in diesen Sprachen und im Original. Das kannst du in den Einstellungen ändern."
@@ -659,5 +659,12 @@
  "recommendVideo": {"message": "Das sieht nach einer Videoseite aus. Versuche Video herunterladen."},
  "recommendAudio": {"message": "Das sieht nach Audio aus. Versuche Audio herunterladen."},
  "recommendImage": {"message": "Das ist ein Bild. Versuche Bild herunterladen."},
- "recommendText": {"message": "Brauchst du den Text dieser Seite? Versuche Text speichern."}
+ "recommendText": {"message": "Brauchst du den Text dieser Seite? Versuche Text speichern."},
+ "welcomeContinue": {"message": "Weiter"},
+ "welcomeHelperNext": {"message": "Um Videos, Audio und Transkripte herunterzuladen, installiere nach diesem Schritt die Komponente auf deinem Computer."},
+ "resolveFailed": {"message": "Dieses Element konnte nicht analysiert werden. Prüfe die Verbindung oder die Computerkomponente und versuche es erneut."},
+ "jobActionFailed": {"message": "Aktion fehlgeschlagen. Versuche es erneut."},
+ "clearHistoryConfirm": {"message": "Den gesamten Downloadverlauf löschen?"},
+ "backendConnected": {"message": "Computerkomponente verbunden. Kehre zu Video zurück, um fortzufahren."},
+ "updateFailed": {"message": "Das yt-dlp-Update konnte nicht gestartet werden. Prüfe die Komponente und versuche es erneut."}
 }

@@ -597,8 +597,8 @@
  "welcomeIntro": {
   "message": "Salvează videoclipuri, audio și imagini la calitatea originală sau copiază cuvintele ca text. Totul se întâmplă pe computerul tău."
  },
- "welcomeStart": {
-  "message": "Începe"
+ "welcomeContinue": {
+  "message": "Continuă"
  },
  "welcomeText": {
   "message": "Alege limba extensiei și limbile pe care le înțelegi. Le poți schimba ulterior din Setări."
@@ -659,5 +659,12 @@
  "recommendVideo": {"message": "Aceasta pare o pagină video. Încearcă să descarci videoclipul."},
  "recommendAudio": {"message": "Acesta pare un fișier audio. Încearcă să descarci sunetul."},
  "recommendImage": {"message": "Aceasta este o imagine. Încearcă să descarci imaginea."},
- "recommendText": {"message": "Ai nevoie de textul paginii? Încearcă să salvezi textul."}
+ "recommendText": {"message": "Ai nevoie de textul paginii? Încearcă să salvezi textul."},
+ "welcomeContinue": {"message": "Continuă"},
+ "welcomeHelperNext": {"message": "Pentru a descărca videoclipuri, fișiere audio și transcrieri, instalează componenta pe computer după acest pas."},
+ "resolveFailed": {"message": "Acest element nu a putut fi analizat. Verifică conexiunea sau componenta de pe computer și încearcă din nou."},
+ "jobActionFailed": {"message": "Acțiunea a eșuat. Încearcă din nou."},
+ "clearHistoryConfirm": {"message": "Ștergi întregul istoric al descărcărilor?"},
+ "backendConnected": {"message": "Componenta este conectată. Revino la Video pentru a continua."},
+ "updateFailed": {"message": "Actualizarea yt-dlp nu a putut fi pornită. Verifică componenta și încearcă din nou."}
 }

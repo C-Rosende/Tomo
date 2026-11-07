@@ -19,14 +19,22 @@ assert.strictEqual(f("https://i.imgur.com/AbC12s.jpg")[0], "https://i.imgur.com/
 for (const suffix of ["s", "m", "l", "t"]) assert.strictEqual(f(`https://i.imgur.com/AbCdEfG${suffix}.jpg`)[0], "https://i.imgur.com/AbCdEfG.jpg");
 assert.strictEqual(f("https://media2.giphy.com/media/AbC123/200.gif")[0], "https://media2.giphy.com/media/AbC123/giphy.gif");
 assert.strictEqual(f("https://media.giphy.com/media/AbC123/downsized_large.mp4")[0], "https://media.giphy.com/media/AbC123/giphy.mp4");
-assert.strictEqual(f("https://images.unsplash.com/photo-123?w=300&h=200&fit=crop&q=90")[0], "https://images.unsplash.com/photo-123?q=90");
+assert.strictEqual(f("https://media4.giphy.com/media/v1.Y2lk/AbC123/giphy.webp")[0], "https://media4.giphy.com/media/AbC123/giphy.gif");
+assert.strictEqual(f("https://media.giphy.com/media/AbC123/200w.webp")[0], "https://media.giphy.com/media/AbC123/giphy.gif");
+assert.strictEqual(f("https://images.unsplash.com/photo-123?w=300&h=200&fit=crop&q=90")[0], "https://images.unsplash.com/photo-123");
+assert.strictEqual(f("https://images.unsplash.com/photo-123?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.1.0")[0], "https://images.unsplash.com/photo-123");
 assert.strictEqual(f("https://images.pexels.com/photos/123/photo.jpg?w=300&h=200&fit=crop")[0], "https://images.pexels.com/photos/123/photo.jpg");
 assert.strictEqual(f("https://64.media.tumblr.com/abc/tumblr_pic_400.jpg")[0], "https://64.media.tumblr.com/abc/tumblr_pic_1280.jpg");
 assert.strictEqual(f("https://64.media.tumblr.com/abc/s640x960/pic.jpg")[0], "https://64.media.tumblr.com/abc/s2048x3072/pic.jpg");
 assert.strictEqual(f("https://sitio.cl/wp-content/uploads/foto-300x200.jpg")[0], "https://sitio.cl/wp-content/uploads/foto.jpg");
 assert.deepStrictEqual(f("https://sitio.cl/x.png"), ["https://sitio.cl/x.png"]);
 assert.deepStrictEqual(f("data:image/png;base64,AA"), []);
-const {imageCandidates: pick, imageFileName: name, largestSrcset} = require("../extension/images.js");
+const {imageCandidates: pick, imageFileName: name, imageBaseName, largestSrcset} = require("../extension/images.js");
+assert.strictEqual(imageBaseName("https://images.unsplash.com/photo-1464822759023-fed622ff2c3b", "snow capped mountains", "Photo on Unsplash"), "snow capped mountains");
+assert.strictEqual(imageBaseName("https://images.unsplash.com/photo-1464822759023-fed622ff2c3b", "", "Snow capped mountains | Unsplash"), "Snow capped mountains");
+assert.strictEqual(imageBaseName("https://upload.wikimedia.org/wikipedia/commons/a/a9/Example.jpg", "", "File:Example.jpg - Wikimedia Commons"), "File Example");
+assert.strictEqual(imageBaseName("https://upload.wikimedia.org/x/Example.jpg", "Sunset - Wikimedia Commons", ""), "Sunset");
+assert.strictEqual(imageBaseName("https://example.com/a/x.jpg", "", "Cats - Dogs"), "Cats - Dogs");
 const base = "https://galeria.cl/muestras/";
 const googleThumb = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSAMPLE";
 assert.deepStrictEqual(pick({base: "https://www.google.com/search?tbm=isch", src: googleThumb,

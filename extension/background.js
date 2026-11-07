@@ -212,12 +212,6 @@ function resolve(target, fresh = false) {
   return promise;
 }
 
-function broadcastState() {
-  for (const port of panels) {
-    try { port.postMessage({type: "donate", donate: donateState()}); } catch (_) { panels.delete(port); }
-  }
-}
-
 const donateState = () => ({donateUrl: DONATE_URL});
 
 const LABELS = {
@@ -264,10 +258,8 @@ function enqueue(request, title) {
   }
   if (ai) Object.assign(request, {target: request.target || mainLang(), target_name: request.target_name || nativeName(mainLang())});
   request.cache_mb = prefs.cacheMb;
-  if (request.action === "download") {
-    if (prefs.subfolder) request.subfolder = prefs.subfolder;
-    if (prefs.nameTemplate) request.name_template = prefs.nameTemplate;
-  }
+  if (prefs.subfolder) request.subfolder = prefs.subfolder;
+  if (request.action === "download" && prefs.nameTemplate) request.name_template = prefs.nameTemplate;
   if (!prefs.keepHistory) request.record = false;
   request.metrics = prefs.metrics;
   request.t_click = Date.now();
@@ -599,6 +591,9 @@ function assertImageDimensions(bytes) {
   if (!width || !height || width > 16384 || height > 16384 || width * height > 40_000_000) throw new Error(t("notifyImageUnsupported"));
 }
 
+const inSubfolder = (name) => [...String(prefs.subfolder || "").split(/[\\/]+/)
+  .map((p) => p.replace(/[<>:"|?*\x00-\x1f]/g, "_").replace(/[. ]+$/, "").trim()).filter(Boolean).slice(0, 3), name].join("/");
+
 async function browserImageFallback(url, filename) {
   const response = await fetch(url, {credentials: "omit", redirect: "error", referrerPolicy: "no-referrer", cache: "no-store", signal: AbortSignal.timeout(30000)});
   if (!response.ok || !/^image\/(png|jpeg|gif|webp)/i.test(response.headers.get("content-type") || "")) throw new Error(t("notifyImageUnsupported"));
@@ -621,7 +616,7 @@ async function browserImageFallback(url, filename) {
   assertImageDimensions(bytes);
   const binary = Array.from(bytes, (b) => String.fromCharCode(b)).join("");
   const data = `data:${response.headers.get("content-type")};base64,${btoa(binary)}`;
-  const id = await browser.downloads.download({url: data, filename, conflictAction: "uniquify"});
+  const id = await browser.downloads.download({url: data, filename: inSubfolder(filename), conflictAction: "uniquify"});
   if (!await downloadFinished(id)) throw new Error(t("notifyImageUnsupported"));
   return data;
 }
@@ -661,11 +656,11 @@ async function enhancedImage(url, tab) {
     const output = new URL(result.url);
     if (output.protocol !== "https:" || privateHost(output.hostname)) throw new Error(t("notifyImageUnsupported"));
     const helper = backend?.compatible ? backend : await ping();
-    if (helper?.compatible) await nativeCall({action: "save-image", url: output.href, filename: name});
+    if (helper?.compatible) await nativeCall({action: "save-image", url: output.href, filename: name, subfolder: prefs.subfolder});
     else await browserImageFallback(output.href, name);
   } else {
     if (result.data.length > 25 * 1024 * 1024) throw new Error(t("notifyImageUnsupported"));
-    const id = await browser.downloads.download({url: result.data, filename: name, conflictAction: "uniquify"});
+    const id = await browser.downloads.download({url: result.data, filename: inSubfolder(name), conflictAction: "uniquify"});
     if (!await downloadFinished(id)) throw new Error(t("notifyImageUnsupported"));
   }
 }
@@ -692,8 +687,8 @@ async function saveImage(src, info, tab) {
     if (helper?.compatible) helperWasAvailable = true;
     if (helperWasAvailable) {
       if (!helper?.compatible) continue;
-      const filename = imageFileName(url, "", image?.title, tab?.title) || "Image";
-      try { await nativeCall({action: "save-image", url, filename}); return; } catch (_) { continue; }
+      const filename = imageBaseName(url, image?.title, tab?.title);
+      try { await nativeCall({action: "save-image", url, filename, subfolder: prefs.subfolder}); return; } catch (_) { continue; }
     }
     const type = await headType(url);
     const giphyMp4 = /^https:\/\/media\d*\.giphy\.com\/media\/[^/]+\/giphy\.mp4(?:\?|$)/.test(url);
@@ -730,7 +725,10 @@ function downloadFinished(id) {
 }
 
 browser.menus.onClicked.addListener((info, tab) => {
-  if ([info.pageUrl, info.frameUrl, info.srcUrl, info.linkUrl, tab?.url].some(platform.blocks)) return;
+  if ([info.pageUrl, info.frameUrl, info.srcUrl, info.linkUrl, tab?.url].some(platform.blocks)) {
+    notify(t("notifyFailed"), t("siteUnavailable"));
+    return;
+  }
   const id = String(info.menuItemId);
   if (PANEL_VIEWS[id]) {
     const ctx = {view: PANEL_VIEWS[id], target: targetOf(info, tab), title: tab?.title || "", tabId: tab?.id};

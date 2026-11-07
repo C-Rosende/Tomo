@@ -597,8 +597,8 @@
  "welcomeIntro": {
   "message": "動画・音声・画像を元の品質で保存したり、話している内容を文字起こししてコピーしたりできます。すべてPC上で処理します。"
  },
- "welcomeStart": {
-  "message": "始める"
+ "welcomeContinue": {
+  "message": "続行"
  },
  "welcomeText": {
   "message": "拡張機能の言語を選び、理解できる言語を追加してください。その言語と動画の元の言語の字幕・音声だけを表示します。設定で変更できます。"
@@ -659,5 +659,12 @@
  "recommendVideo": {"message": "動画のページのようです。「動画をダウンロード」をお試しください。"},
  "recommendAudio": {"message": "音声のようです。「音声をダウンロード」をお試しください。"},
  "recommendImage": {"message": "画像です。「画像をダウンロード」をお試しください。"},
- "recommendText": {"message": "このページの文章が必要ですか？「テキストを保存」をお試しください。"}
+ "recommendText": {"message": "このページの文章が必要ですか？「テキストを保存」をお試しください。"},
+ "welcomeContinue": {"message": "続行"},
+ "welcomeHelperNext": {"message": "動画、音声、文字起こしをダウンロードするには、この後にパソコン用コンポーネントをインストールしてください。"},
+ "resolveFailed": {"message": "この項目を解析できませんでした。接続またはパソコン用コンポーネントを確認して、もう一度お試しください。"},
+ "jobActionFailed": {"message": "操作に失敗しました。もう一度お試しください。"},
+ "clearHistoryConfirm": {"message": "ダウンロード履歴をすべて消去しますか？"},
+ "backendConnected": {"message": "コンポーネントに接続しました。動画画面に戻って続行してください。"},
+ "updateFailed": {"message": "yt-dlp の更新を開始できませんでした。コンポーネントを確認して、もう一度お試しください。"}
 }

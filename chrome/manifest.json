@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "default_locale": "en",
   "name": "__MSG_extName__",
-  "version": "0.7.12",
+  "version": "0.8.0",
   "description": "__MSG_extDescription__",
   "minimum_chrome_version": "116",
   "permissions": ["contextMenus", "nativeMessaging", "notifications", "storage", "activeTab", "downloads", "scripting", "alarms"],

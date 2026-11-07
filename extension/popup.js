@@ -9,7 +9,7 @@ const ALL_LANGS = ["en", "en-US", "en-GB", "es", "es-ES", "es-419", "pt", "pt-BR
   "sl", "lt", "lv", "et", "sw"];
 const AI_MODELS = {openai: "gpt-4o-mini", gemini: "gemini-2.5-flash",
   openrouter: "openrouter/auto", ollama: "llama3.2", custom: ""};
-const INSTALL_COMMAND = "irm https://raw.githubusercontent.com/C-Rosende/Tomo/v0.7.12/get.ps1 | iex";
+const INSTALL_COMMAND = "irm https://raw.githubusercontent.com/C-Rosende/Tomo/v0.8.0/get.ps1 | iex";
 let imageAiRevision = 0;
 
 async function renderImageAi() {
@@ -56,7 +56,7 @@ function icon(name) {
   return svg;
 }
 
-const progressBar = (percent) => h("div", {class: `track${percent == null ? " indeterminate" : ""}`, role: "progressbar",
+const progressBar = (percent, label) => h("div", {class: `track${percent == null ? " indeterminate" : ""}`, role: "progressbar", "aria-label": label,
   "aria-valuemin": "0", "aria-valuemax": "100", "aria-valuenow": percent == null ? null : String(Math.round(percent))},
 h("div", {class: "fill", style: percent == null ? null : `width: ${Math.max(2, percent)}%`}));
 
@@ -164,7 +164,10 @@ function showView(name) {
   state.view = name;
   for (const v of document.querySelectorAll(".view")) v.hidden = v.id !== `view-${name}`;
   $("nav").hidden = !["video", "jobs"].includes(name);
-  for (const b of $("nav").querySelectorAll("button")) b.setAttribute("aria-selected", String(b.dataset.view === name));
+  for (const b of $("nav").querySelectorAll("button")) {
+    b.setAttribute("aria-selected", String(b.dataset.view === name));
+    b.tabIndex = b.dataset.view === name ? 0 : -1;
+  }
   $("back").hidden = name !== "settings";
   $("open-settings").hidden = name === "settings" || name === "welcome";
   $("donate-top").hidden = !state.donate.donateUrl || name === "welcome";
@@ -317,6 +320,7 @@ function showThumb(url) {
 }
 
 async function select(candidate) {
+  $("retry-resolve").hidden = true;
   state.current = candidate;
   state.info = null;
   renderCandidates();
@@ -335,10 +339,11 @@ async function select(candidate) {
     if (result.info.kind === "playlist") return showPlaylist(candidate, result.info);
     state.info = result.info;
     renderDetail();
-  } catch (err) {
+  } catch (_) {
     if (state.current !== candidate) return;
     $("detail").hidden = $("detail-loading").hidden = $("thumb-ph").hidden = true;
-    showStatus(err.message);
+    showStatus(t("resolveFailed"));
+    $("retry-resolve").hidden = false;
   }
 }
 
@@ -424,7 +429,10 @@ function updateAudioNote() {
 }
 
 function selectTab(name) {
-  for (const b of document.querySelectorAll(".tabs button")) b.setAttribute("aria-selected", String(b.dataset.tab === name));
+  for (const b of document.querySelectorAll(".tabs button")) {
+    b.setAttribute("aria-selected", String(b.dataset.tab === name));
+    b.tabIndex = b.dataset.tab === name ? 0 : -1;
+  }
   for (const p of document.querySelectorAll(".pane")) p.hidden = p.dataset.pane !== name;
   for (const f of $("video-footer").querySelectorAll("[data-for]")) f.hidden = f.dataset.for !== name;
 }
@@ -454,7 +462,7 @@ const STATE_TEXT = {queued: "stateQueued", running: "stateRunning", done: "state
 
 function jobItem(job, fromHistory = false) {
   const act = (label, msg) => h("button", {type: "button", class: "small",
-    onclick: () => send(msg).catch((e) => showStatus(e.message))}, label);
+    onclick: () => send(msg).catch(() => note("jobs-status", t("jobActionFailed"), true))}, label);
   const running = job.state === "running" || job.state === "queued";
   const actions = [];
   if (!fromHistory && running) actions.push(act(t("actCancel"), {type: "cancel", id: job.id}));
@@ -470,7 +478,7 @@ function jobItem(job, fromHistory = false) {
     h("div", {class: "body"},
       h("div", {class: "name"}, job.title || job.label),
       h("div", {class: "sub"}, [job.author, job.label].filter(Boolean).join(" · ")),
-      running ? progressBar(job.state === "queued" ? null : job.percent) : null,
+      running ? progressBar(job.state === "queued" ? null : job.percent, job.title || job.label) : null,
       h("div", {class: "line"}, h("span", {}, msg || ""), h("span", {class: `state ${job.state}`}, status)),
       actions.length ? h("div", {class: "actions"}, actions) : null));
 }
@@ -493,6 +501,7 @@ function renderJobs() {
 }
 
 async function clearHistory() {
+  if (!confirm(t("clearHistoryConfirm"))) return;
   await send({type: "clearHistory"});
   state.history = [];
   renderJobs();
@@ -621,9 +630,10 @@ async function changeUiLang(event) {
 function renderBackend() {
   const b = state.backend;
   const el = $("backend-status");
+  $("backend-guide").hidden = !b || Boolean(b.compatible);
   if (!b) { el.textContent = t("backendChecking"); return; }
   if (b.error) { el.textContent = t("backendUnavailable", b.error); return; }
-  el.textContent = [t("setupAllSet"), t("backendComponent", b.version) + (b.compatible ? "" : ` ${t("backendMismatch")}`),
+  el.textContent = [b.compatible ? t("setupAllSet") : "", t("backendComponent", b.version) + (b.compatible ? "" : ` ${t("backendMismatch")}`),
     b.ffmpeg ? "" : t("backendNoFfmpeg"), b.asr ? "" : t("backendNoAsr"),
     b.js_runtime || platform.requiresJsRuntime === false ? "" : t("backendNoDeno")].filter(Boolean).join(" · ");
 }
@@ -683,8 +693,18 @@ for (const b of $("nav").querySelectorAll("button")) b.addEventListener("click",
 $("prefs").addEventListener("change", savePrefs);
 $("prefs").addEventListener("submit", (e) => e.preventDefault());
 $("check-backend").addEventListener("click", async () => {
+  $("check-backend").disabled = true;
+  const wasUnavailable = !state.backend || Boolean(state.backend.error);
   state.backend = null; renderBackend();
-  state.backend = await send({type: "ping"}); renderBackend();
+  try { state.backend = await send({type: "ping"}); }
+  catch (err) { state.backend = {error: err?.message || String(err)}; }
+  finally { $("check-backend").disabled = false; }
+  renderBackend();
+  $("setup").hidden = !state.backend.error;
+  if (wasUnavailable && !state.backend.error) {
+    state.videoLoaded = false;
+    showStatus(t("backendConnected"));
+  }
 });
 $("copy-install").addEventListener("click", async () => {
   try { await navigator.clipboard.writeText(INSTALL_COMMAND); $("setup-result").textContent = t("setupCopied"); }
@@ -755,7 +775,13 @@ $("report").addEventListener("click", async () => {
   await browser.tabs.create({url});
   $("prefs-saved").textContent = copied ? t("reportCopied") : t("reportOpened");
 });
-$("update-ytdlp").addEventListener("click", () => send({type: "updateYtdlp"}).then(() => showView("jobs")));
+$("update-ytdlp").addEventListener("click", async () => {
+  $("update-ytdlp").disabled = true;
+  $("prefs-saved").textContent = `${t("updateYtdlp")}…`;
+  try { await send({type: "updateYtdlp"}); $("prefs-saved").textContent = ""; showView("jobs"); }
+  catch (_) { $("prefs-saved").textContent = t("updateFailed"); }
+  finally { $("update-ytdlp").disabled = false; }
+});
 $("clear-cache").addEventListener("click", () => send({type: "clearCache"})
   .then(() => { $("prefs-saved").textContent = t("cacheCleared"); }, (e) => { $("prefs-saved").textContent = e.message; }));
 $("clear-history").addEventListener("click", clearHistory);
@@ -764,6 +790,18 @@ $("clear-finished").addEventListener("click", () => send({type: "clearFinished"}
 $("select-many").addEventListener("click", toggleMulti);
 $("batch-go").addEventListener("click", startBatch);
 for (const b of document.querySelectorAll(".tabs button")) b.addEventListener("click", () => selectTab(b.dataset.tab));
+for (const list of [$("nav"), document.querySelector(".tabs")]) list.addEventListener("keydown", (event) => {
+  if (!["ArrowLeft", "ArrowRight", "Home", "End"].includes(event.key)) return;
+  const tabs = [...list.querySelectorAll('[role="tab"]')];
+  const index = tabs.indexOf(document.activeElement);
+  if (index < 0) return;
+  event.preventDefault();
+  const next = event.key === "Home" ? 0 : event.key === "End" ? tabs.length - 1
+    : (index + (event.key === "ArrowRight" ? 1 : -1) + tabs.length) % tabs.length;
+  tabs[next].click();
+  tabs[next].focus();
+});
+$("retry-resolve").addEventListener("click", () => { if (state.current) select(state.current); });
 $("quality").addEventListener("change", updateVideoNote);
 $("container").addEventListener("change", updateVideoNote);
 $("audio-format").addEventListener("change", updateAudioNote);
