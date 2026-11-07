@@ -9,7 +9,7 @@ const ALL_LANGS = ["en", "en-US", "en-GB", "es", "es-ES", "es-419", "pt", "pt-BR
   "sl", "lt", "lv", "et", "sw"];
 const AI_MODELS = {openai: "gpt-4o-mini", gemini: "gemini-2.5-flash",
   openrouter: "openrouter/auto", ollama: "llama3.2", custom: ""};
-const INSTALL_COMMAND = "irm https://raw.githubusercontent.com/C-Rosende/Tomo/v0.8.0/get.ps1 | iex";
+const INSTALL_COMMAND = "irm https://raw.githubusercontent.com/C-Rosende/Tomo/5c3971e394278778990092966bc311383dd7edcd/get.ps1 | iex";
 let imageAiRevision = 0;
 
 async function renderImageAi() {

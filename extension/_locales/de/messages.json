@@ -526,7 +526,7 @@
   "message": "Anleitung ansehen"
  },
  "setupText": {
-  "message": "Tomo braucht ein kleines Hilfsprogramm auf deinem PC, das nur einmal installiert wird. Je nach Verbindung dauert das ein paar Minuten. Folge den Schritten in der Anleitung (ohne Administratorrechte)."
+  "message": "Kopiere den Installationsbefehl. Öffne PowerShell über Start, füge ihn ein und drücke Enter. Wenn Done erscheint, kehre zu Tomo zurück. Falls es fehlschlägt, öffne die Anleitung unten."
  },
  "setupTitle": {
   "message": "Noch ein Schritt: die Komponente für deinen PC"

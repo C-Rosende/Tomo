@@ -526,7 +526,7 @@
   "message": "Yönergeleri gör"
  },
  "setupText": {
-  "message": "Tomo için bilgisayarına bir kez küçük bir yardımcı program yüklemen gerekir. Bağlantına göre birkaç dakika sürer. Kılavuzdaki adımları izle (yönetici izni gerekmez)."
+  "message": "Kurulum komutunu kopyalayın. Başlat menüsünden PowerShell'i açın, komutu yapıştırıp Enter'a basın. Done göründüğünde Tomo'ya dönün. Kurulum başarısız olursa aşağıdaki yönergeleri açın."
  },
  "setupTitle": {
   "message": "Son bir adım: bilgisayarın için bileşen"

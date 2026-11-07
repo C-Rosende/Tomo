@@ -1,7 +1,9 @@
 @echo off
 setlocal
-choice /c YN /m "Create text for videos without subtitles? Optional, about 300 MB. Downloads work without it"
-if errorlevel 2 (set ASR=) else (set ASR=-WithASR)
-powershell -NoProfile -ExecutionPolicy Bypass -File "%~dp0install.ps1" -Deps %ASR% %*
-echo.
+powershell -NoProfile -ExecutionPolicy Bypass -File "%~dp0install.ps1" -Deps %*
+if errorlevel 1 (
+  echo Installation failed. Keep this window open and see https://github.com/C-Rosende/Tomo#report-a-problem
+  pause
+  exit /b 1
+)
 pause

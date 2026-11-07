@@ -526,7 +526,7 @@
   "message": "Vezi instrucțiunile"
  },
 "setupText": {
-  "message": "Tomo are nevoie de un mic program auxiliar pe computerul tău, instalat o singură dată. Durează câteva minute, în funcție de conexiune. Urmează pașii din ghid (fără drepturi de administrator)."
+  "message": "Copiază comanda de instalare. Deschide PowerShell din meniul Start, lipește comanda și apasă Enter. Când apare Done, revino la Tomo. Dacă instalarea eșuează, deschide instrucțiunile de mai jos."
  },
 "setupTitle": {
   "message": "Mai este un pas: componenta pentru computerul tău"

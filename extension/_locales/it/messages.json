@@ -526,7 +526,7 @@
   "message": "Vedi le istruzioni"
  },
  "setupText": {
-  "message": "Tomo richiede un piccolo programma di supporto sul tuo PC, da installare una sola volta. L'installazione richiede qualche minuto, a seconda della connessione. Segui la guida (non servono permessi di amministratore)."
+  "message": "Copia il comando di installazione. Apri PowerShell dal menu Start, incollalo e premi Invio. Quando compare Done, torna a Tomo. Se non funziona, apri le istruzioni qui sotto."
  },
  "setupTitle": {
   "message": "Manca un passo: il componente per il tuo PC"

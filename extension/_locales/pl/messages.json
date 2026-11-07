@@ -526,7 +526,7 @@
   "message": "Zobacz instrukcję"
  },
  "setupText": {
-  "message": "Tomo wymaga małego programu pomocniczego na komputerze, instalowanego tylko raz. Zależnie od połączenia zajmuje to kilka minut. Postępuj według instrukcji (bez uprawnień administratora)."
+  "message": "Skopiuj polecenie instalacji. Otwórz PowerShell z menu Start, wklej je i naciśnij Enter. Gdy pojawi się Done, wróć do Tomo. Jeśli instalacja się nie powiedzie, otwórz instrukcję poniżej."
  },
  "setupTitle": {
   "message": "Jeszcze jeden krok: komponent dla Twojego komputera"
