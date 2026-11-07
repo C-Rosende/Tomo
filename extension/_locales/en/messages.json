@@ -597,9 +597,6 @@
  "welcomeIntro": {
   "message": "Save videos, audio and images in original quality, or copy what is said as text. Everything happens on your computer."
  },
- "welcomeContinue": {
-  "message": "Continue"
- },
  "welcomeText": {
   "message": "Choose the extension's language and add the other languages you understand: you'll only see subtitles and audio in them, plus each video's original. You can change this in Settings."
  },

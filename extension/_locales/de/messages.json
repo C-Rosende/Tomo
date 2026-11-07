@@ -597,9 +597,6 @@
  "welcomeIntro": {
   "message": "Speichere Videos, Audio und Bilder in Originalqualität oder kopiere das Gesprochene als Text. Alles läuft auf deinem Computer."
  },
- "welcomeContinue": {
-  "message": "Weiter"
- },
  "welcomeText": {
   "message": "Wähle die Sprache der Erweiterung und weitere Sprachen, die du verstehst. Untertitel und Audio erscheinen nur in diesen Sprachen und im Original. Das kannst du in den Einstellungen ändern."
  },

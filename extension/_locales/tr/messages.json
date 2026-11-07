@@ -597,9 +597,6 @@
  "welcomeIntro": {
   "message": "Video, ses ve görselleri özgün kalitede kaydet veya konuşulanları metin olarak kopyala. Her şey bilgisayarında gerçekleşir."
  },
- "welcomeContinue": {
-  "message": "Devam et"
- },
  "welcomeText": {
   "message": "Uzantının dilini seç ve anladığın diğer dilleri ekle. Yalnızca bu dillerdeki altyazı ve sesleri, ayrıca her videonun özgün dilini görürsün. Bunu Ayarlar'da değiştirebilirsin."
  },

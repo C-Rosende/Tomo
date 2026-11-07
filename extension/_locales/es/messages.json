@@ -597,9 +597,6 @@
  "welcomeIntro": {
   "message": "Guarda videos, audio e imágenes en su calidad original, o copia una transcripción. Todo ocurre en tu PC."
  },
- "welcomeContinue": {
-  "message": "Continuar"
- },
  "welcomeText": {
   "message": "Elige el idioma de la extensión y añade los otros que entiendas: solo verás subtítulos y audio en ellos, además del original de cada video. Puedes cambiarlo en Ajustes."
  },

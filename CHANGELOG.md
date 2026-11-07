@@ -2,6 +2,17 @@
 
 Format based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Versions follow [Semantic Versioning](https://semver.org/).
 
+## [0.8.0]
+
+### Added
+- One-line Windows installer that verifies a minisign signature over the release checksums before running anything. The bootstrap URL is pinned to an immutable commit.
+- Simpler first run: copy the install command from the popup, paste it in PowerShell and the component connects automatically.
+- Romanian messages for the computer component.
+
+### Fixed
+- The installer only needs winget when a dependency is missing, and rejects 32-bit Windows.
+- The popup handles a failed component check instead of staying silent.
+- A duplicated `welcomeContinue` key in the locale files, which stores rejected as invalid JSON.
 ## [0.7.12]
 
 ### Added

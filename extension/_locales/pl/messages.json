@@ -597,9 +597,6 @@
  "welcomeIntro": {
   "message": "Zapisuj wideo, dźwięk i obrazy w oryginalnej jakości albo kopiuj wypowiedzi jako tekst. Wszystko dzieje się na Twoim komputerze."
  },
- "welcomeContinue": {
-  "message": "Kontynuuj"
- },
  "welcomeText": {
   "message": "Wybierz język rozszerzenia i dodaj inne języki, które rozumiesz. Zobaczysz napisy i dźwięk tylko w tych językach oraz w języku oryginalnym każdego wideo. Możesz to zmienić w ustawieniach."
  },

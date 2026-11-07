@@ -597,9 +597,6 @@
  "welcomeIntro": {
   "message": "Salva video, audio e immagini in qualità originale oppure copia ciò che viene detto come testo. Tutto avviene sul tuo computer."
  },
- "welcomeContinue": {
-  "message": "Continua"
- },
  "welcomeText": {
   "message": "Scegli la lingua dell'estensione e aggiungi le altre lingue che capisci: vedrai sottotitoli e audio solo in queste, oltre all'originale di ogni video. Puoi cambiarlo nelle Impostazioni."
  },

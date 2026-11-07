@@ -597,9 +597,6 @@
  "welcomeIntro": {
   "message": "Salve vídeos, áudio e imagens na qualidade original ou copie o que é dito como texto. Tudo acontece no seu computador."
  },
- "welcomeContinue": {
-  "message": "Continuar"
- },
  "welcomeText": {
   "message": "Escolha o idioma da extensão e adicione os outros que você entende: só verá legendas e áudio neles, além do original de cada vídeo. Você pode mudar isso nas Configurações."
  },

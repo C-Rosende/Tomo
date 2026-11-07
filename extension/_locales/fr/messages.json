@@ -597,9 +597,6 @@
  "welcomeIntro": {
   "message": "Enregistre des vidéos, de l'audio et des images en qualité d'origine, ou copie les paroles sous forme de texte. Tout se passe sur ton ordinateur."
  },
- "welcomeContinue": {
-  "message": "Continuer"
- },
  "welcomeText": {
   "message": "Choisis la langue de l'extension et les autres langues que tu comprends. Tu ne verras les sous-titres et l'audio que dans ces langues, en plus de la langue originale. Tu peux changer ce choix dans les réglages."
  },
