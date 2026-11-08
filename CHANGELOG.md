@@ -2,6 +2,13 @@
 
 Format based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Versions follow [Semantic Versioning](https://semver.org/).
 
+## [0.8.1]
+
+### Fixed
+- Opening a file or its folder no longer fails because of the native host's Job Object.
+- Download errors remain visible at the end of the list.
+- Popup contrast, buttons, chips and notices, plus confirmation before clearing history, in 11 languages.
+
 ## [0.8.0]
 
 ### Added

@@ -61,6 +61,21 @@ class PosixSysdepTests(unittest.TestCase):
             self.assertTrue(call.kwargs["start_new_session"])
             self.assertEqual(call.kwargs["stdin"], sysdep.subprocess.DEVNULL)
 
+    def test_windows_open_actions_break_away_from_host_job(self):
+        path = Path(r"C:\Users\Test User\Downloads\vídeo final.mp4")
+        with mock.patch.object(sysdep, "IS_WINDOWS", True), \
+                mock.patch.object(sysdep.subprocess, "Popen") as popen, \
+                mock.patch.object(sysdep.subprocess, "run") as run:
+            sysdep.reveal(path)
+            sysdep.open_path(path)
+        self.assertEqual(len(popen.call_args_list), 1)
+        self.assertEqual(len(run.call_args_list), 1)
+        for call in [popen.call_args, run.call_args]:
+            self.assertTrue(call.kwargs["creationflags"] & sysdep.BREAKAWAY_FROM_JOB)
+        self.assertEqual(popen.call_args.args[0], ["explorer.exe", "/select,", str(path)])
+        self.assertEqual(run.call_args.args[0][-1], str(path))
+        self.assertTrue(run.call_args.kwargs["check"])
+
     def test_reveal_and_open_path_linux(self):
         path = Path("somewhere") / "file.txt"
         with mock.patch.object(sysdep, "IS_WINDOWS", False), \

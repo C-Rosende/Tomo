@@ -72,11 +72,33 @@ def native(request: dict, keep_open: bool = False) -> list[dict]:
     if not keep_open:
         proc.stdin.close()
         proc.stdin = None
-    out, _ = proc.communicate(timeout=60) if not keep_open else (proc.stdout.read(), None)
+    if keep_open:
+        try:
+            out = proc.stdout.read()
+            proc.wait(timeout=60)
+        finally:
+            proc.stdin.close()
+            proc.stdout.close()
+            proc.stderr.close()
+    else:
+        out, _ = proc.communicate(timeout=60)
     stream, messages = io.BytesIO(out), []
     while header := stream.read(4):
         messages.append(json.loads(stream.read(struct.unpack("<I", header)[0])))
     return messages
+
+
+class TestDownloadProgress(unittest.TestCase):
+    def test_finished_download_clears_stale_percentage_before_postprocessing(self):
+        progress = Mock()
+        hooks, postprocessor_hooks = host.download_hooks(progress)
+        hooks[0]({"status": "downloading", "downloaded_bytes": 71, "total_bytes": 100})
+        self.assertEqual(progress.call_args.args[:2], ("download", 71))
+        hooks[0]({"status": "finished"})
+        self.assertEqual(progress.call_args.args[:2], ("download", None))
+        self.assertTrue(progress.call_args.kwargs["force"])
+        postprocessor_hooks[0]({"status": "started", "postprocessor": "Merger"})
+        self.assertEqual(progress.call_args.args[:2], ("postprocess", None))
 
 
 class TestMetadata(unittest.TestCase):
@@ -445,6 +467,17 @@ class TestSecurity(unittest.TestCase):
             host.record_history(outside)
             with self.assertRaises(ValueError):
                 host.allowed_output(str(outside))
+
+    def test_native_open_and_reveal_reject_untracked_file(self):
+        with tempfile.TemporaryDirectory(dir=ROOT / "dist") as tmp:
+            path = Path(tmp) / "vídeo final.txt"
+            path.write_text("test", encoding="utf-8")
+            with patch.dict(os.environ, {"TOMO_DATA": tmp}):
+                for action in ("open", "reveal"):
+                    with self.subTest(action=action):
+                        messages = native({"action": action, "path": str(path)}, keep_open=True)
+                        self.assertEqual(messages[-1]["status"], "error")
+                        self.assertTrue(messages[-1]["message"])
 
     def test_redact_hides_urls(self):
         text = host.redact("ERROR: [youtube] abc: fallo en https://x.tld/v?token=SECRETO")

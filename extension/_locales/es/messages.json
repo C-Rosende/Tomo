@@ -1,5 +1,5 @@
 {
- "imageAiConsentPrompt": {"message": "Tomo enviará la imagen seleccionada a tu proveedor (Replicate o Gemini). La API puede tener costo. Gemini puede cambiar detalles de la imagen. El autor no recibe datos. ¿Permitir la mejora de imágenes?"},
+ "imageAiConsentPrompt": {"message": "¿Enviar esta imagen al proveedor que elegiste (Replicate o Gemini) para mejorarla? El proveedor puede cobrar por el uso de la API. Gemini puede cambiar detalles de la imagen. El autor de Tomo no recibe datos."},
  "actCancel": {
   "message": "Cancelar"
  },
@@ -229,13 +229,13 @@
   "message": "Aún no hay descargas"
  },
  "extDescription": {
-  "message": "Descarga videos en su calidad original, copia transcripciones y resúmelas con IA. Todo se procesa en tu PC."
+  "message": "Guarda videos en calidad original, copia transcripciones o resúmelas con el proveedor de IA que elijas."
  },
  "extName": {
   "message": "Tomo"
  },
  "footerPrivacy": {
-  "message": "Todo se procesa en tu equipo, sin cuentas ni rastreo."
+  "message": "Los archivos se guardan en tu equipo. La IA usa el proveedor que elijas. Sin cuentas ni rastreo."
  },
  "format": {
   "message": "Formato"

@@ -9,7 +9,7 @@
 <body>
   <header class="bar">
     <button id="back" class="icon" type="button" data-i18n-aria="back" data-i18n-title="back" hidden><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg></button>
-    <img class="logo" src="icon48.png" alt="">
+    <img class="logo" src="icon48.png" alt="" width="20" height="20">
     <h1 id="heading">Tomo</h1>
     <button id="donate-top" class="icon heart" type="button" data-i18n-aria="donateKofi" data-i18n-title="donateKofi" hidden><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 14c1.5-1.5 3-3.2 3-5.5A5.5 5.5 0 0 0 12 5.5 5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4 3 5.5l7 7z"/></svg></button>
     <button id="open-settings" class="icon" type="button" data-i18n-aria="settings" data-i18n-title="settings"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 4h-7M10 4H3M21 12h-9M8 12H3M21 20h-5M12 20H3M14 2v4M8 10v4M16 18v4"/></svg></button>
@@ -19,6 +19,8 @@
     <button type="button" role="tab" data-view="video" aria-controls="view-video" aria-selected="true" data-i18n="navVideo"></button>
     <button type="button" role="tab" data-view="jobs" aria-controls="view-jobs" aria-selected="false"><span data-i18n="navDownloads"></span> <span id="jobs-count" class="count" hidden></span></button>
   </nav>
+  <p id="notice-bar" class="notice" role="status" hidden></p>
+  <p id="boot" class="muted" role="status">…</p>
 
   <section id="view-welcome" class="view" hidden>
     <h2 class="big" data-i18n="welcomeHello"></h2>
@@ -38,7 +40,7 @@
   </section>
 
   <section id="view-video" class="view" hidden>
-    <p id="status" class="notice" role="status" hidden></p>
+    <p id="status" class="notice" hidden></p>
     <button id="retry-resolve" type="button" class="secondary" data-i18n="actRetry" hidden></button>
     <div id="image-panel" hidden>
       <h2 class="card-title" data-i18n="menuImage"></h2>
@@ -139,7 +141,8 @@
               <button id="ai-summary" type="button" class="secondary with-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l1.8 4.7 4.7 1.8-4.7 1.8L12 16l-1.8-4.7-4.7-1.8 4.7-1.8z"/></svg><span data-i18n="aiSummarize"></span></button>
               <button id="ai-translate" type="button" class="secondary with-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h8M8 3v2M6 5c0 4 2.5 7 6 8M10 5c0 3-2.5 7-6 8M13 21l4-9 4 9M14.5 18h5"/></svg><span id="ai-translate-label"></span></button>
             </div>
-            <button id="ai-setup" type="button" class="link" data-i18n="aiSetup" hidden></button>
+            <p id="ai-setup-hint" class="hint" data-i18n="aiSetup" hidden></p>
+            <button id="ai-setup" type="button" class="link" data-i18n="settings" hidden></button>
           </div>
         </div>
       </div>
@@ -171,7 +174,7 @@
   </section>
 
   <section id="view-jobs" class="view" hidden>
-    <p id="jobs-status" class="notice" role="status" hidden></p>
+    <p id="jobs-status" class="notice" hidden></p>
     <div id="jobs-active" class="group" hidden>
       <h2 class="group-title" data-i18n="groupRunning"></h2>
       <ul id="jobs-running" class="list"></ul>
@@ -277,6 +280,13 @@
         <p class="muted small" data-i18n="useSessionHint"></p>
         <label class="switch"><input type="checkbox" name="keepHistory"><span data-i18n="keepHistory"></span></label>
         <button type="button" id="clear-history" class="secondary" data-i18n="clearHistory"></button>
+        <div id="clear-history-confirm" class="card" role="group" aria-labelledby="clear-history-question" hidden>
+          <p id="clear-history-question" data-i18n="clearHistoryConfirm"></p>
+          <div class="row wrap">
+            <button type="button" id="cancel-clear-history" class="secondary" data-i18n="actCancel"></button>
+            <button type="button" id="confirm-clear-history" class="danger-fill" data-i18n="clearHistory"></button>
+          </div>
+        </div>
       </div>
 
       <div class="card" id="support-card" hidden>

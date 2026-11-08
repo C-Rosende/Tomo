@@ -9,6 +9,7 @@ from pathlib import Path
 IS_WINDOWS = os.name == "nt"
 IS_MAC = sys.platform == "darwin"
 NO_WINDOW = getattr(subprocess, "CREATE_NO_WINDOW", 0)
+BREAKAWAY_FROM_JOB = getattr(subprocess, "CREATE_BREAKAWAY_FROM_JOB", 0x01000000)
 
 _JOB = None
 _OWN_GROUP = False
@@ -85,7 +86,8 @@ def contain_children(low_priority: bool) -> None:
     if not job:
         return
     info = Extended()
-    info.Basic.LimitFlags = 0x2000
+    # Downloads stay contained; only explicit shell actions may break away.
+    info.Basic.LimitFlags = 0x2000 | 0x0800  # KILL_ON_JOB_CLOSE | BREAKAWAY_OK
     if k.SetInformationJobObject(job, 9, ctypes.byref(info), ctypes.sizeof(info)) and \
             k.AssignProcessToJobObject(job, wintypes.HANDLE(-1)):
         _JOB = job
@@ -185,7 +187,9 @@ def _launch(command: list[str]) -> None:
 
 def reveal(path: Path) -> None:
     if IS_WINDOWS:
-        subprocess.Popen(f'explorer.exe /select,"{path}"', creationflags=NO_WINDOW)
+        subprocess.Popen(["explorer.exe", "/select,", str(path)], stdin=subprocess.DEVNULL,
+                         stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL,
+                         creationflags=NO_WINDOW | BREAKAWAY_FROM_JOB)
     elif IS_MAC:
         _launch(["open", "-R", str(path)])
     else:
@@ -194,7 +198,10 @@ def reveal(path: Path) -> None:
 
 def open_path(path: Path) -> None:
     if IS_WINDOWS:
-        os.startfile(path)
+        # ShellExecute from the host would inherit its kill-on-close Job Object.
+        subprocess.run([sys.executable, "-I", "-c", "import os, sys; os.startfile(sys.argv[1])", str(path)],
+                       stdin=subprocess.DEVNULL, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL,
+                       creationflags=NO_WINDOW | BREAKAWAY_FROM_JOB, check=True)
     else:
         _launch(["open" if IS_MAC else "xdg-open", str(path)])
 

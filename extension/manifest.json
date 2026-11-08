@@ -2,7 +2,7 @@
   "manifest_version": 2,
   "default_locale": "en",
   "name": "__MSG_extName__",
-  "version": "0.8.0",
+  "version": "0.8.1",
   "description": "__MSG_extDescription__",
   "permissions": ["menus", "nativeMessaging", "notifications", "storage", "activeTab", "downloads"],
   "optional_permissions": ["cookies", "<all_urls>", "https://api.replicate.com/*", "https://generativelanguage.googleapis.com/*"],

@@ -150,12 +150,27 @@ function bytes(n) {
 function showStatus(text) {
   $("status").textContent = text || "";
   $("status").hidden = !text;
+  publishNotice("status", text);
+}
+
+function publishNotice(source, text, warn = false) {
+  const bar = $("notice-bar");
+  if (!text && bar.dataset.source !== source) return;
+  if (bar.dataset.source) $(bar.dataset.source)?.classList.toggle("in-notice", false);
+  bar.textContent = text || "";
+  bar.hidden = !text;
+  bar.dataset.source = text ? source : "";
+  if (text) $(source)?.classList.toggle("in-notice", true);
+  bar.setAttribute("role", warn ? "alert" : "status");
+  bar.classList.toggle("warn", warn);
 }
 
 function note(id, text, warn = false) {
-  $(id).textContent = text || "";
-  $(id).hidden = !text;
-  $(id).classList.toggle("warn", warn);
+  const target = $(id);
+  target.textContent = text || "";
+  target.hidden = !text;
+  target.classList.toggle("warn", warn);
+  if (!text || !target.closest("[hidden]")) publishNotice(id, text, warn);
 }
 
 const resolutionName = (q) => !q.height ? t("original") : q.height >= 4320 ? "8K" : q.height >= 2160 ? "4K" : `${q.height}p`;
@@ -163,6 +178,8 @@ const resolutionName = (q) => !q.height ? t("original") : q.height >= 4320 ? "8K
 function showView(name) {
   state.view = name;
   for (const v of document.querySelectorAll(".view")) v.hidden = v.id !== `view-${name}`;
+  const source = $("notice-bar").dataset.source;
+  if (source && $(source)?.closest("[hidden]")) publishNotice(source, "");
   $("nav").hidden = !["video", "jobs"].includes(name);
   for (const b of $("nav").querySelectorAll("button")) {
     b.setAttribute("aria-selected", String(b.dataset.view === name));
@@ -406,6 +423,7 @@ function renderDetail() {
   const aiOn = aiReady();
   $("ai-actions").hidden = !aiOn;
   $("ai-setup").hidden = aiOn;
+  $("ai-setup-hint").hidden = aiOn;
   $("ai-translate").hidden = Boolean(subs.original) && primary(subs.original) === state.mainLang;
   $("ai-translate-label").textContent = t("aiTranslate", langNames(state.mainLang).native);
   updateVideoNote();
@@ -435,6 +453,10 @@ function selectTab(name) {
   }
   for (const p of document.querySelectorAll(".pane")) p.hidden = p.dataset.pane !== name;
   for (const f of $("video-footer").querySelectorAll("[data-for]")) f.hidden = f.dataset.for !== name;
+  const source = $("notice-bar").dataset.source;
+  if (source && $(source)?.closest("[hidden]")) publishNotice(source, "");
+  const id = {video: "video-note", audio: "audio-note", transcript: "tx-note"}[name];
+  if (id && !$(id).hidden) publishNotice(id, $(id).textContent, $(id).classList.contains("warn"));
 }
 
 async function startJob(request) {
@@ -462,7 +484,8 @@ const STATE_TEXT = {queued: "stateQueued", running: "stateRunning", done: "state
 
 function jobItem(job, fromHistory = false) {
   const act = (label, msg) => h("button", {type: "button", class: "small",
-    onclick: () => send(msg).catch(() => note("jobs-status", t("jobActionFailed"), true))}, label);
+    onclick: () => send(msg).then(() => note("jobs-status", ""))
+      .catch((error) => note("jobs-status", error.message || t("jobActionFailed"), true))}, label);
   const running = job.state === "running" || job.state === "queued";
   const actions = [];
   if (!fromHistory && running) actions.push(act(t("actCancel"), {type: "cancel", id: job.id}));
@@ -479,7 +502,7 @@ function jobItem(job, fromHistory = false) {
       h("div", {class: "name"}, job.title || job.label),
       h("div", {class: "sub"}, [job.author, job.label].filter(Boolean).join(" · ")),
       running ? progressBar(job.state === "queued" ? null : job.percent, job.title || job.label) : null,
-      h("div", {class: "line"}, h("span", {}, msg || ""), h("span", {class: `state ${job.state}`}, status)),
+      h("div", {class: "line"}, ...(msg ? [h("span", {}, msg)] : []), h("span", {class: `state ${job.state}`}, status)),
       actions.length ? h("div", {class: "actions"}, actions) : null));
 }
 
@@ -501,7 +524,7 @@ function renderJobs() {
 }
 
 async function clearHistory() {
-  if (!confirm(t("clearHistoryConfirm"))) return;
+  $("clear-history-confirm").hidden = true;
   await send({type: "clearHistory"});
   state.history = [];
   renderJobs();
@@ -654,6 +677,14 @@ function showWelcome(next) {
   showView("welcome");
 }
 
+// Firefox arranca la página de fondo al abrir el popup por primera vez; el primer mensaje puede fallar o tardar.
+async function sendWithRetry(msg, tries = 6) {
+  for (let i = 1; ; i++) {
+    try { return await send(msg); }
+    catch (err) { if (i >= tries) throw err; await new Promise((r) => setTimeout(r, 250 * i)); }
+  }
+}
+
 async function init() {
   const port = browser.runtime.connect({name: "panel"});
   port.onMessage.addListener((m) => {
@@ -661,7 +692,7 @@ async function init() {
     if (m.type === "donate") { state.donate = m.donate; renderDonate(); }
   });
 
-  const s = await send({type: "state"});
+  const s = await sendWithRetry({type: "state"});
   await setUiLang(s.prefs.uiLang);
   applyI18n();
   Object.assign(state, {jobs: s.jobs, history: s.history, prefs: s.prefs, backend: s.backend, pending: s.pending,
@@ -784,8 +815,16 @@ $("update-ytdlp").addEventListener("click", async () => {
 });
 $("clear-cache").addEventListener("click", () => send({type: "clearCache"})
   .then(() => { $("prefs-saved").textContent = t("cacheCleared"); }, (e) => { $("prefs-saved").textContent = e.message; }));
-$("clear-history").addEventListener("click", clearHistory);
-$("clear-history-inline").addEventListener("click", clearHistory);
+for (const id of ["clear-history", "clear-history-inline"]) {
+  $(id).addEventListener("click", () => {
+    $("clear-history-confirm").hidden = false;
+    if (state.view !== "settings") openSettingsAt("clear-history-confirm");
+    else $("clear-history-confirm").scrollIntoView({block: "nearest"});
+    $("cancel-clear-history").focus();
+  });
+}
+$("cancel-clear-history").addEventListener("click", () => { $("clear-history-confirm").hidden = true; });
+$("confirm-clear-history").addEventListener("click", clearHistory);
 $("clear-finished").addEventListener("click", () => send({type: "clearFinished"}));
 $("select-many").addEventListener("click", toggleMulti);
 $("batch-go").addEventListener("click", startBatch);
@@ -840,4 +879,4 @@ $("ai-test").addEventListener("click", testAI);
 for (const select of document.querySelectorAll(".ui-lang")) select.addEventListener("change", changeUiLang);
 $("donate-top").addEventListener("click", () => browser.tabs.create({url: state.donate.donateUrl}).then(() => window.close()));
 
-init().catch((err) => showStatus(err.message));
+init().then(() => { $("boot").hidden = true; }).catch((err) => { $("boot").textContent = err?.message || String(err); $("boot").classList.add("warn"); });

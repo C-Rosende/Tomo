@@ -772,7 +772,8 @@ browser.menus.onClicked.addListener((info, tab) => {
 browser.notifications.onClicked.addListener((nid) => {
   const id = Number(String(nid).replace("job-", ""));
   const job = jobs.get(id);
-  if (job?.path && prefs.keepHistory) nativeCall({action: "reveal", path: job.path}).catch(() => {});
+  if (job?.path && prefs.keepHistory) nativeCall({action: "reveal", path: job.path})
+    .catch((e) => notify(t("notifyFolderFailed"), e.message));
 });
 
 const fromOwnPage = (sender) => sender?.id === browser.runtime.id

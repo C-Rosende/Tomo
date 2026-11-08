@@ -26,7 +26,7 @@ from urllib.parse import unquote, urljoin, urlsplit
 import urllib.error
 import urllib.request
 
-BACKEND_VERSION = "0.8.0"
+BACKEND_VERSION = "0.8.1"
 PROTOCOL = 2
 MAX_MESSAGE = 256 * 1024
 HOME = Path(__file__).resolve().parent
