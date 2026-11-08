@@ -63,7 +63,7 @@ Two parts: the extension in your browser and a small helper on your PC that save
 2. Paste this line and press Enter:
 
 ```powershell
-irm https://raw.githubusercontent.com/C-Rosende/Tomo/5c3971e394278778990092966bc311383dd7edcd/get.ps1 | iex
+irm https://raw.githubusercontent.com/C-Rosende/Tomo/e51df2e08c05431fe69d4adc0ec3f98872215f83/get.ps1 | iex
 ```
 
 3. Wait until it says **Done**. The first run takes a few minutes. Then click the Tomo icon in your browser; it connects automatically. If installation fails, keep PowerShell open and [report the error](#report-a-problem).
@@ -74,7 +74,7 @@ It installs in your own user folder and needs no administrator rights. Run the s
 <summary>Text for videos without subtitles (optional, about 300 MB)</summary>
 
 ```powershell
-& ([scriptblock]::Create((irm https://raw.githubusercontent.com/C-Rosende/Tomo/5c3971e394278778990092966bc311383dd7edcd/get.ps1))) -WithASR
+& ([scriptblock]::Create((irm https://raw.githubusercontent.com/C-Rosende/Tomo/e51df2e08c05431fe69d4adc0ec3f98872215f83/get.ps1))) -WithASR
 ```
 </details>
 
