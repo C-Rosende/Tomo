@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 300" font-family="'Segoe UI',system-ui,-apple-system,sans-serif">
+  <defs>
+    <linearGradient id="tomo-g" gradientUnits="userSpaceOnUse" x1="39.33" y1="76.81" x2="219.2" y2="180.66"><stop offset="0" stop-color="#FB9F3A"/><stop offset="0.5" stop-color="#F94A51"/><stop offset="1" stop-color="#EE187E"/></linearGradient>
+    <linearGradient id="bar" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#FB9F3A"/><stop offset="0.5" stop-color="#F94A51"/><stop offset="1" stop-color="#EE187E"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#F94A51" stop-opacity="0.35"/>
+      <stop offset="1" stop-color="#F94A51" stop-opacity="0"/>
+    </radialGradient>
+    <clipPath id="track"><rect x="300" y="168" width="480" height="8" rx="4"/></clipPath>
+  </defs>
+
+  <rect width="880" height="300" rx="28" fill="#14141a"/>
+  <circle cx="150" cy="150" r="130" fill="url(#glow)">
+    <animate attributeName="r" values="120;140;120" dur="5s" repeatCount="indefinite"/>
+  </circle>
+
+  <g transform="translate(86 86)">
+    <g>
+      <animateTransform attributeName="transform" type="translate" values="0 0;0 -5;0 0" dur="4s" repeatCount="indefinite"/>
+      <g transform="scale(0.5)"><path fill="url(#tomo-g)" d="M50.93 72.76L116.99 105.79A13.54 13.54 0 0 1 124.48 117.89L124.48 180.53A5.64 5.64 0 0 0 133.35 185.15L191.56 144.39A2.26 2.26 0 0 1 193.86 144.22L199.49 147.03C220.42 157.5 224.59 175.13 224.59 182.46L224.59 182.46A25.38 25.38 0 0 1 210.56 205.16L139.35 240.76A25.38 25.38 0 0 1 116.65 240.76L35.57 200.23A25.38 25.38 0 0 1 21.55 177.53L21.55 90.92A20.3 20.3 0 0 1 50.93 72.76ZM129.34 13.83L220.43 59.37A25.38 25.38 0 0 1 234.45 82.07L234.45 180.59C231.74 173.78 224.56 147.73 202.87 136.88L99.16 85.03A11.84 11.84 0 0 1 92.61 74.43L92.61 36.53A25.38 25.38 0 0 1 129.34 13.83Z"/></g>
+    </g>
+  </g>
+
+  <text x="300" y="104" fill="#fff" font-size="54" font-weight="700" letter-spacing="-1">Tomo</text>
+  <text x="300" y="138" fill="#a1a1ad" font-size="19">Right-click a video. Get the original file, or its transcript.</text>
+
+  <rect x="300" y="168" width="480" height="8" rx="4" fill="#2a2a33"/>
+  <g clip-path="url(#track)">
+    <rect x="300" y="168" width="0" height="8" fill="url(#bar)">
+      <animate attributeName="width" values="0;480;480;0" keyTimes="0;0.7;0.92;1" dur="6s" repeatCount="indefinite"/>
+    </rect>
+  </g>
+
+  <g font-size="14" fill="#a1a1ad">
+    <text x="300" y="206">
+      <animate attributeName="opacity" values="1;1;0;0;1" keyTimes="0;0.68;0.7;0.99;1" dur="6s" repeatCount="indefinite"/>
+      Downloading · 2250p · original quality
+    </text>
+    <text x="300" y="206" fill="#7ee0a1" opacity="0">
+      <animate attributeName="opacity" values="0;0;1;1;0" keyTimes="0;0.69;0.72;0.92;0.93" dur="6s" repeatCount="indefinite"/>
+      ✓ Saved to Downloads
+    </text>
+  </g>
+
+  <g font-size="13" font-weight="600" text-anchor="middle">
+    <rect x="300" y="236" width="76" height="28" rx="14" fill="#23232c"/><text x="338" y="255" fill="#e9e9ef">Video</text>
+    <rect x="386" y="236" width="76" height="28" rx="14" fill="#23232c"/><text x="424" y="255" fill="#e9e9ef">Audio</text>
+    <rect x="472" y="236" width="76" height="28" rx="14" fill="#23232c"/><text x="510" y="255" fill="#e9e9ef">Text</text>
+    <rect x="558" y="236" width="92" height="28" rx="14" fill="#23232c"/><text x="604" y="255" fill="#e9e9ef">Images</text>
+    <rect x="660" y="236" width="120" height="28" rx="14" fill="#23232c"/><text x="720" y="255" fill="#e9e9ef">1,800+ sites</text>
+  </g>
+</svg>
